@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 1/26/2016 Added hasUser.
   * 5/28/2015 Added namespaces.
  */
 namespace cascade_ws_asset;
@@ -155,6 +156,14 @@ class Group extends Asset
     public function getWysiwygAllowViewSource()
     {
         return $this->getProperty()->wysiwygAllowViewSource;
+    }
+    
+    public function hasUser( User $u )
+    {
+    	if( strpos( $this->getUsers(), self::DELIMITER . $u->getName() . self::DELIMITER ) !== false )
+    		return true;
+    		
+    	return false;
     }
     
     public function removeUser( User $u )

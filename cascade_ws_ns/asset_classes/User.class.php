@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 1/26/2016 Added leaveGroup and isInGroup.
   * 5/28/2015 Added namespaces.
  */
 namespace cascade_ws_asset;
@@ -112,9 +113,27 @@ class User extends Asset
         return $this->getProperty()->username;
     }
     
+    public function isInGroup( Group $group )
+    {
+    	$users = $group->getUsers();
+    	
+    	if( strpos( $users, Group::DELIMITER . $this->getProperty()->username . Group::DELIMITER ) !== false )
+    		return true;
+    		
+    	return false;
+    }
+    
     public function joinGroup( Group $g )
     {
         $g->addUser( Asset::getAsset( $this->getService(),
+            User::TYPE,
+            $this->getProperty()->username ) )->edit();
+        return $this;
+    }
+    
+    public function leaveGroup( Group $g )
+    {
+        $g->removeUser( Asset::getAsset( $this->getService(),
             User::TYPE,
             $this->getProperty()->username ) )->edit();
         return $this;
