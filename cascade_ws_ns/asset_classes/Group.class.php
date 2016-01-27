@@ -6,6 +6,7 @@
   * Modification history:
   * 1/27/2016 Modified addUser, removeUser and hasUser, using StringUtility::getExplodedStringArray.
   *           Added addUserName, hasUserName, removeUserName.
+  *           Added getGroupStartingPageRecycled.
   * 1/26/2016 Added hasUser.
   * 5/28/2015 Added namespaces.
  */
@@ -119,6 +120,11 @@ class Group extends Asset
     public function getGroupStartingPagePath()
     {
         return $this->getProperty()->groupStartingPagePath;
+    }
+    
+    public function getGroupStartingPageRecycled()
+    {
+        return $this->getProperty()->groupStartingPageRecycled;
     }
     
     public function getId()
