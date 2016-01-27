@@ -41,20 +41,20 @@ class StringUtility
     
     public static function getFullyQualifiedIdentifierWithoutPositions( $identifier )
     {
-    	$temp         = self::getExplodedStringArray( ";", $identifier );
-    	$result_array = array();
-    	
-    	if( count( $temp ) > 0 )
-    	{
-    		foreach( $temp as $part )
-    		{
-    			if( !is_numeric(  $part ) )
-    			{
-    				$result_array[] = $part;
-    			}
-    		}
-    	}
-    	return implode( ";", $result_array );
+        $temp         = self::getExplodedStringArray( ";", $identifier );
+        $result_array = array();
+        
+        if( count( $temp ) > 0 )
+        {
+            foreach( $temp as $part )
+            {
+                if( !is_numeric(  $part ) )
+                {
+                    $result_array[] = $part;
+                }
+            }
+        }
+        return implode( ";", $result_array );
     }
     
     public static function getMethodName( $property_name )
@@ -64,36 +64,36 @@ class StringUtility
     
     public static function getNameFromPath( $path )
     {
-    	$array = StringUtility::getExplodedStringArray( '/', $path );
-    	$count = count( $array );
-    	
-    	if( $count > 0 )
-    		return $array[ $count - 1 ]; // last element
-    		
-    	return ""; // empty string
+        $array = StringUtility::getExplodedStringArray( '/', $path );
+        $count = count( $array );
+        
+        if( $count > 0 )
+            return $array[ $count - 1 ]; // last element
+            
+        return ""; // empty string
     }
     
     public static function getParentPathFromPath( $path )
     {
-    	$array = StringUtility::getExplodedStringArray( '/', $path );
-    	$count = count( $array );
-    	
-    	if( $count == 1 )
-    		return "/";
-    	else if( $count > 1 )
-    	{
-			return
-				implode( '/', array_slice( $array, 0, count( $array ) - 1 ) );    	
-    	}
-    		
-    	return ""; // empty string
+        $array = StringUtility::getExplodedStringArray( '/', $path );
+        $count = count( $array );
+        
+        if( $count == 1 )
+            return "/";
+        else if( $count > 1 )
+        {
+            return
+                implode( '/', array_slice( $array, 0, count( $array ) - 1 ) );        
+        }
+            
+        return ""; // empty string
     }
     
     public static function removeSiteNameFromPath( $path )
     {
-    	if( strpos( $path, ":" ) !== false )
-			$path = substr( $path, strpos( $path, ":" ) + 1 );
-		return $path;
+        if( strpos( $path, ":" ) !== false )
+            $path = substr( $path, strpos( $path, ":" ) + 1 );
+        return $path;
     }
     
     public static function startsWith( $haystack, $needle )
