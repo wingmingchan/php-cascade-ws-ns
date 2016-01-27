@@ -4,6 +4,8 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 1/27/2016 Modified addUser, removeUser and hasUser, using StringUtility::getExplodedStringArray.
+  *           Added addUserName, hasUserName, removeUserName.
   * 1/26/2016 Added hasUser.
   * 5/28/2015 Added namespaces.
  */
@@ -33,17 +35,28 @@ class Group extends Asset
             }
             else
             {
-                $user_array = explode( self::DELIMITER, $this->getProperty()->users );
+            	$users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
                 
-                if( !in_array( $u_name, $user_array ) )
+                if( !in_array( $u_name, $users ) )
                 {
-                    $user_array[] = $u_name;
+                    $users[] = $u_name;
                 }
                 
-                $this->getProperty()->users = implode( self::DELIMITER, $user_array );
+                $this->getProperty()->users = implode( self::DELIMITER, $users );
             }
         }
         return $this;
+    }
+    
+    public function addUserName( $u_name )
+    {
+    	if( !$this->hasUserName( $u_name ) )
+    	{
+            $users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+            $users[] = $u_name;
+            $this->getProperty()->users = implode( self::DELIMITER, $users );
+    	}
+    	return $this;
     }
 
     public function edit()
@@ -160,10 +173,33 @@ class Group extends Asset
     
     public function hasUser( User $u )
     {
-    	if( strpos( $this->getUsers(), self::DELIMITER . $u->getName() . self::DELIMITER ) !== false )
-    		return true;
-    		
-    	return false;
+        // no users yet
+        if( $this->getProperty()->users == "" || $this->getProperty()->users == NULL )
+        {
+            return false;
+        }
+        else
+        {
+    		$users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+    		return ( in_array( $u->getName(), $users ) );
+    	}
+    }
+    
+    public function hasUserName( $u_name )
+    {
+    	if( trim( $u_name ) == "" )
+    		throw new e\EmptyValueException();
+    	
+            // no users yet
+            if( $this->getProperty()->users == "" || $this->getProperty()->users == NULL )
+            {
+                return false;
+            }
+            else
+            {
+    			$users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+    			return ( in_array( $u_name, $users ) );
+    		}
     }
     
     public function removeUser( User $u )
@@ -179,7 +215,7 @@ class Group extends Asset
             }
             else
             {
-                $user_array = explode( self::DELIMITER, $this->getProperty()->users );
+                $user_array = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
                 
                 $temp = array();
                 
@@ -195,6 +231,27 @@ class Group extends Asset
             }
         }
         return $this;
+    }
+    
+    public function removeUserName( $u_name )
+    {
+    	if( $this->hasUserName( $u_name ) )
+    	{
+    		$user_array = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+                
+            $temp = array();
+                
+            foreach( $user_array as $user )
+            {
+                if( $user != $u_name )
+                {
+                    $temp[] = $user;
+                }
+            }
+                
+            $this->getProperty()->users = implode( self::DELIMITER, $temp );
+    	}
+    	return $this;
     }
     
     /* 
