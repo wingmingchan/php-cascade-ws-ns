@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 1/28/2016 Added a set of get methods to return root containers.
   * 10/29/2015 Added getExternalLinkCheckOnPublish and setExternalLinkCheckOnPublish.
   * 5/28/2015 Added namespaces.
   * 8/12/2014 Added getUnpublishOnExpiration, setUnpublishOnExpiration, getLinkCheckerEnabled, and setLinkCheckerEnabled.
@@ -27,7 +28,7 @@ class Site extends ScheduledPublishing
     const THIRTY   = c\T::THIRTY;
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         $this->processRoleAssignments();
@@ -37,7 +38,7 @@ class Site extends ScheduledPublishing
     {
         if( $r == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_ROLE . E_SPAN );
+                S_SPAN . c\M::NULL_ROLE . E_SPAN );
             
         if( $this->hasRole( $r ) )
         {
@@ -213,12 +214,12 @@ class Site extends ScheduledPublishing
     
     public function getExternalLinkCheckOnPublish()
     {
-    	return $this->getProperty()->externalLinkCheckOnPublish;
+        return $this->getProperty()->externalLinkCheckOnPublish;
     }
     
     public function getLinkCheckerEnabled()
     {
-    	return $this->getProperty()->linkCheckerEnabled;
+        return $this->getProperty()->linkCheckerEnabled;
     }
     
     public function getRecycleBinExpiration()
@@ -226,6 +227,14 @@ class Site extends ScheduledPublishing
         return $this->getProperty()->recycleBinExpiration;
     }
     
+    public function getRootAssetFactoryContainer()
+    {
+        return Asset::getAsset(
+            $this->getService(),
+            AssetFactoryContainer::TYPE, 
+            $this->getProperty()->rootAssetFactoryContainerId );
+    }
+
     public function getRootAssetFactoryContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -244,6 +253,14 @@ class Site extends ScheduledPublishing
         return $this->getAssetTree();
     }
     
+    public function getRootConnectorContainer()
+    {
+        return self::getAsset(
+            $this->getService(),
+            ConnectorContainer::TYPE, 
+            $this->getProperty()->rootConnectorContainerId );
+    }
+
     public function getRootConnectorContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -257,6 +274,13 @@ class Site extends ScheduledPublishing
         return $this->getProperty()->rootConnectorContainerId;
     }
     
+    public function getRootContentTypeContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            ContentTypeContainer::TYPE,
+            $this->getProperty()->rootContentTypeContainerId );
+    }
+    
     public function getRootContentTypeContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -268,6 +292,13 @@ class Site extends ScheduledPublishing
     public function getRootContentTypeContainerId()
     {
         return $this->getProperty()->rootContentTypeContainerId;
+    }
+    
+    public function getRootDataDefinitionContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            DataDefinitionContainer::TYPE,
+            $this->getProperty()->rootDataDefinitionContainerId );
     }
     
     public function getRootDataDefinitionContainerAssetTree()
@@ -293,6 +324,13 @@ class Site extends ScheduledPublishing
         return $this->getProperty()->rootFolderId;
     }
     
+    public function getRootMetadataSetContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            MetadataSetContainer::TYPE,
+            $this->getProperty()->rootMetadataSetContainerId );
+    }
+    
     public function getRootMetadataSetContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -304,6 +342,13 @@ class Site extends ScheduledPublishing
     public function getRootMetadataSetContainerId()
     {
         return $this->getProperty()->rootMetadataSetContainerId;
+    }
+    
+    public function getRootPageConfigurationSetContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            PageConfigurationSetContainer::TYPE,
+            $this->getProperty()->rootPageConfigurationSetContainerId );
     }
     
     public function getRootPageConfigurationSetContainerAssetTree()
@@ -319,6 +364,13 @@ class Site extends ScheduledPublishing
         return $this->getProperty()->rootPageConfigurationSetContainerId;
     }
     
+    public function getRootPublishSetContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            PublishSetContainer::TYPE,
+            $this->getProperty()->rootPublishSetContainerId );
+    }
+    
     public function getRootPublishSetContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -330,6 +382,13 @@ class Site extends ScheduledPublishing
     public function getRootPublishSetContainerId()
     {
         return $this->getProperty()->rootPublishSetContainerId;
+    }
+    
+    public function getRootSiteDestinationContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            SiteDestinationContainer::TYPE,
+            $this->getProperty()->rootSiteDestinationContainerId );
     }
     
     public function getRootSiteDestinationContainerAssetTree()
@@ -345,6 +404,13 @@ class Site extends ScheduledPublishing
         return $this->getProperty()->rootSiteDestinationContainerId;
     }
     
+    public function getRootTransportContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            TransportContainer::TYPE,
+            $this->getProperty()->rootTransportContainerId );
+    }
+    
     public function getRootTransportContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -356,6 +422,13 @@ class Site extends ScheduledPublishing
     public function getRootTransportContainerId()
     {
         return $this->getProperty()->rootTransportContainerId;
+    }
+    
+    public function getRootWorkflowDefinitionContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            WorkflowDefinitionContainer::TYPE,
+            $this->getProperty()->rootWorkflowDefinitionContainerId );
     }
     
     public function getRootWorkflowDefinitionContainerAssetTree()
@@ -371,6 +444,13 @@ class Site extends ScheduledPublishing
         return $this->getProperty()->rootWorkflowDefinitionContainerId;
     }
     
+    public function getSiteAssetFactoryContainer()
+    {
+        return Asset::getAsset( $this->getService(),
+            AssetFactoryContainer::TYPE,
+            $this->getProperty()->siteAssetFactoryContainerId );
+    }
+    
     public function getSiteAssetFactoryContainerAssetTree()
     {
         return Asset::getAsset( $this->getService(),
@@ -381,13 +461,13 @@ class Site extends ScheduledPublishing
     
     public function getScheduledPublishDestinationMode()
     {
-    	// all-destinations or selected-destinations
-    	return $this->getProperty()->scheduledPublishDestinationMode;
+        // all-destinations or selected-destinations
+        return $this->getProperty()->scheduledPublishDestinationMode;
     }
     
     public function getScheduledPublishDestinations()
     {
-    	return $this->getProperty()->scheduledPublishDestinations;
+        return $this->getProperty()->scheduledPublishDestinations;
     }
     
     public function getSiteAssetFactoryContainerId()
@@ -417,7 +497,7 @@ class Site extends ScheduledPublishing
     
     public function getUnpublishOnExpiration()
     {
-    	return $this->getProperty()->unpublishOnExpiration;
+        return $this->getProperty()->unpublishOnExpiration;
     }
     
     public function getUrl()
@@ -429,7 +509,7 @@ class Site extends ScheduledPublishing
     {
         if( $r == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_ROLE . E_SPAN );
+                S_SPAN . c\M::NULL_ROLE . E_SPAN );
         
         $role_name = $r->getName();
         
@@ -455,11 +535,11 @@ class Site extends ScheduledPublishing
         $service = $this->getService();
         
         if( isset( $destination ) )
-        	$service->publish( 
-            	$service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
+            $service->publish( 
+                $service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
         else
-        	$service->publish( 
-            	$service->createId( self::TYPE, $this->getProperty()->id ) );
+            $service->publish( 
+                $service->createId( self::TYPE, $this->getProperty()->id ) );
         return $this;
     }
     
@@ -467,7 +547,7 @@ class Site extends ScheduledPublishing
     {
         if( $r == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_ROLE . E_SPAN );
+                S_SPAN . c\M::NULL_ROLE . E_SPAN );
         
         if( !$this->hasRole( $r ) )
         {
@@ -502,7 +582,7 @@ class Site extends ScheduledPublishing
         if( $this->getProperty()->cssFileId == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . "The CSS file must be set first." . E_SPAN );
+                S_SPAN . "The CSS file must be set first." . E_SPAN );
         }
         
         $this->getProperty()->cssClasses = $classes;
@@ -529,7 +609,7 @@ class Site extends ScheduledPublishing
         if( $m == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_METADATA_SET . E_SPAN );
+                S_SPAN . c\M::NULL_METADATA_SET . E_SPAN );
         }
         $this->getProperty()->defaultMetadataSetId   = $m->getId();
         $this->getProperty()->defaultMetadataSetPath = $m->getPath();
@@ -540,20 +620,20 @@ class Site extends ScheduledPublishing
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
-		$this->getProperty()->externalLinkCheckOnPublish = $bool;
-    	return $this;
+        $this->getProperty()->externalLinkCheckOnPublish = $bool;
+        return $this;
     }
     
     public function setLinkCheckerEnabled( $bool )
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
-		$this->getProperty()->linkCheckerEnabled = $bool;
-    	return $this;
+        $this->getProperty()->linkCheckerEnabled = $bool;
+        return $this;
     }
     
     public function setRecycleBinExpiration( $e )
@@ -563,7 +643,7 @@ class Site extends ScheduledPublishing
         )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "Unacceptable value: $e" . E_SPAN );
+                S_SPAN . "Unacceptable value: $e" . E_SPAN );
         }
         $this->getProperty()->recycleBinExpiration = $e;
         return $this;
@@ -599,10 +679,10 @@ class Site extends ScheduledPublishing
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
-		$this->getProperty()->unpublishOnExpiration = $bool;
-    	return $this;
+        $this->getProperty()->unpublishOnExpiration = $bool;
+        return $this;
     }
     
     public function setUrl( $u )
@@ -610,7 +690,7 @@ class Site extends ScheduledPublishing
         if( trim( $u ) == "" )
         {
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_URL . E_SPAN );
+                S_SPAN . c\M::EMPTY_URL . E_SPAN );
         }
         
         $this->getProperty()->url = $u;
@@ -622,7 +702,7 @@ class Site extends ScheduledPublishing
         $this->role_assignments = array();
         
         if( isset( $this->getProperty()->roleAssignments ) && 
-        	isset( $this->getProperty()->roleAssignments->roleAssignment ) )
+            isset( $this->getProperty()->roleAssignments->roleAssignment ) )
             $ra = $this->getProperty()->roleAssignments->roleAssignment;
         
         if( isset( $ra ) )
