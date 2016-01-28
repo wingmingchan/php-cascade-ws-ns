@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 1/28/2016 Added setAccessRights, denyAccessToAllGroups, denyAccessToAllUsers.
   * 5/28/2015 Added namespaces.
  */
 namespace cascade_ws_property;
@@ -19,11 +20,11 @@ class AccessRightsInformation extends Property
     const DEBUG = false;
     
     public function __construct( 
-    	\stdClass $ari=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $ari=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $ari ) )
         {
@@ -73,6 +74,32 @@ class AccessRightsInformation extends Property
         return $this;
     }
     
+    public function denyAccessToAllGroups()
+    {
+        foreach( $this->acl_entries as $entry )
+        {
+            if( $entry->getType() != c\T::GROUP )
+            {
+                $temp[] = $entry;
+            }
+        }
+        $this->acl_entries = $temp;
+        return $this;
+    }
+    
+    public function denyAccessToAllUsers()
+    {
+        foreach( $this->acl_entries as $entry )
+        {
+            if( $entry->getType() != c\T::USER )
+            {
+                $temp[] = $entry;
+            }
+        }
+        $this->acl_entries = $temp;
+        return $this;
+    }
+
     public function denyGroupAccess( a\Group $g )
     {
         $this->denyAccess( $g, $g->getType() );
@@ -191,6 +218,12 @@ class AccessRightsInformation extends Property
         return $this->addUserWriteAccess( $u );
     }
     
+    public function setAccessRights( a\Asset $a, $level )
+    {
+        $this->setAccess( $a, $level );
+        return $this;
+    }
+    
     public function toStdClass()
     {
         $obj = new \stdClass();
@@ -261,6 +294,7 @@ class AccessRightsInformation extends Property
         }
     }
     
+    /* $a: either a group or a user */
     private function setAccess( a\Asset $a, $level )
     {
         $type = $a->getType();
