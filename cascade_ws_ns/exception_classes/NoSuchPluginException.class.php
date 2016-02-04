@@ -4,8 +4,9 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/4/2016 Fixed a typo.
  */
-class namespace cascade_ws_exception;
+namespace cascade_ws_exception;
 
-NoSuchPluginException extends \Exception {}
+class NoSuchPluginException extends \Exception {}
 ?>
