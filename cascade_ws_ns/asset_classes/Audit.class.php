@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/10/2016 Fixed a bug in getUser and changed the return value.
   * 5/28/2015 Added namespaces.
   * 8/1/2014 Added toStdClass.
  */
@@ -77,7 +78,7 @@ class Audit
     
     public function getUser()
     {
-        return Asset::getAsset( $service, User::TYPE, $this->user );
+        return $this->user;
     }
     
     public function getUserString()

@@ -227,16 +227,18 @@ abstract class Asset
         {
             if( self::DEBUG ) { u\DebugUtility::dump( $service->getAudits() ); }
         
-            $audit_stds = $service->getAudits()->audit;
+        	if( isset( $service->getAudits()->audit ) )
+            	$audit_stds = $service->getAudits()->audit;
             
             if( isset( $audit_stds ) && !is_array( $audit_stds ) )
             {
                 $audit_stds = array( $audit_stds );
             }
             
-            $count = count( $audit_stds );
+            if( isset( $audit_stds ) && is_array( $audit_stds ) )
+            	$count = count( $audit_stds );
             
-            if( $count > 0 )
+            if( isset( $count ) && $count > 0 )
             {
 				foreach( $audit_stds as $audit_std )
 				{
