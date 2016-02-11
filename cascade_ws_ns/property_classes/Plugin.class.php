@@ -4,11 +4,13 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/11/2016 Throwing exception from getParameter. Added addParameter and removeParameter.
   * 5/28/2015 Added namespaces.
  */
 namespace cascade_ws_property;
 
 use cascade_ws_constants as c;
+use cascade_ws_asset as a;
 use cascade_ws_AOHS as aohs;
 use cascade_ws_utility as u;
 use cascade_ws_exception as e;
@@ -16,11 +18,11 @@ use cascade_ws_exception as e;
 class Plugin extends Property
 {
     public function __construct( 
-    	\stdClass $p=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $p=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $p ) )
         {
@@ -31,6 +33,27 @@ class Plugin extends Property
                 $this->processParameters( $p->parameters->parameter );
             }
         }
+    }
+    
+    public function addParameter( $name, $value )
+    {
+        if( $value.trim( " " ) == "" )
+            $value = "1"; // there must be value
+        
+        if( !in_array( $name, a\AssetFactory::$plugin_name_param_map[ $this->name ] ) )
+            throw new e\NoSuchPluginParameterException(
+                S_SPAN . "The parameter $name does not exist." . E_SPAN
+            );
+            
+        if( !$this->hasParameter( $name ) )
+        {
+            $param_std = new \stdClass();
+            $param_std->name  = $name;
+            $param_std->value = $value;
+            $this->parameters[] = new Parameter( $param_std );
+        }
+        else    
+            $this->setParameterValue( $name, $value );
     }
     
     public function getName()
@@ -47,6 +70,9 @@ class Plugin extends Property
                 return $parameter;
             }
         }
+        throw new e\NoSuchPluginParameterException(
+            S_SPAN . "The parameter $name does not exist." . E_SPAN
+        );
     }
     
     public function getParameters()
@@ -56,14 +82,40 @@ class Plugin extends Property
     
     public function hasParameter( $name )
     {
-        foreach( $this->parameters as $parameter )
+        if( count( $this->parameters ) > 0 )
         {
-            if( $parameter->getName() == $name )
+            foreach( $this->parameters as $parameter )
             {
-                return true;
+                if( $parameter->getName() == $name )
+                {
+                    return true;
+                }
             }
         }
         return false;
+    }
+    
+    public function removeParameter( $name )
+    {
+        if( !in_array( $name, a\AssetFactory::$plugin_name_param_map[ $this->name ] ) )
+            throw new e\NoSuchPluginParameterException(
+                S_SPAN . "The parameter $name does not exist." . E_SPAN
+            );
+            
+        if( count( $this->parameters ) > 0 )
+        {
+            $temp = array();
+            
+            foreach( $this->parameters as $parameter )
+            {
+                if( $parameter->getName() != $name )
+                {
+                    $temp[] = $parameter;
+                }
+            }
+            
+            $this->parameters = $temp;
+        }
     }
     
     public function setParameterValue( $name, $value )
