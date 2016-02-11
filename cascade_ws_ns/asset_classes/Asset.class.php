@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/11/2016 Added more code to constructor so getIdentifier can return more info.
   * 9/29/2015 Changed line 334, using isset, per Mark Nokes's request.
   * 5/28/2015 Added namespaces.
   * 9/9/2014 Added exception in copy.
@@ -57,19 +58,19 @@ abstract class Asset
         if( $property == NULL )
         {
             if( isset( $identifier->id ) )
-        	    $id = $identifier->id;
+                $id = $identifier->id;
 
             if( isset( $identifier->path ) )
             {
-        	    $path      = $identifier->path->path;
-        	    
-        	    if( isset( $identifier->path->siteName ) )
-        	    	$site_name = $identifier->path->siteName;
+                $path = $identifier->path->path;
+                
+                if( isset( $identifier->path->siteName ) )
+                    $site_name = $identifier->path->siteName;
             }
-        	
-        	if( !isset( $id ) )
-        		$id = $path;
-        	
+            
+            if( !isset( $id ) )
+                $id = $path;
+            
             throw new e\NullAssetException(
                 S_SPAN . "The " . 
                 c\T::$type_property_name_map[ $identifier->type ] . 
@@ -84,25 +85,43 @@ abstract class Asset
         $this->type          = $identifier->type;
         $this->property_name = c\T::$type_property_name_map[ $this->type ];
         $this->property      = $property;
+        
         if( isset( $property->id ) )
+        {
             $this->id            = $property->id;
+            if( !isset( $this->identifier->id ) )
+                $this->identifier->id = $this->id;
+        }
         if( isset( $property->name ) )
             $this->name          = $property->name;
         if( isset( $property->path ) )
+        {
             $this->path          = $property->path;
+            if( !isset( $this->identifier->path ) )
+            {
+                $this->identifier->path = new \stdClass();
+                $this->identifier->path->path = $this->path;
+            }
+        }
         if( isset( $property->siteId ) )
+        {
             $this->site_id       = $property->siteId;
+            $this->identifier->path->siteId = $this->site_id;
+        }
         if( isset( $property->siteName ) )
+        {
             $this->site_name     = $property->siteName;
+            $this->identifier->path->siteName = $this->site_name;
+        }
     }
     
     public function copy( Container $parent, $new_name )
     {
-    	if( $new_name == "" )
-    	{
-    		throw new e\EmptyNameException( c\M::EMPTY_NAME );
-    	}
-    	
+        if( $new_name == "" )
+        {
+            throw new e\EmptyNameException( c\M::EMPTY_NAME );
+        }
+        
         $service         = $this->getService();
         $self_identifier = $service->createId( $this->getType(), $this->getId() );
         
@@ -110,16 +129,16 @@ abstract class Asset
         
         if( $service->isSuccessful() )
         {
-        	$parent->reloadProperty(); // get info of new child
-			$parent      = $parent->getProperty();
-			$children    = $parent->children->child;
-			$child_count = count( $children );
-			
-			if( $child_count == 1 )
-			{
-				$children = array( $children );
-			}
-			
+            $parent->reloadProperty(); // get info of new child
+            $parent      = $parent->getProperty();
+            $children    = $parent->children->child;
+            $child_count = count( $children );
+            
+            if( $child_count == 1 )
+            {
+                $children = array( $children );
+            }
+            
             // look for the new child
             foreach( $children as $child )
             {
@@ -200,20 +219,20 @@ abstract class Asset
         // unable to test with user, group, role
         if( $this->getType() == User::TYPE )
         {
-        	$a_std->username = $this->getName();
+            $a_std->username = $this->getName();
         }
         else if( $this->getType() == Group::TYPE )
         {
-        	$a_std->groupname = $this->getName();
+            $a_std->groupname = $this->getName();
         }
         else if( $this->getType() == Role::TYPE )
         {
-        	$a_std->rolename = $this->getName();
+            $a_std->rolename = $this->getName();
         }
         else
         {
-        	$a_std->identifier->id   = $this->getId();
-        	$a_std->identifier->type = $this->getType();
+            $a_std->identifier->id   = $this->getId();
+            $a_std->identifier->type = $this->getType();
         }
         
         if( $type != "" )
@@ -227,8 +246,8 @@ abstract class Asset
         {
             if( self::DEBUG ) { u\DebugUtility::dump( $service->getAudits() ); }
         
-        	if( isset( $service->getAudits()->audit ) )
-            	$audit_stds = $service->getAudits()->audit;
+            if( isset( $service->getAudits()->audit ) )
+                $audit_stds = $service->getAudits()->audit;
             
             if( isset( $audit_stds ) && !is_array( $audit_stds ) )
             {
@@ -236,40 +255,40 @@ abstract class Asset
             }
             
             if( isset( $audit_stds ) && is_array( $audit_stds ) )
-            	$count = count( $audit_stds );
+                $count = count( $audit_stds );
             
             if( isset( $count ) && $count > 0 )
             {
-				foreach( $audit_stds as $audit_std )
-				{
-					if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $audit_std ); }
-		
-					$audit = new Audit( $service, $audit_std );
-			
-					if( $start && $audit->getDate() >= $start_time )
-					{
-						if( $end && $audit->getDate() <= $end_time )
-						{
-							$audits[] = $audit;
-						}
-						else if( !$end )
-						{
-							$audits[] = $audit;
-						}
-					}
-					else if( !$start )
-					{
-						if( $end && $audit->getDate() <= $end_time )
-						{
-							$audits[] = $audit;
-						}
-						else if( !$end )
-						{
-							$audits[] = $audit;
-						}
-					}
-				}
-				usort( $audits, self::NAME_SPACE . "\\" . 'Audit::compare' );
+                foreach( $audit_stds as $audit_std )
+                {
+                    if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $audit_std ); }
+        
+                    $audit = new Audit( $service, $audit_std );
+            
+                    if( $start && $audit->getDate() >= $start_time )
+                    {
+                        if( $end && $audit->getDate() <= $end_time )
+                        {
+                            $audits[] = $audit;
+                        }
+                        else if( !$end )
+                        {
+                            $audits[] = $audit;
+                        }
+                    }
+                    else if( !$start )
+                    {
+                        if( $end && $audit->getDate() <= $end_time )
+                        {
+                            $audits[] = $audit;
+                        }
+                        else if( !$end )
+                        {
+                            $audits[] = $audit;
+                        }
+                    }
+                }
+                usort( $audits, self::NAME_SPACE . "\\" . 'Audit::compare' );
             }
         }
         else
@@ -380,7 +399,11 @@ abstract class Asset
             foreach( $subscriber_ids as $subscriber_id )
             {
                 if( self::DEBUG ) { u\DebugUtility::out( "Publishing " . $subscriber_id->getId() ); }
-                $this->getService()->publish( $subscriber_id->toStdClass(), $destination_std );
+                
+                if( isset( $destination_std ) )
+                    $this->getService()->publish( $subscriber_id->toStdClass(), $destination_std );
+                else
+                    $this->getService()->publish( $subscriber_id->toStdClass() );
             }
         }
         return $this;
@@ -402,16 +425,16 @@ abstract class Asset
         
         try
         {
-        	$class_name = self::NAME_SPACE . "\\" . $class_name;
-        	
-        	return new $class_name( // call constructor
-            	$service, 
-            	$service->createId( $type, $id_path, $site_name ) );
+            $class_name = self::NAME_SPACE . "\\" . $class_name;
+            
+            return new $class_name( // call constructor
+                $service, 
+                $service->createId( $type, $id_path, $site_name ) );
         }
         catch( \Exception $e )
         {
-        	if( self::DEBUG ) { u\DebugUtility::out( $e->getMessage() ); }
-        	throw $e;
+            if( self::DEBUG ) { u\DebugUtility::out( $e->getMessage() ); }
+            throw $e;
         }
     }
     

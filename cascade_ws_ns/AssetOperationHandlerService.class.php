@@ -43,8 +43,8 @@ use cascade_ws_exception as e;
  */
 class AssetOperationHandlerService
 {
-	const DEBUG = false;
-	const DUMP  = false;
+    const DEBUG = false;
+    const DUMP  = false;
     /**
     * The constructor: encapsulating the WSDL, auth object, and the SoapClient object
     * @param string $url The url of the WSDL
@@ -447,7 +447,6 @@ class AssetOperationHandlerService
         $this->storeResults( $this->reply->deleteMessageReturn );
     }
     
-    
     /**
     * Edit the given asset
     * @param stdClass $asset The asset to be edited
@@ -476,6 +475,23 @@ class AssetOperationHandlerService
 
         $this->reply = $this->soapClient->editAccessRights( $edit_params );
         $this->storeResults( $this->reply->editAccessRightsReturn );
+    }
+    
+    /**
+    * Edit the preferences
+    * @param string $name The name of the preference
+    * @param string $name The value of the preference
+    */
+    public function editPreferences( $name, $value  ) 
+    {
+        $edit_preferences_param                    = new \stdClass();
+        $edit_preferences_param->authentication    = $this->auth;
+        $edit_preferences_param->preference        = new \stdClass();
+        $edit_preferences_param->preference->name  = $name;
+        $edit_preferences_param->preference->value = $value;
+        
+        $this->reply = $this->soapClient->editPreference( $edit_preferences_param );
+        $this->storeResults( $this->reply->editPreferenceReturn );
     }
     
     /**
@@ -632,8 +648,8 @@ class AssetOperationHandlerService
     */
     public function read( \stdClass $identifier ) 
     {
-    	if( self::DEBUG ) { u\DebugUtility::dump( $identifier ); }
-    	
+        if( self::DEBUG ) { u\DebugUtility::dump( $identifier ); }
+        
         $read_param                 = new \stdClass();
         $read_param->authentication = $this->auth;
         $read_param->identifier     = $identifier;
@@ -682,23 +698,6 @@ class AssetOperationHandlerService
         $this->reply = $this->soapClient->readPreferences( $read_preferences_param );
         $this->storeResults( $this->reply->readPreferencesReturn );
         $this->preferences  = $this->reply->readPreferencesReturn->preferences;
-    }
-    
-    /**
-    * Edit the preferences
-    * @param string $name The name of the preference
-    * @param string $name The value of the preference
-    */
-    public function editPreferences( $name, $value  ) 
-    {
-        $edit_preferences_param                    = new \stdClass();
-        $edit_preferences_param->authentication    = $this->auth;
-        $edit_preferences_param->preference        = new \stdClass();
-        $edit_preferences_param->preference->name  = $name;
-        $edit_preferences_param->preference->value = $value;
-        
-        $this->reply = $this->soapClient->editPreference( $edit_preferences_param );
-        $this->storeResults( $this->reply->editPreferenceReturn );
     }
     
     /**
@@ -865,9 +864,9 @@ class AssetOperationHandlerService
     */
     public function createId( $type, $id_path, $site_name = NULL )
     {
-    	if( !( is_string( $type ) && ( is_string( $id_path ) || is_int( $id_path ) ) ) )
-    		throw new e\UnacceptableValueException( "Only strings are accepted in createId." );
-    		
+        if( !( is_string( $type ) && ( is_string( $id_path ) || is_int( $id_path ) ) ) )
+            throw new e\UnacceptableValueException( "Only strings are accepted in createId." );
+            
         $non_digital_id_types = array(
             c\T::GROUP, c\T::ROLE, c\T::SITE, c\T::USER
         );
@@ -876,8 +875,8 @@ class AssetOperationHandlerService
         
         if( strlen( $id_path ) > 1 )
         {
-        	$id_path = trim( $id_path );
-        	$id_path = trim( $id_path, '/' );
+            $id_path = trim( $id_path );
+            $id_path = trim( $id_path, '/' );
         }
     
         $identifier = new \stdClass();
@@ -901,7 +900,7 @@ class AssetOperationHandlerService
         }
         else if( u\StringUtility::startsWith( $id_path, "ROOT_" ) )
         {
-        	$identifier->id = $id_path;
+            $identifier->id = $id_path;
         }
         // asset in Global
         else if( $site_name == NULL )
@@ -915,7 +914,7 @@ class AssetOperationHandlerService
             if( trim( $site_name ) == "" )
             {
                 throw new e\EmptyValueException( 
-                	S_SPAN . c\M::EMPTY_SITE_NAME . E_SPAN );
+                    S_SPAN . c\M::EMPTY_SITE_NAME . E_SPAN );
             }
             $identifier->path           = new \stdClass();
             $identifier->path->path     = $id_path;
@@ -976,21 +975,21 @@ class AssetOperationHandlerService
     {
         if( !in_array( $type, c\T::getTypeArray() ) )
             throw new e\NoSuchTypeException( 
-            	S_SPAN . "The type $type does not exist." . E_SPAN );
+                S_SPAN . "The type $type does not exist." . E_SPAN );
             
         $class_name = c\T::$type_class_name_map[ $type ]; // get class name
         $class_name = a\Asset::NAME_SPACE . "\\" . $class_name;
         
         try
         {
-        	return new $class_name( // call constructor
-            	$this, 
-            	$this->createId( $type, $id_path, $site_name ) );
+            return new $class_name( // call constructor
+                $this, 
+                $this->createId( $type, $id_path, $site_name ) );
         }
         catch( \Exception $e )
         {
-        	if( self::DEBUG && self::DUMP ) { u\DebugUtility::out( $e->getMessage() ); }
-        	throw $e;
+            if( self::DEBUG && self::DUMP ) { u\DebugUtility::out( $e->getMessage() ); }
+            throw $e;
         }        
     }
     
