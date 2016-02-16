@@ -162,13 +162,13 @@ abstract class Block extends ContainedAsset
         return $this;
     }
     
-    public static function getBlock( $service, $id_string )
+    public static function getBlock( aohs\AssetOperationHandlerService $service, $id_string )
     {
     	return self::getAsset( $service, 
     		self::getBlockType( $service, $id_string ), $id_string );
 	}
 
-    public static function getBlockType( $service, $id_string )
+    public static function getBlockType( aohs\AssetOperationHandlerService $service, $id_string )
     {
     	$types      
     	    = array( 

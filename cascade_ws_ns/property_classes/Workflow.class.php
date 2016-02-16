@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/13/2016 Added start_date, end_date, and the get methods.
   * 5/28/2015 Added namespaces.
   * 10/1/2014 Fixed a bug in getRelatedEntity.
  */
@@ -68,6 +69,8 @@ class Workflow extends Property
                         $s->getActionIdentifiers();
                 }
             }
+            $this->start_date = $wf->startDate;
+            $this->end_date   = $wf->endDate;
         }
     }
     
@@ -79,6 +82,11 @@ class Workflow extends Property
     public function getCurrentStepPossibleActions()
     {
         return $this->ordered_step_possible_action_map[ $this->workflow->currentStep ];
+    }
+    
+    public function getEndDate()
+    {
+    	return $this->end_date;
     }
     
     public function getId()
@@ -94,6 +102,11 @@ class Workflow extends Property
     public function getRelatedEntity()
     {
         return $this->related_entity;
+    }
+    
+    public function getStartDate()
+    {
+    	return $this->start_date;
     }
     
     public function isPossibleAction( $a_name )
@@ -192,6 +205,8 @@ class Workflow extends Property
     private $ordered_step_possible_action_map;
     private $unordered_step_possible_action_map;
     private $action_id_identifier_map;
+    private $start_date;
+    private $end_date;
     private $service;
 }
 ?>
