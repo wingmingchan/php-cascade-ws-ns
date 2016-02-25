@@ -174,7 +174,7 @@ function assetTreeReportPageWithPageLevelBlockFormat(
     p\Child $child, $params=NULL, &$results=NULL )
 {
     // only works for pages
-    if( $child->getType() != Page::TYPE )
+    if( $child->getType() != a\Page::TYPE )
     {
         return;
     }
