@@ -982,10 +982,8 @@ class Page extends Linkable
             else
             	$this->editWithoutException();
         }
-
-        $page  = $this->getProperty();
         
-        if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $page->pageConfigurations ); }
+        if( self::DEBUG && self::DUMP ) { $page  = $this->getProperty(); u\DebugUtility::dump( $page->pageConfigurations ); }
 
         return $this;
     }
