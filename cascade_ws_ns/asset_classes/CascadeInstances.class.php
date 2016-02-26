@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/16/2016 Minor bug fix.
   * 5/28/2015 Added namespaces.
   * 5/4/2015 Added getSourceSite, getSourceSiteName, getTargetSite and getTargetSiteName.
   * 12/10/2014 Minor bug fixes.
@@ -1127,6 +1128,10 @@ class CascadeInstances
         // parent must be there
         $target_parent    = $target_cascade->getAsset( Folder::TYPE,
             $source_block_parent_path, $target_site_name );
+            
+        if( !isset( $source_content ) )
+        	$source_content = "";
+        	
         $target_block     = $target_cascade->createXhtmlDataDefinitionBlock( 
             $target_parent, $source_block_path, $target_dd, $source_content );
             
