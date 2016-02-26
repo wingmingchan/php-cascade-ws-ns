@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 2/26/2016 Added mapData.
   * 1/8/2016 Added code to deal with host asset.
   * 9/15/2015 Added createNInstancesForMultipleField.
   * 5/28/2015 Added namespaces.
@@ -74,6 +75,7 @@ class StructuredData extends Property
         $this->node_map    = $this->getIdentifierNodeMap();
         $this->identifiers = array_keys( $this->node_map );
         $this->host_asset  = $data2;
+        $this->service     = $service;
         
         if( self::DEBUG ) { u\DebugUtility::out( "First node ID: " . $first_node_id ); }
     }
@@ -150,6 +152,14 @@ class StructuredData extends Property
                 $this->removeLastSibling( $identifier );
             }
         }
+        
+        // update map and identifiers
+        StructuredDataNode::processStructuredDataNodes( 
+            '', $this->children, 
+            $this->toStdClass()->structuredDataNodes->structuredDataNode, 
+            $this->data_definition );
+        $this->node_map    = $this->getIdentifierNodeMap();
+        $this->identifiers = array_keys( $this->node_map );
 
         return $this;
     }
@@ -395,6 +405,15 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isAssetNode();
     }
     
+    public function isIdentifierOfFirstNode( $identifier )
+    {
+    	if( $this->isMultiple( $identifier ) )
+    	{
+    		return u\StringUtility::endsWith( $identifier, ";0" );
+    	}
+    	return false;
+    }
+    
     public function isGroupNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -459,6 +478,88 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isWYSIWYG();
+    }
+    
+    public function mapData()
+    {
+    	$new_sd  = new StructuredData( 
+    		$this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
+    	$cur_ids = $this->getIdentifiers();
+    	
+    	
+    	foreach( $cur_ids as $id )
+    	{
+    		if( $this->isIdentifierOfFirstNode( $id ) )
+    		{
+    			$num_of_instances = $this->getNumberOfSiblings( $id );
+    			
+    			if( $num_of_instances > 1 )
+    			{
+    				$new_sd->createNInstancesForMultipleField( $num_of_instances, $id );
+    			}
+    		}
+    	}
+    	
+     	foreach( $cur_ids as $id )
+    	{
+    		if( $this->isTextNode( $id ) || $this->isWYSIWYG( $id ) )
+    		{
+    			$new_sd->setText( $id, $this->getText( $id ) );
+    				
+    			if( $new_sd->getText( $id ) == NULL )
+    				$new_sd->setText( $id, "" );
+    		}
+    		elseif( $this->isAssetNode( $id ) )
+    		{
+    			$asset_type = $this->getAssetNodeType( $id );
+    			
+    			switch( $asset_type )
+    			{
+    				case "page":
+    					$page_id = $this->getPageId( $id );
+    					
+    					if( isset( $page_id ) )
+    					{
+    						$new_sd->setPage( $id, $this->service->getAsset( $this->service->createId( a\Page, $page_id ) ) );
+    					}
+    					break;
+    				case "file":
+    					$file_id = $this->getFileId( $id );
+    					
+    					if( isset( $file_id ) )
+    					{
+    						$new_sd->setFile( $id, $this->service->getAsset( $this->service->createId( a\File, $file_id ) ) );
+    					}
+    					break;
+    				case "block":
+    					$block_id = $this->getBlockId( $id );
+    					
+    					if( isset( $block_id ) )
+    					{
+    						$new_sd->setBlock( $id, a\Block::getBlock( $this->service, $block_id ) );
+    					}
+    					break;
+    				case "symlink":
+    					$symlink_id = $this->getSymlinkId( $id );
+    					
+    					if( isset( $symlink_id ) )
+    					{
+    						$new_sd->setSymlink( $id, $this->service->getAsset( $this->service->createId( a\Symlink, $symlink_id ) ) );
+    					}
+    					break;
+    				case "page,file,symlink":
+    					$linkable_id = $this->getLinkableId( $id );
+    					
+    					if( isset( $linkable_id ) )
+    					{
+    						$new_sd->setLinkable( $id, a\Linkable::getLinkable( $this->service, $linkable_id ) );
+    					}
+    					break;
+    			}
+    		}
+    	}
+    	
+    	return $new_sd;
     }
     
     public function removeLastSibling( $first_node_id )
@@ -884,5 +985,6 @@ class StructuredData extends Property
     private $node_map;
     private $type; // block or page
     private $host_asset;
+    private $service;
 }
 ?>
