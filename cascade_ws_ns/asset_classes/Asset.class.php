@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/8/2016 Added get_class to dump.
   * 2/11/2016 Added more code to constructor so getIdentifier can return more info.
   * 9/29/2015 Changed line 334, using isset, per Mark Nokes's request.
   * 5/28/2015 Added namespaces.
@@ -179,7 +180,7 @@ abstract class Asset
 
     public function dump( $formatted=false )
     {
-        if( $formatted ) echo S_H2 . c\L::READ_DUMP . E_H2 . S_PRE;
+        if( $formatted ) echo S_H2 . get_class( $this ) . " " . c\L::READ_DUMP . E_H2 . S_PRE;
         var_dump( $this->property );
         if( $formatted ) echo E_PRE . HR;
         

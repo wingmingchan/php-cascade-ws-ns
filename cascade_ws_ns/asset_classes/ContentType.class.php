@@ -139,7 +139,7 @@ class ContentType extends ContainedAsset
         $this->inline_editable_field_map[ $field->getIdentifier() ] = $field;
         $this->inline_editable_field_names = array_keys( $this->inline_editable_field_map );
         
-        if( $debug ) { u\DebugUtility::dump( $this->inline_editable_fields ); }
+        if( self::DEBUG ) { u\DebugUtility::dump( $this->inline_editable_fields ); }
         
         return $this;
     }
@@ -307,7 +307,9 @@ class ContentType extends ContainedAsset
     
     public function hasInlineEditableField( $name )
     {
-        return in_array( $name, $this->inline_editable_field_names );
+    	if( isset( $this->inline_editable_field_names ) && is_array( $this->inline_editable_field_names ) )
+        	return in_array( $name, $this->inline_editable_field_names );
+        return false;
     }
     
     public function hasPageConfiguration( $name )

@@ -4,7 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
-  * 2/8/2016 Fixed a bug related to namespace.
+  * 3/8/2016 Fixed a bug related to namespace.
   * 5/28/2015 Added namespaces.
   * 8/18/2014 Added NULL function in traverse for Report.
   * 7/14/2014 Changed applyFunctionsToChild to accept class static methods.
