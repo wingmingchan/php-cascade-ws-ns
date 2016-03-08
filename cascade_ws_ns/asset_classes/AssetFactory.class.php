@@ -432,6 +432,25 @@ class AssetFactory extends ContainedAsset
         return $this->edit();
     }
     
+    public function setPlugins( \stdClass $plugins )
+    {
+        $property = $this->getProperty();
+        $property->plugins = $plugins;
+        $asset = new \stdClass();
+        $asset->{ $p = $this->getPropertyName() } = $property;
+        
+        // edit asset
+        $service = $this->getService();
+        $service->edit( $asset );
+        
+        if( !$service->isSuccessful() )
+        {
+            throw new e\EditingFailureException( 
+                S_SPAN . c\M::EDIT_ASSET_FAILURE . E_SPAN . $service->getMessage() );
+        }
+        return $this->reloadProperty();
+    }
+    
     public function setWorkflowMode( $mode=c\T::NONE, WorkflowDefinition $wd=NULL )
     {
         if( !c\WorkflowModeValues::isWorkflowMode( $mode ) )
@@ -477,25 +496,6 @@ class AssetFactory extends ContainedAsset
             $this->plugins[] = 
                 new p\Plugin( $plugins[ $i ] );
         }
-    }
-    
-    private function setPlugins( \stdClass $plugins )
-    {
-        $property = $this->getProperty();
-        $property->plugins = $plugins;
-        $asset = new \stdClass();
-        $asset->{ $p = $this->getPropertyName() } = $property;
-        
-        // edit asset
-        $service = $this->getService();
-        $service->edit( $asset );
-        
-        if( !$service->isSuccessful() )
-        {
-            throw new e\EditingFailureException( 
-                S_SPAN . c\M::EDIT_ASSET_FAILURE . E_SPAN . $service->getMessage() );
-        }
-        return $this->reloadProperty();
     }
     
     public static $plugin_names = array(

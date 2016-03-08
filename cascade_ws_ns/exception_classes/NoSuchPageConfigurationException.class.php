@@ -5,7 +5,7 @@
   * MIT Licensed
   * Modification history:
  */
-class namespace cascade_ws_exception;
+namespace cascade_ws_exception;
 
-NoSuchPageConfigurationException extends \Exception{}
+class NoSuchPageConfigurationException extends \Exception{}
 ?>
