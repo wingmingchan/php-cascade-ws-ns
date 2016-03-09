@@ -31,7 +31,7 @@ class DataDefinitionBlock extends Block
     * @param $identifier the identifier object
     */
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -47,8 +47,8 @@ class DataDefinitionBlock extends Block
 
     public function appendSibling( $identifier )
     {
-		$this->checkStructuredData();
-		
+        $this->checkStructuredData();
+        
         if( self::DEBUG ) { u\DebugUtility::out( "Calling appendSibling" ); }
         $this->structured_data->appendSibling( $identifier );
         $this->edit();
@@ -64,19 +64,19 @@ class DataDefinitionBlock extends Block
     
     public function createNInstancesForMultipleField( $number, $identifier )
     {
-		$this->checkStructuredData();
+        $this->checkStructuredData();
         $number = intval( $number );
         
         if( !$number > 0 )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $number is not a number." . E_SPAN );
+                S_SPAN . "The value $number is not a number." . E_SPAN );
         }
         
         if( !$this->hasNode( $identifier ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist." . E_SPAN );
+                S_SPAN . "The node $identifier does not exist." . E_SPAN );
         }
         
         $num_of_instances  = $this->getNumberOfSiblings( $identifier );
@@ -144,15 +144,15 @@ class DataDefinitionBlock extends Block
         
         if( !$service->isSuccessful() )
         {
-        	if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $asset ); }
+            if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $asset ); }
             throw new e\EditingFailureException(
-            	S_SPAN . "Block: " . $this->getPath() . E_SPAN . BR .
+                S_SPAN . "Block: " . $this->getPath() . E_SPAN . BR .
                 c\M::EDIT_ASSET_FAILURE . $service->getMessage() );
         }
         $this->reloadProperty();
         
         if( isset( $this->getProperty()->structuredData ) )
-        	$this->processStructuredData();
+            $this->processStructuredData();
         return $this;
     }
     
@@ -223,13 +223,13 @@ class DataDefinitionBlock extends Block
         if( trim( $identifier ) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_IDENTIFIER . E_SPAN );
+                S_SPAN . c\M::EMPTY_IDENTIFIER . E_SPAN );
         }
         
         if( !$this->hasIdentifier( $identifier ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist." . E_SPAN );
+                S_SPAN . "The node $identifier does not exist." . E_SPAN );
         }
         return $this->structured_data->getNumberOfSiblings( $identifier );
     }
@@ -366,7 +366,7 @@ class DataDefinitionBlock extends Block
         if( $this->hasStructuredData() )
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
         }
         
         $this->xhtml = preg_replace( $pattern, $replace, $this->xhtml );
@@ -392,7 +392,7 @@ class DataDefinitionBlock extends Block
         if( $this->hasStructuredData() )
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
         }
 
         return strpos( $this->xhtml, $string ) !== false;
@@ -458,7 +458,7 @@ class DataDefinitionBlock extends Block
         else
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
         }
         return $this;
     }
@@ -474,10 +474,10 @@ class DataDefinitionBlock extends Block
 
     private function checkStructuredData()
     {
-    	if( !$this->hasStructuredData() )
+        if( !$this->hasStructuredData() )
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_DATA_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_DATA_BLOCK . E_SPAN );
         }
     }
     

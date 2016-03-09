@@ -158,7 +158,7 @@ class StructuredDataNode extends Property
     
         if( $this->structured_data_nodes == NULL )
         {
-            throw new e\NodeException( 
+            throw new e\NodeException(
                 S_SPAN . "Cannot add a node to a node that has no children." . E_SPAN );
         }
         
@@ -461,7 +461,7 @@ class StructuredDataNode extends Property
             
         if( $first_pos == $last_pos ) // the only node
             throw new e\NodeException(
-				S_SPAN . "Cannot remove the only node in the field." . E_SPAN );
+                S_SPAN . "Cannot remove the only node in the field." . E_SPAN );
         
         $child_count = count( $this->structured_data_nodes ); // total children
     
@@ -675,7 +675,7 @@ class StructuredDataNode extends Property
         if( $this->type == c\T::GROUP )
         {
             throw new e\NodeException(
-				S_SPAN . "Group cannot have text." . E_SPAN );
+                S_SPAN . "Group cannot have text." . E_SPAN );
         }
         else if( $this->items == '' ) // normal text, datetime, calendar
         {
@@ -775,7 +775,7 @@ class StructuredDataNode extends Property
                     if( $text != $this->items && $text != '' && $text != self::CHECKBOX_PREFIX )
                     {
                         throw new e\NoSuchValueException(
-                        	S_SPAN . "The value $text does not exist." . E_SPAN );
+                            S_SPAN . "The value $text does not exist." . E_SPAN );
                     }
                     else if( $text == '' || $text == self::CHECKBOX_PREFIX )
                     {

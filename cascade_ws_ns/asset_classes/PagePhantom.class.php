@@ -39,7 +39,7 @@ use cascade_ws_utility as u;
 use cascade_ws_exception as e;
 use cascade_ws_property as p;
 
-class Page extends Linkable
+class PagePhantom extends Linkable
 {
     const DEBUG = false;
     const DUMP  = false;
@@ -66,7 +66,7 @@ class Page extends Linkable
                 isset( $this->getProperty()->structuredData->structuredDataNodes->structuredDataNode )
             )
             {
-                $this->processStructuredData( $this->data_definition_id );
+                $this->processStructuredDataPhantom( $this->data_definition_id );
             }
         }
         elseif( isset( $this->getProperty()->xhtml ) )
@@ -120,7 +120,7 @@ class Page extends Linkable
         }
 
         $this->reloadProperty();
-        $this->processStructuredData( $this->data_definition_id );
+        $this->processStructuredDataPhantom( $this->data_definition_id );
         return $this;
     }
     
@@ -216,7 +216,7 @@ class Page extends Linkable
             $this->reloadProperty();
         
         if( isset( $this->data_definition_id ) && $exception )
-            $this->processStructuredData( $this->data_definition_id );
+            $this->processStructuredDataPhantom( $this->data_definition_id );
         return $this;
     }
     
@@ -612,7 +612,7 @@ class Page extends Linkable
         return $this->getProperty()->shouldBePublished;
     }
     
-    public function getStructuredData()
+    public function getStructuredDataPhantom()
     {
         $this->checkStructuredData();
         return $this->structured_data;
@@ -914,7 +914,7 @@ class Page extends Linkable
             )
             {
                 if( $exception ) // defaulted to true
-                    $this->processStructuredData( $this->data_definition_id );
+                    $this->processStructuredDataPhantom( $this->data_definition_id );
             }
         }
         else
@@ -1130,7 +1130,7 @@ class Page extends Linkable
         
         $this->edit();
         $dd_id = $this->getDataDefinition()->getId();
-        $this->processStructuredData( $dd_id );
+        $this->processStructuredDataPhantom( $dd_id );
         return $this;
     }
 
@@ -1166,7 +1166,7 @@ class Page extends Linkable
     {
         $this->checkStructuredData();
         $this->structured_data->swapData( $identifier1, $identifier2 );
-        $this->edit()->processStructuredData( $this->data_definition_id );
+        $this->edit()->processStructuredDataPhantom( $this->data_definition_id );
 
         return $this;
     }
@@ -1211,9 +1211,9 @@ class Page extends Linkable
         }
     }
 
-    private function processStructuredData( $data_definition_id )
+    private function processStructuredDataPhantom( $data_definition_id )
     {
-        $this->structured_data = new p\StructuredData( 
+        $this->structured_data = new p\StructuredDataPhantom( 
             $this->getProperty()->structuredData, 
             $this->getService(),
             $data_definition_id,

@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 1/8/2016 Added code to deal with host asset.
   * 5/28/2015 Added namespaces.
   * 2/24/2015 Added getPossibleValues.
   * 9/29/2014 Fixed in bug in edit.
@@ -30,7 +31,7 @@ class DataDefinitionBlockPhantom extends Block
     * @param $identifier the identifier object
     */
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -46,8 +47,8 @@ class DataDefinitionBlockPhantom extends Block
 
     public function appendSibling( $identifier )
     {
-		$this->checkStructuredData();
-		
+        $this->checkStructuredData();
+        
         if( self::DEBUG ) { u\DebugUtility::out( "Calling appendSibling" ); }
         $this->structured_data->appendSibling( $identifier );
         $this->edit();
@@ -57,25 +58,25 @@ class DataDefinitionBlockPhantom extends Block
     public function copyDataTo( $block )
     {
         $this->checkStructuredData();
-        $block->setStructuredData( $this->getStructuredData() );
+        $block->setStructuredData( $this->getStructuredDataPhantom() );
         return $this;
     }
     
     public function createNInstancesForMultipleField( $number, $identifier )
     {
-		$this->checkStructuredData();
+        $this->checkStructuredData();
         $number = intval( $number );
         
         if( !$number > 0 )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $number is not a number." . E_SPAN );
+                S_SPAN . "The value $number is not a number." . E_SPAN );
         }
         
         if( !$this->hasNode( $identifier ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist." . E_SPAN );
+                S_SPAN . "The node $identifier does not exist." . E_SPAN );
         }
         
         $num_of_instances  = $this->getNumberOfSiblings( $identifier );
@@ -143,15 +144,15 @@ class DataDefinitionBlockPhantom extends Block
         
         if( !$service->isSuccessful() )
         {
-        	if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $asset ); }
+            if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $asset ); }
             throw new e\EditingFailureException(
-            	S_SPAN . "Block: " . $this->getPath() . E_SPAN . BR .
+                S_SPAN . "Block: " . $this->getPath() . E_SPAN . BR .
                 c\M::EDIT_ASSET_FAILURE . $service->getMessage() );
         }
         $this->reloadProperty();
         
         if( isset( $this->getProperty()->structuredData ) )
-        	$this->processStructuredDataPhantom();
+            $this->processStructuredDataPhantom();
         return $this;
     }
     
@@ -222,13 +223,13 @@ class DataDefinitionBlockPhantom extends Block
         if( trim( $identifier ) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_IDENTIFIER . E_SPAN );
+                S_SPAN . c\M::EMPTY_IDENTIFIER . E_SPAN );
         }
         
         if( !$this->hasIdentifier( $identifier ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist." . E_SPAN );
+                S_SPAN . "The node $identifier does not exist." . E_SPAN );
         }
         return $this->structured_data->getNumberOfSiblings( $identifier );
     }
@@ -251,7 +252,7 @@ class DataDefinitionBlockPhantom extends Block
         return $this->structured_data->getPossibleValues( $identifier );
     }
     
-    public function getStructuredData()
+    public function getStructuredDataPhantom()
     {
         $this->checkStructuredData();
         return $this->structured_data;
@@ -365,7 +366,7 @@ class DataDefinitionBlockPhantom extends Block
         if( $this->hasStructuredData() )
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
         }
         
         $this->xhtml = preg_replace( $pattern, $replace, $this->xhtml );
@@ -391,7 +392,7 @@ class DataDefinitionBlockPhantom extends Block
         if( $this->hasStructuredData() )
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
         }
 
         return strpos( $this->xhtml, $string ) !== false;
@@ -457,7 +458,7 @@ class DataDefinitionBlockPhantom extends Block
         else
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_XHTML_BLOCK . E_SPAN );
         }
         return $this;
     }
@@ -473,10 +474,10 @@ class DataDefinitionBlockPhantom extends Block
 
     private function checkStructuredData()
     {
-    	if( !$this->hasStructuredData() )
+        if( !$this->hasStructuredData() )
         {
             throw new e\WrongBlockTypeException( 
-            	S_SPAN . c\M::NOT_DATA_BLOCK . E_SPAN );
+                S_SPAN . c\M::NOT_DATA_BLOCK . E_SPAN );
         }
     }
     
@@ -484,7 +485,7 @@ class DataDefinitionBlockPhantom extends Block
     {
         $this->structured_data = new p\StructuredDataPhantom( 
             $this->getProperty()->structuredData, 
-            $this->getService() );
+            $this->getService(), $this );
     }
 
     private $structured_data;

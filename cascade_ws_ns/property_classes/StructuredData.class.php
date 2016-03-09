@@ -26,11 +26,11 @@ class StructuredData extends Property
     const DEBUG = false;
 
     public function __construct( 
-    	\stdClass $sd=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data_definition_id=NULL,
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $sd=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data_definition_id=NULL,
+        $data2=NULL, 
+        $data3=NULL )
     {
         // a data definition block will have a data definition id in the sd object
         // a page will need to pass into the data definition id
@@ -49,7 +49,7 @@ class StructuredData extends Property
             }
                 
             if( isset( $sd->definitionPath ) )
-            	$this->definition_path = $sd->definitionPath;
+                $this->definition_path = $sd->definitionPath;
             // initialize the arrays
             $this->children        = array();
             $this->node_map        = array();
@@ -88,7 +88,7 @@ class StructuredData extends Property
         if( !$this->hasIdentifier( $first_node_id ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $first_node_id does not exist." . E_SPAN );
+                S_SPAN . "The node $first_node_id does not exist." . E_SPAN );
         }
         
         $first_node = $this->node_map[ $first_node_id ];
@@ -99,7 +99,7 @@ class StructuredData extends Property
         // no ;digits in the identifier
         if( strpos( $first_node_id, $field_id ) !== false )
         {
-        	if( self::DEBUG ) { u\DebugUtility::out( "non_ambiguous" ); }
+            if( self::DEBUG ) { u\DebugUtility::out( "non_ambiguous" ); }
             return $this->appendNodeToField( $field_id );
         }
         
@@ -127,13 +127,13 @@ class StructuredData extends Property
         if( !$number > 0 )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $number is not a number." . E_SPAN );
+                S_SPAN . "The value $number is not a number." . E_SPAN );
         }
         
         if( !$this->hasNode( $identifier ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist." . E_SPAN );
+                S_SPAN . "The node $identifier does not exist." . E_SPAN );
         }
         
         $num_of_instances  = $this->getNumberOfSiblings( $identifier );
@@ -169,7 +169,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         $node = $this->node_map[ $identifier ];
@@ -177,7 +177,7 @@ class StructuredData extends Property
         if( $node->getType() != c\T::ASSET )
         {
             throw new e\NodeException( 
-            	S_SPAN . "This node is not an asset node." . E_SPAN );
+                S_SPAN . "This node is not an asset node." . E_SPAN );
         }
 
         return $node->getAssetType();
@@ -185,14 +185,14 @@ class StructuredData extends Property
     
     public function getBlockId( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getBlockId();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getBlockId();
     }
     
     public function getBlockPath( $node_name )
     {
         if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getBlockPath();
+            return $this->node_map[ $node_name ]->getBlockPath();
     }
     
     public function getDataDefinition()
@@ -212,19 +212,19 @@ class StructuredData extends Property
     
     public function getFileId( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getFileId();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getFileId();
     }
     
     public function getFilePath( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getFilePath();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getFilePath();
     }
     
     public function getHostAsset()
     {
-    	return $this->host_asset;
+        return $this->host_asset;
     }
     
     public function getIdentifierNodeMap()
@@ -245,14 +245,14 @@ class StructuredData extends Property
     
     public function getLinkableId( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getLinkableId();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getLinkableId();
     }
     
     public function getLinkablePath( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getLinkablePath();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getLinkablePath();
     }
     
     public function getNode( $identifier )
@@ -260,7 +260,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
 
         return $this->node_map[ $identifier ];
@@ -271,7 +271,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
 
         return $this->node_map[ $identifier ]->getType();
@@ -291,7 +291,7 @@ class StructuredData extends Property
         if( !in_array( $node_name, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $node_name does not exist" . E_SPAN );
+                S_SPAN . "The node $node_name does not exist" . E_SPAN );
         }
         
         if( $par_id != '' )
@@ -315,32 +315,32 @@ class StructuredData extends Property
     
     public function getPageId( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getPageId();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getPageId();
     }
     
     public function getPagePath( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getPagePath();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getPagePath();
     }
     
     public function getPossibleValues( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-    		return $this->node_map[ $node_name ]->getPossibleValues();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getPossibleValues();
     }
     
     public function getSymlinkId( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getSymlinkId();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getSymlinkId();
     }
     
     public function getSymlinkPath( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getSymlinkPath();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getSymlinkPath();
     }
     
     public function getStructuredDataNode( $identifier )
@@ -348,7 +348,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ];
@@ -356,8 +356,8 @@ class StructuredData extends Property
     
     public function getText( $node_name )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	return $this->node_map[ $node_name ]->getText();
+        if( isset( $this->node_map[ $node_name ] ) )
+            return $this->node_map[ $node_name ]->getText();
     }
     
     public function getTextNodeType( $identifier )
@@ -365,7 +365,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         $node = $this->node_map[ $identifier ];
@@ -373,7 +373,7 @@ class StructuredData extends Property
         if( $node->getType() != c\T::TEXT )
         {
             throw new e\NodeException( 
-            	S_SPAN . "This node is not a text node." . E_SPAN );
+                S_SPAN . "This node is not a text node." . E_SPAN );
         }
 
         return $node->getTextType();
@@ -399,7 +399,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isAssetNode();
@@ -407,11 +407,11 @@ class StructuredData extends Property
     
     public function isIdentifierOfFirstNode( $identifier )
     {
-    	if( $this->isMultiple( $identifier ) )
-    	{
-    		return u\StringUtility::endsWith( $identifier, ";0" );
-    	}
-    	return false;
+        if( $this->isMultiple( $identifier ) )
+        {
+            return u\StringUtility::endsWith( $identifier, ";0" );
+        }
+        return false;
     }
     
     public function isGroupNode( $identifier )
@@ -419,7 +419,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isGroupNode();
@@ -430,7 +430,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isMultiLineNode();
@@ -441,7 +441,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isMultiple();
@@ -452,7 +452,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isRequired();
@@ -463,7 +463,7 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isTextNode();
@@ -474,100 +474,205 @@ class StructuredData extends Property
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $identifier does not exist" . E_SPAN );
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
         
         return $this->node_map[ $identifier ]->isWYSIWYG();
     }
     
+    private static function copyData( $source, StructuredData $target, $id )
+    {
+    	if( !$source instanceof StructuredData && !$source instanceof StructuredDataPhantom )
+    		throw new \Exception( "Wrong source type" );
+    	
+    	
+		if( $source->isTextNode( $id ) || $source->isWYSIWYG( $id ) )
+		{
+			$target->setText( $id, $source->getText( $id ) );
+				
+			if( $target->getText( $id ) == NULL )
+				$target->setText( $id, "" );
+		}
+		elseif( $source->isAssetNode( $id ) )
+		{
+			$asset_type = $source->getAssetNodeType( $id );
+			
+			switch( $asset_type )
+			{
+				case "page":
+					$page_id = $source->getPageId( $id );
+					
+					if( isset( $page_id ) )
+					{
+						$target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
+					}
+					break;
+				case "file":
+					$file_id = $source->getFileId( $id );
+					
+					if( isset( $file_id ) )
+					{
+						$target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
+					}
+					break;
+				case "block":
+					$block_id = $source->getBlockId( $id );
+					
+					if( isset( $block_id ) )
+					{
+						$target->setBlock( $id, a\Block::getBlock( $source->service, $block_id ) );
+					}
+					break;
+				case "symlink":
+					$symlink_id = $source->getSymlinkId( $id );
+					
+					if( isset( $symlink_id ) )
+					{
+						$target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
+					}
+					break;
+				case "page,file,symlink":
+					$linkable_id = $source->getLinkableId( $id );
+					
+					if( isset( $linkable_id ) )
+					{
+						$target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
+					}
+					break;
+			}
+		}
+    }
+    
     public function mapData()
     {
-    	$new_sd  = new StructuredData( 
-    		$this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
-    	$cur_ids = $this->getIdentifiers();
-    	
-    	
-    	foreach( $cur_ids as $id )
-    	{
-    		if( $this->isIdentifierOfFirstNode( $id ) )
-    		{
-    			$num_of_instances = $this->getNumberOfSiblings( $id );
-    			
-    			if( $num_of_instances > 1 )
-    			{
-    				$new_sd->createNInstancesForMultipleField( $num_of_instances, $id );
-    			}
-    		}
-    	}
-    	
-     	foreach( $cur_ids as $id )
-    	{
-    		if( $this->isTextNode( $id ) || $this->isWYSIWYG( $id ) )
-    		{
-    			$new_sd->setText( $id, $this->getText( $id ) );
-    				
-    			if( $new_sd->getText( $id ) == NULL )
-    				$new_sd->setText( $id, "" );
-    		}
-    		elseif( $this->isAssetNode( $id ) )
-    		{
-    			$asset_type = $this->getAssetNodeType( $id );
-    			
-    			switch( $asset_type )
-    			{
-    				case "page":
-    					$page_id = $this->getPageId( $id );
-    					
-    					if( isset( $page_id ) )
-    					{
-    						$new_sd->setPage( $id, $this->service->getAsset( $this->service->createId( a\Page, $page_id ) ) );
-    					}
-    					break;
-    				case "file":
-    					$file_id = $this->getFileId( $id );
-    					
-    					if( isset( $file_id ) )
-    					{
-    						$new_sd->setFile( $id, $this->service->getAsset( $this->service->createId( a\File, $file_id ) ) );
-    					}
-    					break;
-    				case "block":
-    					$block_id = $this->getBlockId( $id );
-    					
-    					if( isset( $block_id ) )
-    					{
-    						$new_sd->setBlock( $id, a\Block::getBlock( $this->service, $block_id ) );
-    					}
-    					break;
-    				case "symlink":
-    					$symlink_id = $this->getSymlinkId( $id );
-    					
-    					if( isset( $symlink_id ) )
-    					{
-    						$new_sd->setSymlink( $id, $this->service->getAsset( $this->service->createId( a\Symlink, $symlink_id ) ) );
-    					}
-    					break;
-    				case "page,file,symlink":
-    					$linkable_id = $this->getLinkableId( $id );
-    					
-    					if( isset( $linkable_id ) )
-    					{
-    						$new_sd->setLinkable( $id, a\Linkable::getLinkable( $this->service, $linkable_id ) );
-    					}
-    					break;
-    			}
-    		}
-    	}
-    	
-    	return $new_sd;
+        $new_sd  = new StructuredData( 
+            $this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
+        $cur_ids = $this->getIdentifiers();
+        
+        
+        foreach( $cur_ids as $id )
+        {
+            if( $this->isIdentifierOfFirstNode( $id ) )
+            {
+                $num_of_instances = $this->getNumberOfSiblings( $id );
+                
+                if( $num_of_instances > 1 )
+                {
+                    $new_sd->createNInstancesForMultipleField( $num_of_instances, $id );
+                }
+            }
+        }
+        
+         foreach( $cur_ids as $id )
+        {
+            if( $this->isTextNode( $id ) || $this->isWYSIWYG( $id ) )
+            {
+                $new_sd->setText( $id, $this->getText( $id ) );
+                    
+                if( $new_sd->getText( $id ) == NULL )
+                    $new_sd->setText( $id, "" );
+            }
+            elseif( $this->isAssetNode( $id ) )
+            {
+                $asset_type = $this->getAssetNodeType( $id );
+                
+                switch( $asset_type )
+                {
+                    case "page":
+                        $page_id = $this->getPageId( $id );
+                        
+                        if( isset( $page_id ) )
+                        {
+                            $new_sd->setPage( $id, $this->service->getAsset( $this->service->createId( a\Page, $page_id ) ) );
+                        }
+                        break;
+                    case "file":
+                        $file_id = $this->getFileId( $id );
+                        
+                        if( isset( $file_id ) )
+                        {
+                            $new_sd->setFile( $id, $this->service->getAsset( $this->service->createId( a\File, $file_id ) ) );
+                        }
+                        break;
+                    case "block":
+                        $block_id = $this->getBlockId( $id );
+                        
+                        if( isset( $block_id ) )
+                        {
+                            $new_sd->setBlock( $id, a\Block::getBlock( $this->service, $block_id ) );
+                        }
+                        break;
+                    case "symlink":
+                        $symlink_id = $this->getSymlinkId( $id );
+                        
+                        if( isset( $symlink_id ) )
+                        {
+                            $new_sd->setSymlink( $id, $this->service->getAsset( $this->service->createId( a\Symlink, $symlink_id ) ) );
+                        }
+                        break;
+                    case "page,file,symlink":
+                        $linkable_id = $this->getLinkableId( $id );
+                        
+                        if( isset( $linkable_id ) )
+                        {
+                            $new_sd->setLinkable( $id, a\Linkable::getLinkable( $this->service, $linkable_id ) );
+                        }
+                        break;
+                }
+            }
+        }
+        
+        return $new_sd;
     }
+    
+    public function removePhantomNodes( StructuredDataPhantom $sdp )
+    {
+        $new_sd  = new StructuredData( 
+            $this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
+        $sdp_ids = $sdp->getIdentifiers();
+        
+        foreach( $sdp_ids as $id )
+        {
+            try
+            {
+                if( $this->isIdentifierOfFirstNode( $id ) )
+                {
+                    $num_of_instances = $this->getNumberOfSiblings( $id );
+                
+                    if( $num_of_instances > 1 )
+                    {
+                        $new_sd->createNInstancesForMultipleField( $num_of_instances, $id );
+                    }
+                }
+            }
+            catch( e\NodeException $e )
+            {
+            	echo $id, BR;
+            	continue; // skip phantom nodes
+            }
+        }
+
+        foreach( $sdp_ids as $id )
+        {
+            try
+            {
+				self::copyData( $sdp, $new_sd, $id );
+			}
+			catch( e\NodeException $e )
+            {
+            	continue; // skip phantom nodes
+            }
+        }
+        return $new_sd;
+    }
+
     
     public function removeLastSibling( $first_node_id )
     {
         if( !$this->hasIdentifier( $first_node_id ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $first_node_id does not exist." . E_SPAN );
+                S_SPAN . "The node $first_node_id does not exist." . E_SPAN );
         }
         
         $first_node = $this->node_map[ $first_node_id ];
@@ -709,11 +814,11 @@ class StructuredData extends Property
     
     public function setBlock( $node_name, a\Block $block=NULL )
     {
-    	if( self::DEBUG ) { u\DebugUtility::dump( $block ); }
-    	if( self::DEBUG ) { u\DebugUtility::out( $node_name ); }
-    	
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	$this->node_map[ $node_name ]->setBlock( $block );
+        if( self::DEBUG ) { u\DebugUtility::dump( $block ); }
+        if( self::DEBUG ) { u\DebugUtility::out( $node_name ); }
+        
+        if( isset( $this->node_map[ $node_name ] ) )
+            $this->node_map[ $node_name ]->setBlock( $block );
         return $this;
     }
     
@@ -726,36 +831,36 @@ class StructuredData extends Property
     
     public function setFile( $node_name, a\File $file=NULL )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	$this->node_map[ $node_name ]->setFile( $file );
+        if( isset( $this->node_map[ $node_name ] ) )
+            $this->node_map[ $node_name ]->setFile( $file );
         return $this;
     }
     
     public function setLinkable( $node_name, a\Linkable $linkable=NULL )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	$this->node_map[ $node_name ]->setLinkable( $linkable );
+        if( isset( $this->node_map[ $node_name ] ) )
+            $this->node_map[ $node_name ]->setLinkable( $linkable );
         return $this;
     }
     
     public function setPage( $node_name, a\Page $page=NULL )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	$this->node_map[ $node_name ]->setPage( $page );
+        if( isset( $this->node_map[ $node_name ] ) )
+            $this->node_map[ $node_name ]->setPage( $page );
         return $this;
     }
     
     public function setSymlink( $node_name, a\Symlink $symlink=NULL )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	$this->node_map[ $node_name ]->setSymlink( $symlink );
+        if( isset( $this->node_map[ $node_name ] ) )
+            $this->node_map[ $node_name ]->setSymlink( $symlink );
         return $this;
     }
     
     public function setText( $node_name, $text )
     {
-    	if( isset( $this->node_map[ $node_name ] ) )
-        	$this->node_map[ $node_name ]->setText( $text );
+        if( isset( $this->node_map[ $node_name ] ) )
+            $this->node_map[ $node_name ]->setText( $text );
         return $this;
     }
     
@@ -764,13 +869,13 @@ class StructuredData extends Property
         if( !$this->hasIdentifier( $node_name1 ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $node_name1 does not exists." . E_SPAN );
+                S_SPAN . "The node $node_name1 does not exists." . E_SPAN );
         }
         
         if( !$this->hasIdentifier( $node_name2 ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The node $node_name2 does not exists." . E_SPAN );
+                S_SPAN . "The node $node_name2 does not exists." . E_SPAN );
         }
         
         // must be siblings
@@ -778,7 +883,7 @@ class StructuredData extends Property
             StructuredDataNode::removeLastIndex( $node_name2 ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The nodes $node_name1 and $node_name2 are not siblings." . E_SPAN );
+                S_SPAN . "The nodes $node_name1 and $node_name2 are not siblings." . E_SPAN );
         }
         
         $par_id     = $this->node_map[ $node_name1 ]->getParentId();
@@ -787,7 +892,7 @@ class StructuredData extends Property
         $node2_data = $this->node_map[ $node_name2 ]->toStdClass();
         
         if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: $par_id" . 
-        	BR . "Node 1: $node_name1" . BR . "Node 2: $node_name2" ); }
+            BR . "Node 1: $node_name1" . BR . "Node 2: $node_name2" ); }
         
         if( $par_id != '' )
             $siblings = $this->node_map[ $par_id ]->getChildren();
@@ -800,7 +905,7 @@ class StructuredData extends Property
         
         for( $i = 0; $i < $sibling_count; $i++ )
         {
-        	if( self::DEBUG ) { u\DebugUtility::out( $siblings[ $i ]->getIdentifier() ); }
+            if( self::DEBUG ) { u\DebugUtility::out( $siblings[ $i ]->getIdentifier() ); }
             
             // find the two positions
             if( $siblings[ $i ]->getIdentifier() == $node_name1 )
@@ -826,7 +931,7 @@ class StructuredData extends Property
         if( $par_id != '' )
         {
             $this->node_map[ $par_id ]->swapChildren( 
-            	$node_pos1, $new_node1, $node_pos2, $new_node2 );
+                $node_pos1, $new_node1, $node_pos2, $new_node2 );
         }
         else
         {
@@ -874,8 +979,8 @@ class StructuredData extends Property
     
     private function appendNodeToField( $field_name )
     {
-		if( self::DEBUG ) { u\DebugUtility::out( $field_name ); }
-		//echo $field_name . BR;
+        if( self::DEBUG ) { u\DebugUtility::out( $field_name ); }
+        //echo $field_name . BR;
 
         if( !$this->data_definition->hasIdentifier( $field_name ) )
         {
@@ -886,7 +991,7 @@ class StructuredData extends Property
         if( !$this->data_definition->isMultiple( $field_name ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The field $field_name is not multiple." . E_SPAN );
+                S_SPAN . "The field $field_name is not multiple." . E_SPAN );
         }
         
         // get the parent id through the first node
@@ -939,7 +1044,7 @@ class StructuredData extends Property
         if( !$this->data_definition->isMultiple( $field_name ) )
         {
             throw new e\NodeException( 
-            	S_SPAN . "The field $field_name is not multiple." . E_SPAN );
+                S_SPAN . "The field $field_name is not multiple." . E_SPAN );
         }
     
         $first_node = $this->getNode( $field_name . a\DataDefinition::DELIMITER . '0' );
@@ -954,7 +1059,7 @@ class StructuredData extends Property
             if( $first_pos == $last_pos ) // the only node
             {
                 throw new e\NodeException( 
-                	S_SPAN . "Cannot remove the only node in the field." . E_SPAN );
+                    S_SPAN . "Cannot remove the only node in the field." . E_SPAN );
             }
             
             $child_count = count( $this->children );

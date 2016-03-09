@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 12/23/2015 Fixed a bug in addChildNode.
   * 5/28/2015 Added namespaces.
   * 2/24/2015 Added getPossibleValues.
   * 2/24/2015 Fixed a bug in setText. Added tests of $this->required to deal with empty strings or NULL.
@@ -51,7 +52,7 @@ class StructuredDataNodePhantom extends Property
             
             // check if this is a multiple field
             $field_identifier = self::getFieldIdentifier( $this->identifier );
-            //$field            = $this->data_definition->getField( $field_identifier );
+            $field            = $this->data_definition->getField( $field_identifier );
             
             if( isset( $field[ 'multiple' ] ) )
             {
@@ -158,27 +159,28 @@ class StructuredDataNodePhantom extends Property
         if( $this->structured_data_nodes == NULL )
         {
             throw new e\NodeException(
-				S_SPAN . "Cannot add a node to a node that has no children." . E_SPAN );
+                S_SPAN . "Cannot add a node to a node that has no children." . E_SPAN );
         }
         
         // remove digits and semi-colons, turning node id to field id
         $field_id = self::getFieldIdentifier( $node_id );
-    	if( self::DEBUG ) { u\DebugUtility::out( "Node ID: " . $node_id . BR . "Field ID: " . $field_id ); }
+        if( self::DEBUG ) { u\DebugUtility::out( "Node ID: " . $node_id . BR . "Field ID: " . $field_id ); }
         
         if( !$this->data_definition->isMultiple( $field_id ) )
         {
             throw new e\NodeException(
-				S_SPAN . "Cannot add a node to a non-multiple field." . E_SPAN );
+                S_SPAN . "Cannot add a node to a non-multiple field." . E_SPAN );
         }
         
         //$child_count = count( $this->structured_data_nodes );
         $last_pos    = self::getPositionOfLastNode( $this->structured_data_nodes, $node_id );
-    	if( self::DEBUG ) { u\DebugUtility::out( "Last position: " . $last_pos ); }
+        if( self::DEBUG ) { u\DebugUtility::out( "Last position: " . $last_pos ); }
         
         // create a copy of the last sibling
         $cloned_node = $this->structured_data_nodes[ $last_pos ]->cloneNode();
-    	if( self::DEBUG ) { u\DebugUtility::dump( $cloned_node->toStdClass() ); }
+        if( self::DEBUG ) { u\DebugUtility::dump( $cloned_node->toStdClass() ); }
 
+/*
         // new node to be inserted in the middle
         if( $child_count > $last_pos + 1 )
         {
@@ -188,8 +190,11 @@ class StructuredDataNodePhantom extends Property
         }
         else // new node appended at the end
         {
-            $this->structured_data_nodes[] = $cloned_node;
+*/
+        $this->structured_data_nodes[] = $cloned_node;
+/*
         }
+*/
         
         $this->node_map = array_merge( 
             $this->node_map, array( $cloned_node->getIdentifier() => $cloned_node ) );
@@ -200,7 +205,7 @@ class StructuredDataNodePhantom extends Property
     public function cloneNode()
     {
         // clone the calling node
-    	if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: " . $this->parent_id ); }
+        if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: " . $this->parent_id ); }
         
         $clone_obj = new StructuredDataNode( 
             $this->toStdClass(), NULL, $this->data_definition, 0, $this->parent_id );
@@ -208,12 +213,12 @@ class StructuredDataNodePhantom extends Property
         
         // work out the new identifier
         $this_identifier       = $this->identifier;
-    	if( self::DEBUG ) { u\DebugUtility::out( $this_identifier ); }
+        if( self::DEBUG ) { u\DebugUtility::out( $this_identifier ); }
         $index                 = self::getLastIndex( $this->identifier ) + 1;
         $clone_identifier      = self::removeLastIndex( $this->identifier ) . 
                                  self::DELIMITER . $index;
         $clone_obj->identifier = $clone_identifier;
-    	if( self::DEBUG ) { u\DebugUtility::out( $clone_identifier ); }
+        if( self::DEBUG ) { u\DebugUtility::out( $clone_identifier ); }
         
         return $clone_obj;
     }
@@ -436,25 +441,25 @@ class StructuredDataNodePhantom extends Property
         if( $this->structured_data_nodes == NULL )
         {
             throw new e\NodeException(
-				S_SPAN . "Cannot remove a node from a node that has no children." . E_SPAN );
+                S_SPAN . "Cannot remove a node from a node that has no children." . E_SPAN );
         }
         
         // remove digits and semi-colons
         $field_id = self::getFieldIdentifier( $node_id );
-    	if( self::DEBUG ) { u\DebugUtility::out( "Field ID: " . $field_id ); }
+        if( self::DEBUG ) { u\DebugUtility::out( "Field ID: " . $field_id ); }
         if( !$this->data_definition->isMultiple( $field_id ) )
             throw new e\NodeException(
-				S_SPAN . "Cannot remove a node from a non-multiple field." . E_SPAN );
+                S_SPAN . "Cannot remove a node from a non-multiple field." . E_SPAN );
 
         $last_pos     = self::getPositionOfLastNode( $this->structured_data_nodes, $node_id );
         $first_pos    = self::getPositionOfFirstNode( $this->structured_data_nodes, $node_id );
-    	if( self::DEBUG ) { u\DebugUtility::out( "First position: " . $first_pos . BR . "Last position: " . $last_pos ); }
+        if( self::DEBUG ) { u\DebugUtility::out( "First position: " . $first_pos . BR . "Last position: " . $last_pos ); }
         $last_node_id = $this->structured_data_nodes[ $last_pos ]->getIdentifier();
-    	if( self::DEBUG ) { u\DebugUtility::out( "Last node ID: " . $last_node_id ); }
+        if( self::DEBUG ) { u\DebugUtility::out( "Last node ID: " . $last_node_id ); }
             
         if( $first_pos == $last_pos ) // the only node
             throw new e\NodeException(
-				S_SPAN . "Cannot remove the only node in the field." . E_SPAN );
+                S_SPAN . "Cannot remove the only node in the field." . E_SPAN );
         
         $child_count = count( $this->structured_data_nodes ); // total children
     
@@ -489,7 +494,7 @@ class StructuredDataNodePhantom extends Property
         if( $this->asset_type != c\T::BLOCK )
         {
             throw new e\NodeException(
-				S_SPAN . "The asset does not accept a block." . E_SPAN );
+                S_SPAN . "The asset does not accept a block." . E_SPAN );
         }
         
         if( isset( $block ) )
@@ -518,7 +523,7 @@ class StructuredDataNodePhantom extends Property
         if( $this->asset_type != c\T::FILE )
         {
             throw new e\NodeException(
-				S_SPAN . "The asset does not accept a file." . E_SPAN );
+                S_SPAN . "The asset does not accept a file." . E_SPAN );
         }
         
         if( isset( $file ) )
@@ -547,7 +552,7 @@ class StructuredDataNodePhantom extends Property
         if( $this->asset_type != c\T::PFS )
         {
             throw new e\NodeException(
-				S_SPAN . "The asset does not accept a linkable." . E_SPAN );
+                S_SPAN . "The asset does not accept a linkable." . E_SPAN );
         }
         
         if( isset( $linkable ) )
@@ -607,7 +612,7 @@ class StructuredDataNodePhantom extends Property
         if( $this->asset_type != c\T::PAGE )
         {
             throw new e\NodeException(
-				S_SPAN . "The asset does not accept a page." . E_SPAN );
+                S_SPAN . "The asset does not accept a page." . E_SPAN );
         }
         
         if( isset( $page ) )
@@ -636,7 +641,7 @@ class StructuredDataNodePhantom extends Property
         if( $this->asset_type != c\T::SYMLINK )
         {
             throw new e\NodeException(
-				S_SPAN . "The asset does not accept a symlink." . E_SPAN );
+                S_SPAN . "The asset does not accept a symlink." . E_SPAN );
         }
         
         if( isset( $symlink ) )
@@ -668,7 +673,7 @@ class StructuredDataNodePhantom extends Property
         if( $this->type == c\T::GROUP )
         {
             throw new e\NodeException(
-				S_SPAN . "Group cannot have text." . E_SPAN );
+                S_SPAN . "Group cannot have text." . E_SPAN );
         }
         else if( $this->items == '' ) // normal text, datetime, calendar
         {
@@ -768,7 +773,7 @@ class StructuredDataNodePhantom extends Property
                     if( $text != $this->items && $text != '' && $text != self::CHECKBOX_PREFIX )
                     {
                         throw new e\NoSuchValueException(
-                        	S_SPAN . "The value $text does not exist." . E_SPAN );
+                            S_SPAN . "The value $text does not exist." . E_SPAN );
                     }
                     else if( $text == '' || $text == self::CHECKBOX_PREFIX )
                     {
@@ -784,7 +789,7 @@ class StructuredDataNodePhantom extends Property
                     if( $text != "" && !in_array( $text, $item_array ) )
                     {
                         throw new e\NoSuchValueException(
-                        	S_SPAN . "The value $text does not exist." . E_SPAN );
+                            S_SPAN . "The value $text does not exist." . E_SPAN );
                     }
                     $this->text = $text;
                 }
@@ -1004,10 +1009,10 @@ class StructuredDataNodePhantom extends Property
         
         for( $i = $child_count - 1; $i > 0; $i-- )
         {
-			if( self::DEBUG ) { u\DebugUtility::out( "Child ID: " . $array[ $i ]->getIdentifier() ); }            
+            if( self::DEBUG ) { u\DebugUtility::out( "Child ID: " . $array[ $i ]->getIdentifier() ); }            
             if( strpos( $array[ $i ]->getIdentifier(), $shared_id ) !== false )
             {
-            	if( self::DEBUG ) { u\DebugUtility::out( "Found in $i" ); }  
+                if( self::DEBUG ) { u\DebugUtility::out( "Found in $i" ); }  
                 break;
             }
         }
@@ -1015,7 +1020,7 @@ class StructuredDataNodePhantom extends Property
     }
     
     public static function processStructuredDataNodePhantom( 
-    	$parent_id, &$node_array, $node_std, $data_definition )
+        $parent_id, &$node_array, $node_std, $data_definition )
     {
         if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: " . $parent_id ); }  
         
@@ -1055,35 +1060,44 @@ class StructuredDataNodePhantom extends Property
                 $fq_identifier = 
                     $temp . self::DELIMITER . $node_std[$i]->identifier;
             }
-        
-            //$is_multiple         = $data_definition->isMultiple( $fq_identifier );
-			if( isset( $current_identifier ) )
-            	$previous_identifier = $current_identifier;
+            
+            try
+            {
+            	$is_multiple = $data_definition->isMultiple( $fq_identifier );
+			}
+			catch( e\NoSuchFieldException $e )
+			{
+				self::$phantoms[] = $fq_identifier;
+				continue;
+			}
+            
+            if( isset( $current_identifier ) )
+                $previous_identifier = $current_identifier;
             $current_identifier  = $node_std[$i]->identifier;
             
             // a multiple text or group, work out fully qualified identifier
-            if( $is_multiple )
-            {
-            	// an old one, keep counting
-                if( isset( $previous_identifier ) && $previous_identifier == $current_identifier ) 
-                {
-                    $cur_index++;
-                }
-                else // a new one, start from 0 again
-                {
-                    $cur_index = 0;
-                }
-            }
+			if( $is_multiple )
+			{
+				// an old one, keep counting
+				if( isset( $previous_identifier ) && $previous_identifier == $current_identifier ) 
+				{
+					$cur_index++;
+				}
+				else // a new one, start from 0 again
+				{
+					$cur_index = 0;
+				}
+			}
             
             if( $parent_id != '' )
             {
                 $n = new StructuredDataNodePhantom( 
-                	$node_std[$i], NULL, $data_definition, $cur_index, $parent_id );
+                    $node_std[$i], NULL, $data_definition, $cur_index, $parent_id );
             }
             else
             {
                 $n = new StructuredDataNodePhantom( 
-                	$node_std[$i], NULL, $data_definition, $cur_index );
+                    $node_std[$i], NULL, $data_definition, $cur_index );
             }
             
             $n->parent_id = $parent_id;
@@ -1095,6 +1109,11 @@ class StructuredDataNodePhantom extends Property
     public static function removeLastIndex( $node_id )
     {
         return preg_replace( '/;(\d)+$/', '', $node_id );
+    }
+    
+    public static function getPhantomIdentifiers()
+    {
+    	return self::$phantoms;
     }
 
     private $type;                  // asset, group, text
@@ -1121,5 +1140,6 @@ class StructuredDataNodePhantom extends Property
     private $wysiwyg;   // whether this is a wysiwyg
     private $data_definition;
     private $node_map;
+    private static $phantoms = array();
 }
 ?>
