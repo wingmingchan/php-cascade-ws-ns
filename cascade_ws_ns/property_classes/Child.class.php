@@ -22,11 +22,11 @@ use cascade_ws_exception as e;
 class Child extends Property
 {
     public function __construct(
-    	\stdClass $c=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $c=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $c ) )
         {
@@ -38,11 +38,11 @@ class Child extends Property
             $this->type     = $c->type;
             
             if( isset( $c->recycled ) )
-            	$this->recycled = $c->recycled;
+                $this->recycled = $c->recycled;
         }
         else
         {
-        	throw new e\NullIdentifierException( c\M::NULL_IDENTIFIER );
+            throw new e\NullIdentifierException( c\M::NULL_IDENTIFIER );
         }
     }
     
@@ -59,11 +59,11 @@ class Child extends Property
             throw new e\NullServiceException( c\M::NULL_SERVICE );
             
         if( isset( $this->id ) )
-        	return a\Asset::getAsset( $service, $this->type, $this->id );
+            return a\Asset::getAsset( $service, $this->type, $this->id );
         else
-        	return a\Asset::getAsset( 
-        		$service, 
-        		$this->type, $this->path->getPath(), $this->path->getSiteName() );
+            return a\Asset::getAsset( 
+                $service, 
+                $this->type, $this->path->getPath(), $this->path->getSiteName() );
     }
     
     public function getId()
@@ -78,8 +78,8 @@ class Child extends Property
     
     public function getPathPath()
     {
-    	if( isset( $this->path ) )
-        	return $this->path->getPath();
+        if( isset( $this->path ) )
+            return $this->path->getPath();
     }
     
     public function getPathSiteId()
@@ -89,8 +89,8 @@ class Child extends Property
     
     public function getPathSiteName()
     {
-    	if( isset( $this->path ) )
-        	return $this->path->getSiteName();
+        if( isset( $this->path ) )
+            return $this->path->getSiteName();
     }
     
     public function getRecycled()
@@ -114,11 +114,11 @@ class Child extends Property
         $obj           = new \stdClass();
         
         if( isset( $this->id ) )
-        	$obj->id   = $this->id;
+            $obj->id   = $this->id;
         
         if( isset( $this->path ) )
-        	$obj->path = $this->path->toStdClass();
-        	
+            $obj->path = $this->path->toStdClass();
+            
         $obj->type     = $this->type;
         $obj->recycled = $this->recycled;
         return $obj;
@@ -126,15 +126,15 @@ class Child extends Property
     
     public function toXml( $indent, aohs\AssetOperationHandlerService $service )
     {
-    	if( isset( $service ) )
-    	{
-    		$asset = $this->getAsset( $service );
-    		
-    		if( method_exists( $asset, "getLastModifiedDate" ) )
-    		{
-    			$lastmod = $asset->getLastModifiedDate();
-    		}
-    	}
+        if( isset( $service ) )
+        {
+            $asset = $this->getAsset( $service );
+            
+            if( method_exists( $asset, "getLastModifiedDate" ) )
+            {
+                $lastmod = $asset->getLastModifiedDate();
+            }
+        }
         return $indent . "<" . $this->type . " path=\"" .
             $this->path->getPath() . "\" id=\"" . $this->id . "\"" .
             ( isset( $lastmod ) ? " lastmod=\"" . $lastmod : ""  ) .

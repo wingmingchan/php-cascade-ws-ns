@@ -16,11 +16,11 @@ use cascade_ws_exception as e;
 class PossibleValue extends Property
 {
     public function __construct( 
-    	\stdClass $v=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $v=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         // could be NULL for text
         if( isset( $v ) )
@@ -29,13 +29,13 @@ class PossibleValue extends Property
                 $v->value == '' )
             {
                 throw new e\EmptyValueException(
-                	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                    S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
             }
                 
             if( !c\BooleanValues::isBoolean( $v->selectedByDefault ) )
             {
                 throw new e\UnacceptableValueException( 
-                	S_SPAN . "The value " . $v->selectedByDefault .
+                    S_SPAN . "The value " . $v->selectedByDefault .
                     " must be a boolean." . E_SPAN );
             }
             
@@ -58,7 +58,7 @@ class PossibleValue extends Property
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->selected_by_default = $bool;
         return $this;
@@ -68,7 +68,7 @@ class PossibleValue extends Property
     {
         if( $this->value == NULL || $this->value == '' )
             throw new e\EmptyValueException(
-                	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                    S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
             
         $obj                    = new \stdClass();
         $obj->value             = $this->value;

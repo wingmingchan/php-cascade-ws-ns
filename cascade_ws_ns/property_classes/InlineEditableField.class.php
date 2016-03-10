@@ -23,11 +23,11 @@ class InlineEditableField extends Property
     const INLINE_XHTML            = c\T::XHTML;
     
     public function __construct( 
-    	\stdClass $ief=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $ief=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $ief ) )
         {

@@ -20,7 +20,7 @@ class TriggerDefinition
         if( $trigger_xml == NULL )
         {
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_XML . E_SPAN );
+                S_SPAN . c\M::EMPTY_XML . E_SPAN );
         }
 
         $this->trigger_xml = $trigger_xml;

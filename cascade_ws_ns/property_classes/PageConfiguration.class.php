@@ -31,43 +31,43 @@ class PageConfiguration extends Property
     const DATA_TYPE_CSS  = 'CSS';
     
     public function __construct( 
-    	\stdClass $configuration=NULL, 
+        \stdClass $configuration=NULL, 
         aohs\AssetOperationHandlerService $service=NULL, 
         $type=NULL,
-    	$data2=NULL, 
-    	$data3=NULL )
+        $data2=NULL, 
+        $data3=NULL )
     {
-    	if( isset( $configuration ) )
-    	{
-			$this->id                      = $configuration->id;
-			$this->name                    = $configuration->name;
-			$this->default_configuration   = $configuration->defaultConfiguration;
-			$this->template_id             = $configuration->templateId;
-			$this->template_path           = $configuration->templatePath;
-			$this->format_id               = $configuration->formatId;
-			$this->format_path             = $configuration->formatPath;
-			$this->format_recycled         = $configuration->formatRecycled;
-			$this->output_extension        = $configuration->outputExtension;
-			$this->serialization_type      = $configuration->serializationType;
-			$this->include_xml_declaration = $configuration->includeXMLDeclaration;
-			$this->publishable             = $configuration->publishable;
-			$this->service                 = $service;
-		
-			$this->page_regions            = array(); // order page regions
-			$this->page_region_map         = array(); // name->page region map
+        if( isset( $configuration ) )
+        {
+            $this->id                      = $configuration->id;
+            $this->name                    = $configuration->name;
+            $this->default_configuration   = $configuration->defaultConfiguration;
+            $this->template_id             = $configuration->templateId;
+            $this->template_path           = $configuration->templatePath;
+            $this->format_id               = $configuration->formatId;
+            $this->format_path             = $configuration->formatPath;
+            $this->format_recycled         = $configuration->formatRecycled;
+            $this->output_extension        = $configuration->outputExtension;
+            $this->serialization_type      = $configuration->serializationType;
+            $this->include_xml_declaration = $configuration->includeXMLDeclaration;
+            $this->publishable             = $configuration->publishable;
+            $this->service                 = $service;
+        
+            $this->page_regions            = array(); // order page regions
+            $this->page_region_map         = array(); // name->page region map
 
-			// test added 8/16/2014
-			if( isset( $configuration->pageRegions ) && isset( $configuration->pageRegions->pageRegion ) )
-				a\Template::processPageRegions( 
-					$configuration->pageRegions->pageRegion, 
-					$this->page_regions, 
-					$this->page_region_map,
-					$service );
-			
-			if( isset( $type ) && $type == c\T::PAGE )
-			{
-				$this->type = c\T::PAGE;
-			}
+            // test added 8/16/2014
+            if( isset( $configuration->pageRegions ) && isset( $configuration->pageRegions->pageRegion ) )
+                a\Template::processPageRegions( 
+                    $configuration->pageRegions->pageRegion, 
+                    $this->page_regions, 
+                    $this->page_region_map,
+                    $service );
+            
+            if( isset( $type ) && $type == c\T::PAGE )
+            {
+                $this->type = c\T::PAGE;
+            }
         }
     }
     
@@ -270,7 +270,7 @@ class PageConfiguration extends Property
         if( $ext == '' )
         {
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_FILE_EXTENSION . E_SPAN );
+                S_SPAN . c\M::EMPTY_FILE_EXTENSION . E_SPAN );
         }
         // garbage in, garbage out
         $this->output_extension = $ext;
@@ -284,7 +284,7 @@ class PageConfiguration extends Property
         if( !in_array( $page_region_name, $regions ) )
         {
             throw new e\NoSuchPageRegionException(
-            	S_SPAN . "The page region $page_region_name does not exist." . E_SPAN );
+                S_SPAN . "The page region $page_region_name does not exist." . E_SPAN );
         }
         
         if( !isset( $this->page_region_map[ $page_region_name ] ) )
@@ -302,7 +302,7 @@ class PageConfiguration extends Property
         if( !in_array( $page_region_name, $regions ) )
         {
             throw new e\NoSuchPageRegionException(
-            	S_SPAN . "The page region $page_region_name does not exist." . E_SPAN );
+                S_SPAN . "The page region $page_region_name does not exist." . E_SPAN );
         }
         
         if( !isset( $this->page_region_map[ $page_region_name ] ) )
@@ -390,12 +390,12 @@ class PageConfiguration extends Property
         {
             if( $region_count == 1 )
             {
-            	$obj->pageRegions = new \stdClass();
+                $obj->pageRegions = new \stdClass();
                 $obj->pageRegions->pageRegion = $this->page_regions[0]->toStdClass();
             }
             else
             {
-            	$obj->pageRegions = new \stdClass();
+                $obj->pageRegions = new \stdClass();
                 $obj->pageRegions->pageRegion = array();
         
                 foreach( $this->page_regions as $region )
@@ -422,7 +422,7 @@ class PageConfiguration extends Property
         if( !isset( $this->page_region_map[ $name ] ) )
         {
             throw new e\NoSuchPageRegionException(
-            	S_SPAN . "The page region $name does not exist." . E_SPAN );
+                S_SPAN . "The page region $name does not exist." . E_SPAN );
         }
     }
 

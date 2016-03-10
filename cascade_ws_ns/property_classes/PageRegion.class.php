@@ -21,27 +21,27 @@ class PageRegion extends Property
     const DUMP  = false;
     
     public function __construct( 
-    	\stdClass $region=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $region=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
-    	if( isset( $region ) )
-    	{
-			$this->id              = $region->id;
-			$this->name            = $region->name;
-			$this->block_id        = $region->blockId; // NULL
-			$this->block_path      = $region->blockPath; // NULL
-			$this->block_recycled  = $region->blockRecycled;
-			$this->no_block        = $region->noBlock;
-			$this->format_id       = $region->formatId; // NULL
-			$this->format_path     = $region->formatPath; // NULL
-			$this->format_recycled = $region->formatRecycled;
-			$this->no_format       = $region->noFormat;
-			$this->service         = $service;
-		
-			if( self::DEBUG ) { u\DebugUtility::out( "Block ID: " . $this->block_id ); }
+        if( isset( $region ) )
+        {
+            $this->id              = $region->id;
+            $this->name            = $region->name;
+            $this->block_id        = $region->blockId; // NULL
+            $this->block_path      = $region->blockPath; // NULL
+            $this->block_recycled  = $region->blockRecycled;
+            $this->no_block        = $region->noBlock;
+            $this->format_id       = $region->formatId; // NULL
+            $this->format_path     = $region->formatPath; // NULL
+            $this->format_recycled = $region->formatRecycled;
+            $this->no_format       = $region->noFormat;
+            $this->service         = $service;
+        
+            if( self::DEBUG ) { u\DebugUtility::out( "Block ID: " . $this->block_id ); }
         }
     }
     
@@ -137,11 +137,11 @@ class PageRegion extends Property
     {
         if( !c\BooleanValues::isBoolean( $block_recycled ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $block_recycled must be a boolean." . E_SPAN );
+                S_SPAN . "The value $block_recycled must be a boolean." . E_SPAN );
             
         if( !c\BooleanValues::isBoolean( $no_block ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $no_block must be a boolean." . E_SPAN );
+                S_SPAN . "The value $no_block must be a boolean." . E_SPAN );
             
         if( isset( $b ) )
         {
@@ -153,7 +153,7 @@ class PageRegion extends Property
             else
             {
                 throw new e\NullAssetException(
-            		S_SPAN . "The block " . $b->getName() . " does not exist." . E_SPAN );
+                    S_SPAN . "The block " . $b->getName() . " does not exist." . E_SPAN );
             }
             
             $this->block_recycled = $block_recycled;
@@ -171,11 +171,11 @@ class PageRegion extends Property
     {
         if( !c\BooleanValues::isBoolean( $format_recycled ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $format_recycled must be a boolean." . E_SPAN );
+                S_SPAN . "The value $format_recycled must be a boolean." . E_SPAN );
             
         if( !c\BooleanValues::isBoolean( $no_format ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $no_format must be a boolean." . E_SPAN );
+                S_SPAN . "The value $no_format must be a boolean." . E_SPAN );
             
         if( isset( $f ) )
         {
@@ -187,7 +187,7 @@ class PageRegion extends Property
             else
             {
                 throw new e\NullAssetException(
-            		S_SPAN . "The format " . $f->getName() . " does not exist." . E_SPAN );
+                    S_SPAN . "The format " . $f->getName() . " does not exist." . E_SPAN );
             }
             
             $this->format_recycled = $format_recycled;
@@ -205,7 +205,7 @@ class PageRegion extends Property
     {
         if( !c\BooleanValues::isBoolean( $value ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $value must be a boolean." . E_SPAN );
+                S_SPAN . "The value $value must be a boolean." . E_SPAN );
         $this->no_block = $value;
         return $this;
     }
@@ -214,7 +214,7 @@ class PageRegion extends Property
     {
         if( !c\BooleanValues::isBoolean( $value ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $value must be a boolean." . E_SPAN );
+                S_SPAN . "The value $value must be a boolean." . E_SPAN );
             
         $this->no_format = $value;
         return $this;

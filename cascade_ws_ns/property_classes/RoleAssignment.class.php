@@ -19,11 +19,11 @@ class RoleAssignment extends Property
     const DELIMITER = ',';
 
     public function __construct( 
-    	\stdClass $ra=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $ra=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $ra ) )
         {
@@ -38,7 +38,7 @@ class RoleAssignment extends Property
     {
         if( $g == NULL )
             throw new e\NullAssetException(
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
     
         $g_name      = $g->getName();
         $group_array = explode( self::DELIMITER, $this->groups );
@@ -66,8 +66,8 @@ class RoleAssignment extends Property
     {
         if( $u == NULL )
             throw new e\NullAssetException(
-            	S_SPAN . c\M::NULL_USER . E_SPAN );
-            	
+                S_SPAN . c\M::NULL_USER . E_SPAN );
+                
         $u_name     = $u->getName();
         $user_array = explode( self::DELIMITER, $this->users );
         $temp       = array();

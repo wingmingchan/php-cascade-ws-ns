@@ -17,11 +17,11 @@ use cascade_ws_exception as e;
 class GlobalAbilities extends Abilities
 {
     public function __construct( 
-    	\stdClass $a=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $a=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $a ) )
         {
@@ -546,7 +546,7 @@ class GlobalAbilities extends Abilities
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
     }
     
     private $access_site_management;

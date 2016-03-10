@@ -398,24 +398,24 @@ class StructuredData extends Property
     
     public function hasPhantomNodes() // detects phantom nodes of type B
     {
-    	$dd_ids   = $this->data_definition->getIdentifiers();
-    	$sd_ids   = $this->getIdentifiers();
-    	$temp_ids = array();
-    	
-    	foreach( $sd_ids as $id )
-    	{
-    		$temp_ids[] = u\StringUtility::getFullyQualifiedIdentifierWithoutPositions( $id );
-    	}
-    	
-    	foreach( $dd_ids as $id )
-    	{
-    		if( !in_array( $id, $temp_ids ) )
-    		{
-    			echo "Phantom node identifier: ", $id, BR;
-    			return true;
-    		}
-    	}
-    	return false;
+        $dd_ids   = $this->data_definition->getIdentifiers();
+        $sd_ids   = $this->getIdentifiers();
+        $temp_ids = array();
+        
+        foreach( $sd_ids as $id )
+        {
+            $temp_ids[] = u\StringUtility::getFullyQualifiedIdentifierWithoutPositions( $id );
+        }
+        
+        foreach( $dd_ids as $id )
+        {
+            if( !in_array( $id, $temp_ids ) )
+            {
+                echo "Phantom node identifier: ", $id, BR;
+                return true;
+            }
+        }
+        return false;
     }
     
     public function isAssetNode( $identifier )
@@ -525,7 +525,7 @@ class StructuredData extends Property
         
         foreach( $cur_ids as $id )
         {
-        	self::copyData( $this, $new_sd, $id );
+            self::copyData( $this, $new_sd, $id );
 /*
             if( $this->isTextNode( $id ) || $this->isWYSIWYG( $id ) )
             {
@@ -643,8 +643,8 @@ class StructuredData extends Property
             }
             catch( e\NodeException $e )
             {
-            	echo $id, BR;
-            	continue; // skip phantom nodes
+                echo $id, BR;
+                continue; // skip phantom nodes
             }
         }
 
@@ -652,11 +652,11 @@ class StructuredData extends Property
         {
             try
             {
-				self::copyData( $sdp, $new_sd, $id );
-			}
-			catch( e\NodeException $e )
+                self::copyData( $sdp, $new_sd, $id );
+            }
+            catch( e\NodeException $e )
             {
-            	continue; // skip phantom nodes
+                continue; // skip phantom nodes
             }
         }
         return $new_sd;
@@ -1049,64 +1049,64 @@ class StructuredData extends Property
     
     private static function copyData( $source, StructuredData $target, $id )
     {
-    	if( !$source instanceof StructuredData && !$source instanceof StructuredDataPhantom )
-    		throw new \Exception( "Wrong source type" );
-    	
-		if( $source->isTextNode( $id ) || $source->isWYSIWYG( $id ) )
-		{
-			$target->setText( $id, $source->getText( $id ) );
-				
-			if( $target->getText( $id ) == NULL )
-				$target->setText( $id, "" );
-		}
-		elseif( $source->isAssetNode( $id ) )
-		{
-			$asset_type = $source->getAssetNodeType( $id );
-			
-			switch( $asset_type )
-			{
-				case "page":
-					$page_id = $source->getPageId( $id );
-					
-					if( isset( $page_id ) )
-					{
-						$target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
-					}
-					break;
-				case "file":
-					$file_id = $source->getFileId( $id );
-					
-					if( isset( $file_id ) )
-					{
-						$target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
-					}
-					break;
-				case "block":
-					$block_id = $source->getBlockId( $id );
-					
-					if( isset( $block_id ) )
-					{
-						$target->setBlock( $id, a\Block::getBlock( $source->service, $block_id ) );
-					}
-					break;
-				case "symlink":
-					$symlink_id = $source->getSymlinkId( $id );
-					
-					if( isset( $symlink_id ) )
-					{
-						$target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
-					}
-					break;
-				case "page,file,symlink":
-					$linkable_id = $source->getLinkableId( $id );
-					
-					if( isset( $linkable_id ) )
-					{
-						$target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
-					}
-					break;
-			}
-		}
+        if( !$source instanceof StructuredData && !$source instanceof StructuredDataPhantom )
+            throw new \Exception( "Wrong source type" );
+        
+        if( $source->isTextNode( $id ) || $source->isWYSIWYG( $id ) )
+        {
+            $target->setText( $id, $source->getText( $id ) );
+                
+            if( $target->getText( $id ) == NULL )
+                $target->setText( $id, "" );
+        }
+        elseif( $source->isAssetNode( $id ) )
+        {
+            $asset_type = $source->getAssetNodeType( $id );
+            
+            switch( $asset_type )
+            {
+                case "page":
+                    $page_id = $source->getPageId( $id );
+                    
+                    if( isset( $page_id ) )
+                    {
+                        $target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
+                    }
+                    break;
+                case "file":
+                    $file_id = $source->getFileId( $id );
+                    
+                    if( isset( $file_id ) )
+                    {
+                        $target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
+                    }
+                    break;
+                case "block":
+                    $block_id = $source->getBlockId( $id );
+                    
+                    if( isset( $block_id ) )
+                    {
+                        $target->setBlock( $id, a\Block::getBlock( $source->service, $block_id ) );
+                    }
+                    break;
+                case "symlink":
+                    $symlink_id = $source->getSymlinkId( $id );
+                    
+                    if( isset( $symlink_id ) )
+                    {
+                        $target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
+                    }
+                    break;
+                case "page,file,symlink":
+                    $linkable_id = $source->getLinkableId( $id );
+                    
+                    if( isset( $linkable_id ) )
+                    {
+                        $target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
+                    }
+                    break;
+            }
+        }
     }
 
     private $definition_id;

@@ -18,11 +18,11 @@ use cascade_ws_asset as a;
 class WorkflowSettings extends Property
 {
     public function __construct( 
-    	\stdClass $wfs_std=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $wfs_std=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( $wfs_std == NULL )
         {
@@ -61,7 +61,7 @@ class WorkflowSettings extends Property
         $this->inherited_workflow_definitions = array();
         
         if( isset( $wfs_std->inheritedWorkflowDefinitions ) && 
-        	isset( $wfs_std->inheritedWorkflowDefinitions->assetIdentifier ) )
+            isset( $wfs_std->inheritedWorkflowDefinitions->assetIdentifier ) )
         {
             $asset_identifiers = $wfs_std->inheritedWorkflowDefinitions->assetIdentifier;
             
@@ -83,7 +83,7 @@ class WorkflowSettings extends Property
         if( $id->getType() != c\T::WORKFLOWDEFINITION )
         {
             throw new \Exception(
-            	S_SPAN . "The identifier is unacceptable." . E_SPAN );
+                S_SPAN . "The identifier is unacceptable." . E_SPAN );
         }
         if( $this->hasWorkflowDefinition( $id->getId() ) )
         {
@@ -96,7 +96,7 @@ class WorkflowSettings extends Property
     
     public function getInheritedWorkflowDefinitions()
     {
-    	return $this->inherited_workflow_definitions;
+        return $this->inherited_workflow_definitions;
     }
     
     public function getInheritWorkflows()
@@ -132,37 +132,37 @@ class WorkflowSettings extends Property
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
         
         // already set
         if( $this->inherit_workflows == $bool )
-        	return $this;
+            return $this;
         
         if( $bool )
         {
-        	$this->inherit_workflows = $bool;
+            $this->inherit_workflows = $bool;
 
-        	$folder_id = $this->identifier->getId();
-        	$folder    = a\Asset::getAsset( $this->service, a\Folder::TYPE, $folder_id );
-        	$parent    = $folder->getParentContainer();
-        	
-        	if( isset( $parent ) )
-        	{
-        		$parent_settings = $parent->getWorkflowSettings();
-        		$parent_wds      = $parent_settings->getWorkflowDefinitions();
-        		
-        		if( is_array( $parent_wds ) && count( $parent_wds ) > 0 )
-        		{
-        			foreach( $parent_wds as $parent_wd )
-        			{
-        				$this->inherited_workflow_definitions[] = $parent_wd;
-        			}
-        		}
-        	}
+            $folder_id = $this->identifier->getId();
+            $folder    = a\Asset::getAsset( $this->service, a\Folder::TYPE, $folder_id );
+            $parent    = $folder->getParentContainer();
+            
+            if( isset( $parent ) )
+            {
+                $parent_settings = $parent->getWorkflowSettings();
+                $parent_wds      = $parent_settings->getWorkflowDefinitions();
+                
+                if( is_array( $parent_wds ) && count( $parent_wds ) > 0 )
+                {
+                    foreach( $parent_wds as $parent_wd )
+                    {
+                        $this->inherited_workflow_definitions[] = $parent_wd;
+                    }
+                }
+            }
         }
         else
         {
-        	$this->unsetInheritWorkflows();
+            $this->unsetInheritWorkflows();
         }
         
         return $this;
@@ -172,7 +172,7 @@ class WorkflowSettings extends Property
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->require_workflow = $bool;
         return $this;

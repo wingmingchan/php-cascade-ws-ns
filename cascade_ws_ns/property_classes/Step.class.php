@@ -16,11 +16,11 @@ use cascade_ws_exception as e;
 class Step
 {
     public function __construct( 
-    	\stdClass $s=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $s=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {        
         $this->identifier         = $s->identifier;
         $this->label              = $s->label;
@@ -89,8 +89,8 @@ class Step
         
         if( $count > 0 )
         {
-        	$obj->actions = new \stdClass();
-        	
+            $obj->actions = new \stdClass();
+            
             if( $count == 1 )
             {
                 $obj->actions->action = $this->actions[ 0 ]->toStdClass();

@@ -234,7 +234,7 @@ class StructuredDataPhantom extends Property
     
     public function getIdentifiers()
     {
-    	$temp = $this->identifiers;
+        $temp = $this->identifiers;
         return array_merge( $temp, StructuredDataNodePhantom::getPhantomIdentifiers() );
     }
     

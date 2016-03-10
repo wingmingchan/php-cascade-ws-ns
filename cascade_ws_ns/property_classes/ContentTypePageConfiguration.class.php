@@ -17,19 +17,19 @@ use cascade_ws_asset as a;
 class ContentTypePageConfiguration extends Property
 {
     public function __construct(
-    	\stdClass $ctpc=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $ctpc=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
-    	if( isset( $ctpc ) )
-    	{
-			$this->page_configuration_id   = $ctpc->pageConfigurationId;
-			$this->page_configuration_name = $ctpc->pageConfigurationName;
-			$this->publish_mode            = $ctpc->publishMode;
-			$this->destinations            = $ctpc->destinations;
-		}
+        if( isset( $ctpc ) )
+        {
+            $this->page_configuration_id   = $ctpc->pageConfigurationId;
+            $this->page_configuration_name = $ctpc->pageConfigurationName;
+            $this->publish_mode            = $ctpc->publishMode;
+            $this->destinations            = $ctpc->destinations;
+        }
     }
     
     public function display()

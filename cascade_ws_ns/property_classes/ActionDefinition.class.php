@@ -16,9 +16,9 @@ use cascade_ws_exception as e;
 
 class ActionDefinition
 {
-	const DEBUG = false;
-	const DUMP  = false;
-	
+    const DEBUG = false;
+    const DUMP  = false;
+    
     public function __construct( \SimpleXMLElement $action_xml )
     {
         if( $action_xml == NULL )
@@ -27,12 +27,12 @@ class ActionDefinition
         }
         
         if( self::DEBUG && self::DUMP ) { 
-        	DebugUtility::dump( u\XMLUtility::replaceBrackets( $action_xml->asXML() ) ) ; }
+            DebugUtility::dump( u\XMLUtility::replaceBrackets( $action_xml->asXML() ) ) ; }
         $this->action_xml = $action_xml;
         $action_attr      = $action_xml->attributes();
         $this->identifier = $action_attr->identifier->__toString();
         if( $action_attr->label )
-        	$this->label  = $action_attr->label->__toString();
+            $this->label  = $action_attr->label->__toString();
         
         if( $action_attr->move )
         {

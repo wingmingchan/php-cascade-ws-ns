@@ -16,11 +16,11 @@ use cascade_ws_exception as e;
 class FieldValue extends Property
 {
     public function __construct( 
-    	\stdClass $fv=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $fv=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         $this->values = array();
         
@@ -32,7 +32,7 @@ class FieldValue extends Property
             }
             else
             {
-				if( isset( $fv->value ) )
+                if( isset( $fv->value ) )
                     $this->values[] = $fv->value;
             }
         }
@@ -60,13 +60,13 @@ class FieldValue extends Property
                 if( $value->value == NULL || $value->value == '' )
                 {
                     throw new e\EmptyValueException(
-                    	S_SPAN . "The value cannot be empty." . E_SPAN );
+                        S_SPAN . "The value cannot be empty." . E_SPAN );
                 }
             
                 if( in_array( $value->value, $this->values ) )
                 {
                     throw new e\NonUniqueValueException(
-                    	S_SPAN . "The value " . $value->value . " already exist." . E_SPAN );
+                        S_SPAN . "The value " . $value->value . " already exist." . E_SPAN );
                 }
                 else
                 {

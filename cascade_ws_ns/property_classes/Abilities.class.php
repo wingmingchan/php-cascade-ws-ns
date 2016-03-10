@@ -25,11 +25,11 @@ use cascade_ws_exception as e;
 abstract class Abilities extends Property
 {
     public function __construct( 
-    	\stdClass $a=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $a=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $a ) )
         {
@@ -162,12 +162,12 @@ abstract class Abilities extends Property
     
     public function getBrokenLinkReportAccess()
     {
-    	return $this->broken_link_report_access;
+        return $this->broken_link_report_access;
     }
     
     public function getBrokenLinkReportMarkFixed()
     {
-    	return $this->broken_link_report_mark_fixed;
+        return $this->broken_link_report_mark_fixed;
     }
     
     public function getBulkChange()
@@ -598,7 +598,7 @@ abstract class Abilities extends Property
     
     public function setPublishReadableHomeAssets( $bool )
     {
-		$this->checkBoolean( $bool );
+        $this->checkBoolean( $bool );
         $this->publish_readable_home_assets = $bool;
         return $this;
     }
@@ -734,10 +734,10 @@ abstract class Abilities extends Property
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-				S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
     }
 
-	// 49 members
+    // 49 members
     private $bypass_all_permissions_checks;
     private $upload_images_from_wysiwyg;
     private $multi_select_copy;

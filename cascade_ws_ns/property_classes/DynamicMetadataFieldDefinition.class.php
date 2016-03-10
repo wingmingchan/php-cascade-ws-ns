@@ -16,28 +16,28 @@ use cascade_ws_exception as e;
 
 class DynamicMetadataFieldDefinition extends Property
 {
-	const DEBUG = false;
-	const DUMP  = false;
-	
+    const DEBUG = false;
+    const DUMP  = false;
+    
     public function __construct( 
-    	\stdClass $obj=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $obj=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
-    	if( isset( $obj ) )
-    	{
-			$this->name            = $obj->name;
-			$this->label           = $obj->label;
-			$this->field_type      = $obj->fieldType;
-			$this->required        = $obj->required;
-			$this->visibility      = $obj->visibility;
-		
-			// $obj->possibleValues->possibleValue can be NULL
-			if( isset( $obj->possibleValues ) && isset( $obj->possibleValues->possibleValue ) )
-				$this->processPossibleValues( $obj->possibleValues->possibleValue );
-		}
+        if( isset( $obj ) )
+        {
+            $this->name            = $obj->name;
+            $this->label           = $obj->label;
+            $this->field_type      = $obj->fieldType;
+            $this->required        = $obj->required;
+            $this->visibility      = $obj->visibility;
+        
+            // $obj->possibleValues->possibleValue can be NULL
+            if( isset( $obj->possibleValues ) && isset( $obj->possibleValues->possibleValue ) )
+                $this->processPossibleValues( $obj->possibleValues->possibleValue );
+        }
     }
     
     public function appendValue( $value )
@@ -53,11 +53,11 @@ class DynamicMetadataFieldDefinition extends Property
         
         if( $value == '' )
             throw new e\EmptyValueException(
-            	S_SPAN . "The value cannot be empty." . E_SPAN );
+                S_SPAN . "The value cannot be empty." . E_SPAN );
     
         if( !$this->hasPossibleValue( $value ) )
         {
-        	if( self::DEBUG ) { u\DebugUtility::out( "Adding " . $value ); }
+            if( self::DEBUG ) { u\DebugUtility::out( "Adding " . $value ); }
             $obj = new \stdClass();
             $obj->value = $value;
             $obj->selectedByDefault  = false;
@@ -130,11 +130,11 @@ class DynamicMetadataFieldDefinition extends Property
         
         if( $value == '' )
             throw new e\EmptyValueException(
-            	S_SPAN . "The value cannot be empty." . E_SPAN );
+                S_SPAN . "The value cannot be empty." . E_SPAN );
             
         if( !in_array( $value, $this->values ) )
             throw new e\NoSuchValueException(
-            	S_SPAN . "The value $value does not exist." . E_SPAN );
+                S_SPAN . "The value $value does not exist." . E_SPAN );
             
         $count = count( $this->possible_values );
     
@@ -142,7 +142,7 @@ class DynamicMetadataFieldDefinition extends Property
         {
             if( $this->possible_values[ $i ]->getValue() == $value )
             {
-            	if( self::DEBUG ) { u\DebugUtility::out(  "Removing $value" ); }
+                if( self::DEBUG ) { u\DebugUtility::out(  "Removing $value" ); }
                 $before        = array_slice( $this->possible_values, 0, $i );
                 $values_before = array_slice( $this->values, 0, $i );
                 if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $values_before ); }
@@ -171,7 +171,7 @@ class DynamicMetadataFieldDefinition extends Property
         
         if( $label == '' )
             throw new e\EmptyValueException(
-            	S_SPAN . "The label cannot be empty." . E_SPAN );
+                S_SPAN . "The label cannot be empty." . E_SPAN );
         
         $this->label = $label;
         return $this;
@@ -181,7 +181,7 @@ class DynamicMetadataFieldDefinition extends Property
     {
         if( !c\BooleanValues::isBoolean( $required ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $required must be a boolean." . E_SPAN );
         
         if( $required )
         {
@@ -195,7 +195,7 @@ class DynamicMetadataFieldDefinition extends Property
     {
         if( !in_array( $value, $this->values ) )
             throw new e\NoSuchValueException(
-            	S_SPAN . "The value $value does not exist." . E_SPAN );
+                S_SPAN . "The value $value does not exist." . E_SPAN );
     
         foreach( $this->possible_values as $item )
         {
@@ -218,7 +218,7 @@ class DynamicMetadataFieldDefinition extends Property
     {
         if( !c\VisibilityValues::isVisibility( $visibility ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $visibility is not acceptable." . E_SPAN );
     
         if( $visibility == c\T::HIDDEN )
         {
@@ -242,15 +242,15 @@ class DynamicMetadataFieldDefinition extends Property
     
         if( $value1 == '' || $value2 == '' )
             throw new e\EmptyValueException(
-            	S_SPAN . "The value cannot be empty." . E_SPAN );
+                S_SPAN . "The value cannot be empty." . E_SPAN );
             
         if( !in_array( $value1, $this->values ) )
             throw new e\NoSuchValueException(
-            	S_SPAN . "The value $value1 does not exist." . E_SPAN );
+                S_SPAN . "The value $value1 does not exist." . E_SPAN );
         
         if( !in_array( $value2, $this->values ) )
             throw new e\NoSuchValueException(
-            	S_SPAN . "The value $value2 does not exist." . E_SPAN );
+                S_SPAN . "The value $value2 does not exist." . E_SPAN );
             
         $first_pv_pos  = -1;
         $second_pv_pos = -1;
@@ -326,7 +326,7 @@ class DynamicMetadataFieldDefinition extends Property
                     if( in_array( $cur_value, $v_array ) )
                     {
                         throw new e\NonUniqueValueException(
-            				S_SPAN . "Repeated value found." . E_SPAN );
+                            S_SPAN . "Repeated value found." . E_SPAN );
                     }
                     else
                     {
@@ -349,7 +349,7 @@ class DynamicMetadataFieldDefinition extends Property
     {
         if( !$this->hasPossibleValue( $value ) )
             throw new e\NoSuchValueException(
-            	S_SPAN . "The value $value does not exist." . E_SPAN );
+                S_SPAN . "The value $value does not exist." . E_SPAN );
     
         foreach( $this->possible_values as $item )
         {

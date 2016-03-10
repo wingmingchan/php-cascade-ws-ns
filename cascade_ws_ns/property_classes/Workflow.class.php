@@ -18,11 +18,11 @@ use cascade_ws_exception as e;
 class Workflow extends Property
 {
     public function __construct( 
-    	\stdClass $wf=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL,
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $wf=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL,
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $wf ) )
         {
@@ -86,7 +86,7 @@ class Workflow extends Property
     
     public function getEndDate()
     {
-    	return $this->end_date;
+        return $this->end_date;
     }
     
     public function getId()
@@ -106,7 +106,7 @@ class Workflow extends Property
     
     public function getStartDate()
     {
-    	return $this->start_date;
+        return $this->start_date;
     }
     
     public function isPossibleAction( $a_name )
@@ -128,7 +128,7 @@ class Workflow extends Property
     {
         if( !$this->isPossibleAction( $a_name ) )
             throw new e\NoSuchActionException(
-            	S_SPAN . "The action $a_name is not defined in the workflow." . E_SPAN );
+                S_SPAN . "The action $a_name is not defined in the workflow." . E_SPAN );
             
         $this->service->performWorkflowTransition( $this->workflow->id, $a_name, $comment );
         
@@ -139,7 +139,7 @@ class Workflow extends Property
         else
         {
             throw new e\WorkflowTransitionFailureException(
-            	S_SPAN . "The transition cannot be performed." . E_SPAN .
+                S_SPAN . "The transition cannot be performed." . E_SPAN .
                 $this->service->getMessage() );
         }
     }

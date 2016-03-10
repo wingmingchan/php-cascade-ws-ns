@@ -20,7 +20,7 @@ class StepDefinition
         if( $step_xml == NULL )
         {
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_XML . E_SPAN );
+                S_SPAN . c\M::EMPTY_XML . E_SPAN );
         }
 
         $this->step_xml   = $step_xml;

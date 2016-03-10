@@ -16,11 +16,11 @@ use cascade_ws_exception as e;
 class AclEntry extends Property
 {
     public function __construct( 
-    	\stdClass $ae=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $ae=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $ae ) )
         {

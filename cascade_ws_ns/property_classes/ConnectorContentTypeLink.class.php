@@ -17,11 +17,11 @@ use cascade_ws_asset as a;
 class ConnectorContentTypeLink extends Property
 {
     public function __construct( 
-    	\stdClass $cctl=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $cctl=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $cctl ) )
         {
@@ -41,7 +41,7 @@ class ConnectorContentTypeLink extends Property
             $this->connector_content_type_link_params = array();
             
             if( isset( $cctl->connectorContentTypeLinkParams ) && 
-            	isset( $cctl->connectorContentTypeLinkParams->connectorContentTypeLinkParam ) )
+                isset( $cctl->connectorContentTypeLinkParams->connectorContentTypeLinkParam ) )
             {
                 $params = $cctl->connectorContentTypeLinkParams->connectorContentTypeLinkParam;
                 

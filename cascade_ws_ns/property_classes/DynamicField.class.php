@@ -16,11 +16,11 @@ use cascade_ws_exception as e;
 class DynamicField extends Property
 {
     public function __construct( 
-    	\stdClass $f=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $f=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $f ) )
         {

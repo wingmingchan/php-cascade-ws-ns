@@ -1063,31 +1063,31 @@ class StructuredDataNodePhantom extends Property
             
             try
             {
-            	$is_multiple = $data_definition->isMultiple( $fq_identifier );
-			}
-			catch( e\NoSuchFieldException $e )
-			{
-				self::$phantoms[] = $fq_identifier;
-				continue;
-			}
+                $is_multiple = $data_definition->isMultiple( $fq_identifier );
+            }
+            catch( e\NoSuchFieldException $e )
+            {
+                self::$phantoms[] = $fq_identifier;
+                continue;
+            }
             
             if( isset( $current_identifier ) )
                 $previous_identifier = $current_identifier;
             $current_identifier  = $node_std[$i]->identifier;
             
             // a multiple text or group, work out fully qualified identifier
-			if( $is_multiple )
-			{
-				// an old one, keep counting
-				if( isset( $previous_identifier ) && $previous_identifier == $current_identifier ) 
-				{
-					$cur_index++;
-				}
-				else // a new one, start from 0 again
-				{
-					$cur_index = 0;
-				}
-			}
+            if( $is_multiple )
+            {
+                // an old one, keep counting
+                if( isset( $previous_identifier ) && $previous_identifier == $current_identifier ) 
+                {
+                    $cur_index++;
+                }
+                else // a new one, start from 0 again
+                {
+                    $cur_index = 0;
+                }
+            }
             
             if( $parent_id != '' )
             {
@@ -1113,7 +1113,7 @@ class StructuredDataNodePhantom extends Property
     
     public static function getPhantomIdentifiers()
     {
-    	return self::$phantoms;
+        return self::$phantoms;
     }
 
     private $type;                  // asset, group, text

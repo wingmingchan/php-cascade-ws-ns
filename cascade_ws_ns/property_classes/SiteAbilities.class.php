@@ -16,11 +16,11 @@ use cascade_ws_exception as e;
 class SiteAbilities extends Abilities
 {
     public function __construct( 
-    	\stdClass $a=NULL, 
-    	aohs\AssetOperationHandlerService $service=NULL, 
-    	$data1=NULL, 
-    	$data2=NULL, 
-    	$data3=NULL )
+        \stdClass $a=NULL, 
+        aohs\AssetOperationHandlerService $service=NULL, 
+        $data1=NULL, 
+        $data2=NULL, 
+        $data3=NULL )
     {
         if( isset( $a ) )
         {
@@ -45,7 +45,7 @@ class SiteAbilities extends Abilities
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->access_connectors = $bool;
         return $this;
@@ -55,7 +55,7 @@ class SiteAbilities extends Abilities
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->access_destinations = $bool;
         return $this;
