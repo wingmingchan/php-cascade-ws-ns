@@ -4,6 +4,8 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/10/2016 Added hasPhantomNodes.
+  * 3/9/2016 Added mapData.
   * 1/8/2016 Added code to deal with host asset.
   * 5/28/2015 Added namespaces.
   * 2/24/2015 Added getPossibleValues.
@@ -299,6 +301,11 @@ class DataDefinitionBlock extends Block
         return $this->structured_data->hasNode( $identifier );
     }
     
+    public function hasPhantomNodes() // detects phantom nodes of type B
+    {
+    	return $this->structured_data->hasPhantomNodes();
+    }
+    
     public function hasStructuredData()
     {
         return $this->structured_data != NULL;
@@ -344,6 +351,13 @@ class DataDefinitionBlock extends Block
     {
         $this->checkStructuredData();
         return $this->structured_data->isWYSIWYG( $identifier );
+    }
+    
+    public function mapData()
+    {
+    	$this->checkStructuredData();
+    	$new_sd = $this->structured_data->mapData();
+    	return $this->setStructuredData( $new_sd );
     }
 
     public function removeLastSibling( $identifier )

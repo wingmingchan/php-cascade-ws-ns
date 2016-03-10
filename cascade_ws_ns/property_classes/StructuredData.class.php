@@ -4,6 +4,8 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/10/2016 Added hasPhantomNodes.
+  * 3/9/2016 Added removePhantomNodes and copyData.
   * 2/26/2016 Added mapData.
   * 1/8/2016 Added code to deal with host asset.
   * 9/15/2015 Added createNInstancesForMultipleField.
@@ -394,6 +396,28 @@ class StructuredData extends Property
         return in_array( $identifier, $this->identifiers );
     }
     
+    public function hasPhantomNodes() // detects phantom nodes of type B
+    {
+    	$dd_ids   = $this->data_definition->getIdentifiers();
+    	$sd_ids   = $this->getIdentifiers();
+    	$temp_ids = array();
+    	
+    	foreach( $sd_ids as $id )
+    	{
+    		$temp_ids[] = u\StringUtility::getFullyQualifiedIdentifierWithoutPositions( $id );
+    	}
+    	
+    	foreach( $dd_ids as $id )
+    	{
+    		if( !in_array( $id, $temp_ids ) )
+    		{
+    			echo "Phantom node identifier: ", $id, BR;
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     public function isAssetNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -480,75 +504,11 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isWYSIWYG();
     }
     
-    private static function copyData( $source, StructuredData $target, $id )
-    {
-    	if( !$source instanceof StructuredData && !$source instanceof StructuredDataPhantom )
-    		throw new \Exception( "Wrong source type" );
-    	
-    	
-		if( $source->isTextNode( $id ) || $source->isWYSIWYG( $id ) )
-		{
-			$target->setText( $id, $source->getText( $id ) );
-				
-			if( $target->getText( $id ) == NULL )
-				$target->setText( $id, "" );
-		}
-		elseif( $source->isAssetNode( $id ) )
-		{
-			$asset_type = $source->getAssetNodeType( $id );
-			
-			switch( $asset_type )
-			{
-				case "page":
-					$page_id = $source->getPageId( $id );
-					
-					if( isset( $page_id ) )
-					{
-						$target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
-					}
-					break;
-				case "file":
-					$file_id = $source->getFileId( $id );
-					
-					if( isset( $file_id ) )
-					{
-						$target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
-					}
-					break;
-				case "block":
-					$block_id = $source->getBlockId( $id );
-					
-					if( isset( $block_id ) )
-					{
-						$target->setBlock( $id, a\Block::getBlock( $source->service, $block_id ) );
-					}
-					break;
-				case "symlink":
-					$symlink_id = $source->getSymlinkId( $id );
-					
-					if( isset( $symlink_id ) )
-					{
-						$target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
-					}
-					break;
-				case "page,file,symlink":
-					$linkable_id = $source->getLinkableId( $id );
-					
-					if( isset( $linkable_id ) )
-					{
-						$target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
-					}
-					break;
-			}
-		}
-    }
-    
     public function mapData()
     {
         $new_sd  = new StructuredData( 
             $this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
         $cur_ids = $this->getIdentifiers();
-        
         
         foreach( $cur_ids as $id )
         {
@@ -563,8 +523,10 @@ class StructuredData extends Property
             }
         }
         
-         foreach( $cur_ids as $id )
+        foreach( $cur_ids as $id )
         {
+        	self::copyData( $this, $new_sd, $id );
+/*
             if( $this->isTextNode( $id ) || $this->isWYSIWYG( $id ) )
             {
                 $new_sd->setText( $id, $this->getText( $id ) );
@@ -620,9 +582,43 @@ class StructuredData extends Property
                         break;
                 }
             }
+*/            
+            
+            
         }
         
         return $new_sd;
+    }
+    
+    public function removeLastSibling( $first_node_id )
+    {
+        if( !$this->hasIdentifier( $first_node_id ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $first_node_id does not exist." . E_SPAN );
+        }
+        
+        $first_node = $this->node_map[ $first_node_id ];
+        $field_id   = StructuredDataNode::getFieldIdentifier( $first_node_id );
+        
+        // non-ambiguous path, no multiple ancestor
+        if( strpos( $first_node_id, $field_id ) !== false )
+        {
+            return $this->removeLastNodeFromField( $field_id );
+        }
+        // with multiple ancestor
+        $parent_id   = $first_node->getParentId();
+        $parent_node = $this->node_map[ $parent_id ];
+        
+        if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: " . $parent_id ); }
+        $shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
+        if( self::DEBUG ) { u\DebugUtility::out( "Shared ID: " . $shared_id ); }
+        
+        $shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
+        $parent_node->removeLastChildNode( $shared_id );
+        $this->identifiers = array_keys( $this->node_map );
+
+        return $this;
     }
     
     public function removePhantomNodes( StructuredDataPhantom $sdp )
@@ -666,37 +662,6 @@ class StructuredData extends Property
         return $new_sd;
     }
 
-    
-    public function removeLastSibling( $first_node_id )
-    {
-        if( !$this->hasIdentifier( $first_node_id ) )
-        {
-            throw new e\NodeException( 
-                S_SPAN . "The node $first_node_id does not exist." . E_SPAN );
-        }
-        
-        $first_node = $this->node_map[ $first_node_id ];
-        $field_id   = StructuredDataNode::getFieldIdentifier( $first_node_id );
-        
-        // non-ambiguous path, no multiple ancestor
-        if( strpos( $first_node_id, $field_id ) !== false )
-        {
-            return $this->removeLastNodeFromField( $field_id );
-        }
-        // with multiple ancestor
-        $parent_id   = $first_node->getParentId();
-        $parent_node = $this->node_map[ $parent_id ];
-        
-        if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: " . $parent_id ); }
-        $shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
-        if( self::DEBUG ) { u\DebugUtility::out( "Shared ID: " . $shared_id ); }
-        
-        $shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
-        $parent_node->removeLastChildNode( $shared_id );
-        $this->identifiers = array_keys( $this->node_map );
-
-        return $this;
-    }
     
     public function replaceByPattern( $pattern, $replace, $include=NULL )
     {
@@ -1080,7 +1045,69 @@ class StructuredData extends Property
         $this->identifiers = array_keys( $this->node_map );
 
         return $this;
-    }    
+    }
+    
+    private static function copyData( $source, StructuredData $target, $id )
+    {
+    	if( !$source instanceof StructuredData && !$source instanceof StructuredDataPhantom )
+    		throw new \Exception( "Wrong source type" );
+    	
+		if( $source->isTextNode( $id ) || $source->isWYSIWYG( $id ) )
+		{
+			$target->setText( $id, $source->getText( $id ) );
+				
+			if( $target->getText( $id ) == NULL )
+				$target->setText( $id, "" );
+		}
+		elseif( $source->isAssetNode( $id ) )
+		{
+			$asset_type = $source->getAssetNodeType( $id );
+			
+			switch( $asset_type )
+			{
+				case "page":
+					$page_id = $source->getPageId( $id );
+					
+					if( isset( $page_id ) )
+					{
+						$target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
+					}
+					break;
+				case "file":
+					$file_id = $source->getFileId( $id );
+					
+					if( isset( $file_id ) )
+					{
+						$target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
+					}
+					break;
+				case "block":
+					$block_id = $source->getBlockId( $id );
+					
+					if( isset( $block_id ) )
+					{
+						$target->setBlock( $id, a\Block::getBlock( $source->service, $block_id ) );
+					}
+					break;
+				case "symlink":
+					$symlink_id = $source->getSymlinkId( $id );
+					
+					if( isset( $symlink_id ) )
+					{
+						$target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
+					}
+					break;
+				case "page,file,symlink":
+					$linkable_id = $source->getLinkableId( $id );
+					
+					if( isset( $linkable_id ) )
+					{
+						$target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
+					}
+					break;
+			}
+		}
+    }
 
     private $definition_id;
     private $definition_path;
