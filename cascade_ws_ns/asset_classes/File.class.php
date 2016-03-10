@@ -34,24 +34,24 @@ class File extends Linkable
         
         if( isset( $wd ) )
         {
-			$wf_config                       = new \stdClass();
-			$wf_config->workflowDefinitionId = $wd->getId();
-			$wf_config->workflowComments     = $comment;
-			
-			if( isset( $wf ) )
-			{
-				$wf_config->workflowName     = $wf->getName();
-			}
-			else
-			{
-				if( trim( $new_workflow_name ) == "" )
-					throw new e\EmptyValueException( c\M::EMPTY_WORKFLOW_NAME );
-					
-				$wf_config->workflowName     = $new_workflow_name;
-			}
-			
-			$asset->workflowConfiguration    = $wf_config;
-		}
+            $wf_config                       = new \stdClass();
+            $wf_config->workflowDefinitionId = $wd->getId();
+            $wf_config->workflowComments     = $comment;
+            
+            if( isset( $wf ) )
+            {
+                $wf_config->workflowName     = $wf->getName();
+            }
+            else
+            {
+                if( trim( $new_workflow_name ) == "" )
+                    throw new e\EmptyValueException( c\M::EMPTY_WORKFLOW_NAME );
+                    
+                $wf_config->workflowName     = $new_workflow_name;
+            }
+            
+            $asset->workflowConfiguration    = $wf_config;
+        }
 
         $this->getProperty()->metadata  = $this->getMetadata()->toStdClass();
         $asset->{ $p = $this->getPropertyName() } = $this->getProperty();
@@ -116,21 +116,21 @@ class File extends Linkable
         {
             if( isset( $service->getReply()->readWorkflowInformationReturn->workflow ) )
                 return new p\Workflow( 
-                	$service->getReply()->readWorkflowInformationReturn->workflow, $service );
+                    $service->getReply()->readWorkflowInformationReturn->workflow, $service );
             else
                 return NULL; // no workflow
         }
         else
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::READ_WORKFLOW_FAILURE . E_SPAN );
+                S_SPAN . c\M::READ_WORKFLOW_FAILURE . E_SPAN );
         }
     }
     
     public function isPublishable()
     {
-    	$parent = $this->getAsset( $this->getService(), Folder::TYPE, $this->getParentContainerId() );
-    	return $parent->isPublishable() && $this->getShouldBePublished();
+        $parent = $this->getAsset( $this->getService(), Folder::TYPE, $this->getParentContainerId() );
+        return $parent->isPublishable() && $this->getShouldBePublished();
     }
     
     public function publish( Destination $destination=NULL )
@@ -147,11 +147,11 @@ class File extends Linkable
             $service = $this->getService();
             
             if( isset( $destination ) )
-            	$service->publish( 
-                	$service->createId( $this->getType(), $this->getId() ), $destination_std );
+                $service->publish( 
+                    $service->createId( $this->getType(), $this->getId() ), $destination_std );
             else
-            	$service->publish( 
-                	$service->createId( $this->getType(), $this->getId() ) );
+                $service->publish( 
+                    $service->createId( $this->getType(), $this->getId() ) );
         }
         return $this;
     }
@@ -166,7 +166,7 @@ class File extends Linkable
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
         
         $this->getProperty()->maintainAbsoluteLinks = $bool;
         
@@ -177,7 +177,7 @@ class File extends Linkable
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
         
         $this->getProperty()->rewriteLinks = $bool;
         
@@ -188,7 +188,7 @@ class File extends Linkable
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
             
         $this->getProperty()->shouldBeIndexed = $bool;
         return $this;
@@ -198,7 +198,7 @@ class File extends Linkable
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
             
         $this->getProperty()->shouldBePublished = $bool;
         return $this;
@@ -212,8 +212,8 @@ class File extends Linkable
     
     public function unpublish()
     {
-    	$this->getService()->unpublish( $this->getIdentifier() );
-    	return $this;
+        $this->getService()->unpublish( $this->getIdentifier() );
+        return $this;
     }
 }
 ?>

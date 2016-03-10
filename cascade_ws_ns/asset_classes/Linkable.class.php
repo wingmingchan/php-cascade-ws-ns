@@ -21,7 +21,7 @@ abstract class Linkable extends ContainedAsset
     const DEBUG = false;
 
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, 
+        aohs\AssetOperationHandlerService $service, 
         \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
@@ -132,17 +132,17 @@ abstract class Linkable extends ContainedAsset
     
     public function setExpirationFolder( Folder $f )
     {
-    	$this->getProperty()->expirationFolderId   = $f->getId();
-    	$this->getProperty()->expirationFolderPath = $f->getPath();
-    	return $this;
+        $this->getProperty()->expirationFolderId   = $f->getId();
+        $this->getProperty()->expirationFolderPath = $f->getPath();
+        return $this;
     }
     
     public function setMetadata( p\Metadata $m )
     {
-    	$this->metadata = $m;
-    	$this->edit();
-    	$this->processMetadata();
-    	return $this;
+        $this->metadata = $m;
+        $this->edit();
+        $this->processMetadata();
+        return $this;
     }
 
     public function setMetadataSet( MetadataSet $m )
@@ -150,7 +150,7 @@ abstract class Linkable extends ContainedAsset
         if( $m == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_ASSET . E_SPAN );
+                S_SPAN . c\M::NULL_ASSET . E_SPAN );
         }
     
         $this->getProperty()->metadataSetId   = $m->getId();
@@ -166,12 +166,12 @@ abstract class Linkable extends ContainedAsset
         if( $this->getType() != Page::TYPE )
         {
             throw new e\WrongAssetTypeException(
-            	S_SPAN . "This is not a page." . E_SPAN );
+                S_SPAN . "This is not a page." . E_SPAN );
         }
         if( $c == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_ASSET . E_SPAN );
+                S_SPAN . c\M::NULL_ASSET . E_SPAN );
         }
         $this->page_content_type = $c;
         $this->processMetadata();
@@ -180,13 +180,13 @@ abstract class Linkable extends ContainedAsset
     
     public static function getLinkable( aohs\AssetOperationHandlerService $service, $id_string )
     {
-    	return self::getAsset( $service, 
-    		self::getLinkableType( $service, $id_string ), $id_string );
-	}
+        return self::getAsset( $service, 
+            self::getLinkableType( $service, $id_string ), $id_string );
+    }
 
     public static function getLinkableType( aohs\AssetOperationHandlerService $service, $id_string )
     {
-    	$types      = array( Page::TYPE, File::TYPE, Symlink::TYPE );
+        $types      = array( Page::TYPE, File::TYPE, Symlink::TYPE );
         $type_count = count( $types );
         
         for( $i = 0; $i < $type_count; $i++ )

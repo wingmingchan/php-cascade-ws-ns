@@ -56,14 +56,14 @@ abstract class Format extends ContainedAsset
     
     public static function getFormat( $service, $id_string )
     {
-    	return self::getAsset( $service, 
-    		self::getFormatType( $service, $id_string ), $id_string );
-	}
+        return self::getAsset( $service, 
+            self::getFormatType( $service, $id_string ), $id_string );
+    }
 
     public static function getFormatType( $service, $id_string )
     {
-    	$types      
-    	    = array( ScriptFormat::TYPE, XsltFormat::TYPE );
+        $types      
+            = array( ScriptFormat::TYPE, XsltFormat::TYPE );
         $type_count = count( $types );
         
         for( $i = 0; $i < $type_count; $i++ )

@@ -37,11 +37,11 @@ class WordPressConnector extends Connector
     {
         if( $ct == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_CONTENT_TYPE . E_SPAN );
+                S_SPAN . c\M::NULL_CONTENT_TYPE . E_SPAN );
             
         if( $name != self::TAGS && $name != self::CATEGORIES )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The name $name is not acceptable." . E_SPAN );
+                S_SPAN . "The name $name is not acceptable." . E_SPAN );
             
         $links = $this->getConnectorContentTypeLinks();
         
@@ -55,14 +55,14 @@ class WordPressConnector extends Connector
         }
         
         throw new \Exception( 
-        	S_SPAN . "The content does not exist in the connector." . E_SPAN );
+            S_SPAN . "The content does not exist in the connector." . E_SPAN );
     }
     
     public function setUrl( $u )
     {
         if( trim( $u ) == "" )
             throw e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_URL . E_SPAN );
+                S_SPAN . c\M::EMPTY_URL . E_SPAN );
             
         $this->getProperty()->url = $u;
         return $this;

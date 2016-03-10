@@ -30,7 +30,7 @@ class Folder extends Container
     const TYPE  = c\T::FOLDER;
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -235,19 +235,19 @@ class Folder extends Container
     
     public function isPublishable()
     {
-    	$path = $this->getPath();
-    	if( self::DEBUG ) { u\DebugUtility::out( $path ); }
-    	
-    	if( $this->getPath() == '/' )
-    	{
-    		return $this->getShouldBePublished();
-    	}
-    	else
-    	{
-    		
-    		$parent = $this->getAsset( $this->getService(), Folder::TYPE, $this->getParentContainerId() );
-    		return $parent->isPublishable() && $this->getShouldBePublished();
-    	}
+        $path = $this->getPath();
+        if( self::DEBUG ) { u\DebugUtility::out( $path ); }
+        
+        if( $this->getPath() == '/' )
+        {
+            return $this->getShouldBePublished();
+        }
+        else
+        {
+            
+            $parent = $this->getAsset( $this->getService(), Folder::TYPE, $this->getParentContainerId() );
+            return $parent->isPublishable() && $this->getShouldBePublished();
+        }
     }
     
     public function publish( Destination $destination=NULL )
@@ -264,28 +264,28 @@ class Folder extends Container
             $service = $this->getService();
 
             if( isset( $destination ) )
-            	$service->publish( 
-                	$service->createId( $this->getType(), $this->getId() ), $destination_std );
+                $service->publish( 
+                    $service->createId( $this->getType(), $this->getId() ), $destination_std );
             else
-            	$service->publish( 
-                	$service->createId( $this->getType(), $this->getId() ) );
+                $service->publish( 
+                    $service->createId( $this->getType(), $this->getId() ) );
         }
         return $this;
     }
     
     public function setExpirationFolder( Folder $f )
     {
-    	$this->getProperty()->expirationFolderId   = $f->getId();
-    	$this->getProperty()->expirationFolderPath = $f->getPath();
-    	return $this;
+        $this->getProperty()->expirationFolderId   = $f->getId();
+        $this->getProperty()->expirationFolderPath = $f->getPath();
+        return $this;
     }
     
     public function setMetadata( p\Metadata $m )
     {
-    	$this->metadata = $m;
-    	$this->edit();
-    	$this->processMetadata();
-    	return $this;
+        $this->metadata = $m;
+        $this->edit();
+        $this->processMetadata();
+        return $this;
     }
     
     public function setMetadataSet( MetadataSet $ms )
@@ -323,8 +323,8 @@ class Folder extends Container
 
     public function unpublish()
     {
-    	$this->getService()->unpublish( $this->getIdentifier() );
-    	return $this;
+        $this->getService()->unpublish( $this->getIdentifier() );
+        return $this;
     }
     
     private function processMetadata()

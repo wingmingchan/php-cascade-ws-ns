@@ -66,7 +66,7 @@ class GoogleAnalyticsConnector extends Connector
         if( trim( $value) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . "The profile ID cannot be empty." . E_SPAN );
+                S_SPAN . "The profile ID cannot be empty." . E_SPAN );
         }
         $connector_parameters = $this->getConnectorParameters();
         

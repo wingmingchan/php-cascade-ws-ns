@@ -303,7 +303,7 @@ class DataDefinitionBlock extends Block
     
     public function hasPhantomNodes() // detects phantom nodes of type B
     {
-    	return $this->structured_data->hasPhantomNodes();
+        return $this->structured_data->hasPhantomNodes();
     }
     
     public function hasStructuredData()
@@ -355,9 +355,9 @@ class DataDefinitionBlock extends Block
     
     public function mapData()
     {
-    	$this->checkStructuredData();
-    	$new_sd = $this->structured_data->mapData();
-    	return $this->setStructuredData( $new_sd );
+        $this->checkStructuredData();
+        $new_sd = $this->structured_data->mapData();
+        return $this->setStructuredData( $new_sd );
     }
 
     public function removeLastSibling( $identifier )

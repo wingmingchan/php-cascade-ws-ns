@@ -25,7 +25,7 @@ class WorkflowDefinition extends ContainedAsset
     const NAMING_BEHAVIOR_BLANK      = 'empty';
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -44,11 +44,11 @@ class WorkflowDefinition extends ContainedAsset
         
         if( $count > 0 )
         {
-			foreach( $simple_xml->triggers->trigger as $trigger )
-			{
-				$this->triggers[] = new p\TriggerDefinition( $trigger );
-			}
-		}
+            foreach( $simple_xml->triggers->trigger as $trigger )
+            {
+                $this->triggers[] = new p\TriggerDefinition( $trigger );
+            }
+        }
         
         if( $simple_xml->steps )
         {
@@ -76,7 +76,7 @@ class WorkflowDefinition extends ContainedAsset
         if( $g == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         }
     
         $group_name   = $g->getName();
@@ -175,7 +175,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( !isset( $this->non_ordered_step_map[ $step_id ] ) )
             throw new e\NoSuchStepException(
-            	S_SPAN . "The step does not exist." . E_SPAN );
+                S_SPAN . "The step does not exist." . E_SPAN );
             
         return $this->non_ordered_step_map[ $step_id ];
     }
@@ -189,7 +189,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( !isset( $this->ordered_step_map[ $step_id ] ) )
             throw new e\NoSuchStepException( 
-            	S_SPAN . "The step does not exist." . E_SPAN );
+                S_SPAN . "The step does not exist." . E_SPAN );
             
         return $this->ordered_step_map[ $step_id ];
     }
@@ -219,7 +219,7 @@ class WorkflowDefinition extends ContainedAsset
         if( $g == NULL )
         {
             throw new e\NullAssetException(
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         }
 
         $group_name = $g->getName();
@@ -233,7 +233,7 @@ class WorkflowDefinition extends ContainedAsset
         if( $g == NULL )
         {
             throw new e\NullAssetException(
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         }
         
         $group_name   = $g->getName();
@@ -261,7 +261,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->copy = $bool;
         return $this;
@@ -271,7 +271,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->create = $bool;
         return $this;
@@ -281,7 +281,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->delete = $bool;
         return $this;
@@ -291,7 +291,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->edit = $bool;
         return $this;
@@ -304,7 +304,7 @@ class WorkflowDefinition extends ContainedAsset
             $nb != self::NAMING_BEHAVIOR_BLANK
         )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $nb is unacceptable." . E_SPAN );
+                S_SPAN . "The value $nb is unacceptable." . E_SPAN );
 
         $this->getProperty()->namingBehavior = $nb;
         return $this;
@@ -314,7 +314,7 @@ class WorkflowDefinition extends ContainedAsset
     {
         if( trim( $xml ) == "" )
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_XML . E_SPAN );
+                S_SPAN . c\M::EMPTY_XML . E_SPAN );
             
         $this->getProperty()->xml = $xml;
         return $this;

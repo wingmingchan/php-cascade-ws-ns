@@ -28,7 +28,7 @@ class FileSystemTransport extends Transport
     {
         if( trim( $d ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_DIRECTORY . E_SPAN );
+                S_SPAN . c\M::EMPTY_DIRECTORY . E_SPAN );
             
         $this->getProperty()->directory = $d;
         return $this;

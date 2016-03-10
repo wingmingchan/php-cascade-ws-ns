@@ -29,7 +29,7 @@ class FeedBlock extends Block
         if( trim( $url ) == '' )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_URL . E_SPAN );
+                S_SPAN . c\M::EMPTY_URL . E_SPAN );
         }
         
         $this->getProperty()->feedURL = $url;

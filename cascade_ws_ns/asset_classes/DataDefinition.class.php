@@ -28,7 +28,7 @@ class DataDefinition extends ContainedAsset
     * @param $identifier the identifier object
     */
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         $this->xml             = $this->getProperty()->xml;
@@ -114,7 +114,7 @@ class DataDefinition extends ContainedAsset
     
     public function getStructuredData()
     {
-    	return $this->structured_data;
+        return $this->structured_data;
     }
     
     public function getXml()
@@ -172,7 +172,7 @@ class DataDefinition extends ContainedAsset
             
             if( $name == 'group' )
             {
-            	// fully qualified identifier
+                // fully qualified identifier
                 // if a field/group belongs to a group,
                 // add the group name to the identifier
                 $group_names    .= $identifier;
@@ -189,7 +189,7 @@ class DataDefinition extends ContainedAsset
                 }
                 // store attributes
                 $this->attributes[ trim( $group_names, self::DELIMITER ) ] = 
-                	$attribute_array;
+                    $attribute_array;
                 // recursively process children
                 $this->processSimpleXMLElement( $child, $group_names );
                 
@@ -202,7 +202,7 @@ class DataDefinition extends ContainedAsset
                 
                 // process checkbox, dropdown, radio, selector
                 if( $name == 'text' && isset( $type ) && 
-                	$type != 'datetime' && $type != 'calendar' )
+                    $type != 'datetime' && $type != 'calendar' )
                 {
                     $item_name = '';
                 
@@ -250,139 +250,139 @@ class DataDefinition extends ContainedAsset
                 // add identifier/attribute array to $this->attributes
                 // add the first item
                 $this->attributes[ $group_names . $identifier ] = 
-                	$attribute_array;
+                    $attribute_array;
             }
         }
     }
     
     private function getStructuredDataNode( $xml_element, $type, $identifier )
     {
-    	if( self::DEBUG ) { u\DebugUtility::out( "$type, $identifier" ); }
-    	
-    	$obj = AssetTemplate::getStructuredDataNode();
-    	
-    	if( $type == "group" )
-    	{
-    		$obj->type       = $type;
-    		$obj->identifier = $identifier;
-    		$obj->structuredDataNodes = new \stdClass();
-    		
-    		$child_count = count( $xml_element->children() );
-    		$more_than_one = ( $child_count > 1 ? true : false );
-    		
-    		if( $more_than_one )
-    		{
-    			$obj->structuredDataNodes->structuredDataNode = array();
-    			
-				foreach( $xml_element->children() as $child )
-				{
-					$child_type = $child->getName();
-					
-    				if( self::DEBUG ) { u\DebugUtility::out( "Child type in group: $child_type" ); }
-					
-					if( isset( $child[ 'identifier' ] ) )
-					{
-						$child_identifier = $child[ 'identifier' ]->__toString();
-						
-						$child_std = $this->createChildStd( $child, $child_type, $child_identifier );
-					
-						$obj->structuredDataNodes->structuredDataNode[] = $child_std;
-					}
-				}
-			}
-			else
-			{
-				$xml_array  = $xml_element->children();
-				
-				//var_dump( $xml_array );
-				
-				$child      = $xml_array[ 0 ];
-				$child_type = $child->getName();
-				
-    			if( self::DEBUG ) { u\DebugUtility::out( "Child type in group: $child_type" ); }
-				
-				$child_identifier = $child[ 'identifier' ]->__toString();
-				$child_std = $this->createChildStd( $child, $child_type, $child_identifier );
-				$obj->structuredDataNodes->structuredDataNode = $child_std;
-			}
-    	}
-    	else
-    	{
-    		$obj->type       = $type;
-    		$obj->identifier = $identifier;
-    	}
-    	
-    	return $obj;
+        if( self::DEBUG ) { u\DebugUtility::out( "$type, $identifier" ); }
+        
+        $obj = AssetTemplate::getStructuredDataNode();
+        
+        if( $type == "group" )
+        {
+            $obj->type       = $type;
+            $obj->identifier = $identifier;
+            $obj->structuredDataNodes = new \stdClass();
+            
+            $child_count = count( $xml_element->children() );
+            $more_than_one = ( $child_count > 1 ? true : false );
+            
+            if( $more_than_one )
+            {
+                $obj->structuredDataNodes->structuredDataNode = array();
+                
+                foreach( $xml_element->children() as $child )
+                {
+                    $child_type = $child->getName();
+                    
+                    if( self::DEBUG ) { u\DebugUtility::out( "Child type in group: $child_type" ); }
+                    
+                    if( isset( $child[ 'identifier' ] ) )
+                    {
+                        $child_identifier = $child[ 'identifier' ]->__toString();
+                        
+                        $child_std = $this->createChildStd( $child, $child_type, $child_identifier );
+                    
+                        $obj->structuredDataNodes->structuredDataNode[] = $child_std;
+                    }
+                }
+            }
+            else
+            {
+                $xml_array  = $xml_element->children();
+                
+                //var_dump( $xml_array );
+                
+                $child      = $xml_array[ 0 ];
+                $child_type = $child->getName();
+                
+                if( self::DEBUG ) { u\DebugUtility::out( "Child type in group: $child_type" ); }
+                
+                $child_identifier = $child[ 'identifier' ]->__toString();
+                $child_std = $this->createChildStd( $child, $child_type, $child_identifier );
+                $obj->structuredDataNodes->structuredDataNode = $child_std;
+            }
+        }
+        else
+        {
+            $obj->type       = $type;
+            $obj->identifier = $identifier;
+        }
+        
+        return $obj;
     }
     
     private function createStructuredData( $xml_element )
     {
-    	$this->structured_data->definitionId   = $this->getId();
-    	$this->structured_data->definitionPath = $this->getPath();
-    	
-    	$count = count( $xml_element->children() );
-    	
-    	if( $count > 1 )
-    	{
-			$this->structured_data->structuredDataNodes = new \stdClass();
-    		$this->structured_data->structuredDataNodes->structuredDataNode = array();
-    		
-			foreach( $xml_element->children() as $child )
-			{
-				$child_type = $child->getName();
-				
-				if( isset( $child[ 'identifier' ] ) )
-				{
-					$child_identifier = $child[ 'identifier' ]->__toString();
-					$child_std = $this->createChildStd( $child, $child_type, $child_identifier );
-					$this->structured_data->structuredDataNodes->structuredDataNode[] = $child_std;
-				}
-			}
-		}
-		else
-		{
-			$child      = $xml_element->children();
-			$child_type = $child->getName();
-			$attributes = $child->attributes();
-			
-			if( isset( $attributes[ 'identifier' ] ) )
-			{
-				$child_identifier = $attributes[ 'identifier' ]->__toString();
+        $this->structured_data->definitionId   = $this->getId();
+        $this->structured_data->definitionPath = $this->getPath();
+        
+        $count = count( $xml_element->children() );
+        
+        if( $count > 1 )
+        {
+            $this->structured_data->structuredDataNodes = new \stdClass();
+            $this->structured_data->structuredDataNodes->structuredDataNode = array();
+            
+            foreach( $xml_element->children() as $child )
+            {
+                $child_type = $child->getName();
+                
+                if( isset( $child[ 'identifier' ] ) )
+                {
+                    $child_identifier = $child[ 'identifier' ]->__toString();
+                    $child_std = $this->createChildStd( $child, $child_type, $child_identifier );
+                    $this->structured_data->structuredDataNodes->structuredDataNode[] = $child_std;
+                }
+            }
+        }
+        else
+        {
+            $child      = $xml_element->children();
+            $child_type = $child->getName();
+            $attributes = $child->attributes();
+            
+            if( isset( $attributes[ 'identifier' ] ) )
+            {
+                $child_identifier = $attributes[ 'identifier' ]->__toString();
                 $this->structured_data->structuredDataNodes                     = new \stdClass();
                 $this->structured_data->structuredDataNodes->structuredDataNode = new \stdClass();
-				$this->structured_data->structuredDataNodes->structuredDataNode = 
-					$this->createChildStd( $child, $child_type, $child_identifier );
-			}
-		}
+                $this->structured_data->structuredDataNodes->structuredDataNode = 
+                    $this->createChildStd( $child, $child_type, $child_identifier );
+            }
+        }
     }
     
     private function createChildStd( $child, $child_type, $child_identifier )
     {
-		$child_std = $this->getStructuredDataNode( $child, $child_type, $child_identifier );
-		
-		$grandchild = $child->children();
-		
-		if( isset( $grandchild ) )
-		{
-			$grandchild_type = $grandchild->getName();
-			
-			if( $grandchild_type == "checkbox-item" )
-			{
-				$child_std->text = p\StructuredDataNode::CHECKBOX_PREFIX;
-			}
-			else if( $grandchild_type == "selector-item" )
-			{
-				$child_std->text = p\StructuredDataNode::SELECTOR_PREFIX;
-			}
-		}
-		
-		if( $child_type == "asset" )
-		{
-			$child_attributes     = $child->attributes();
-			$asset_type           = $child_attributes[ "type" ]->__toString();
-			$child_std->assetType = $asset_type;
-		}
-    	return $child_std;
+        $child_std = $this->getStructuredDataNode( $child, $child_type, $child_identifier );
+        
+        $grandchild = $child->children();
+        
+        if( isset( $grandchild ) )
+        {
+            $grandchild_type = $grandchild->getName();
+            
+            if( $grandchild_type == "checkbox-item" )
+            {
+                $child_std->text = p\StructuredDataNode::CHECKBOX_PREFIX;
+            }
+            else if( $grandchild_type == "selector-item" )
+            {
+                $child_std->text = p\StructuredDataNode::SELECTOR_PREFIX;
+            }
+        }
+        
+        if( $child_type == "asset" )
+        {
+            $child_attributes     = $child->attributes();
+            $asset_type           = $child_attributes[ "type" ]->__toString();
+            $child_std->assetType = $asset_type;
+        }
+        return $child_std;
     }
     
     private $attributes;      // all attributes of each field

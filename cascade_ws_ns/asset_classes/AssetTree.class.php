@@ -177,27 +177,27 @@ class AssetTree
             for( $i = 0; $i < $func_count; $i++ )
             {
                 if( $functions[ $i ] == NULL )
-            	{
-            		continue;
-            	}
+                {
+                    continue;
+                }
 
-            	// class static method
-            	if( strpos( $functions[ $i ], "::" ) !== false )
-            	{
-            		$method_array = u\StringUtility::getExplodedStringArray( ":", $functions[ $i ] );
-            		$class_name   = $method_array[ 0 ];
-            		$class_name   = Asset::NAME_SPACE . "\\" . $class_name;
-            		$method_name  = $method_array[ 1 ];
-            		
-                	if( !method_exists( $class_name, $method_name ) )
-                	{
-                    	throw new e\NoSuchFunctionException( "The function " . $functions[ $i ] .
-                        	" does not exist." );
+                // class static method
+                if( strpos( $functions[ $i ], "::" ) !== false )
+                {
+                    $method_array = u\StringUtility::getExplodedStringArray( ":", $functions[ $i ] );
+                    $class_name   = $method_array[ 0 ];
+                    $class_name   = Asset::NAME_SPACE . "\\" . $class_name;
+                    $method_name  = $method_array[ 1 ];
+                    
+                    if( !method_exists( $class_name, $method_name ) )
+                    {
+                        throw new e\NoSuchFunctionException( "The function " . $functions[ $i ] .
+                            " does not exist." );
                     }
-            	}
+                }
                 else if( !function_exists( $functions[ $i ] ) )
                 {
-                	throw new e\NoSuchFunctionException( "The function " . $functions[ $i ] .
+                    throw new e\NoSuchFunctionException( "The function " . $functions[ $i ] .
                         " does not exist." );
                 }
             }
@@ -206,22 +206,22 @@ class AssetTree
             for( $i = 0; $i < $func_count; $i++ )
             {
                 if( $functions[ $i ] == NULL )
-            	{
-            		continue;
-            	}
+                {
+                    continue;
+                }
 
                 if( strpos( $functions[ $i ], "::" ) !== false )
-            	{
-            		$method_array = u\StringUtility::getExplodedStringArray( ":", $functions[ $i ] );
-            		$class_name   = $method_array[ 0 ];
-            		$class_name   = Asset::NAME_SPACE . "\\" . $class_name;
-            		$method_name  = $method_array[ 1 ];
-            		$class_name::$method_name( $service, $child, $params, $results );
-				}
-				else
-				{
-                	$func_name = $functions[ $i ];
-                	$func_name( $service, $child, $params, $results );
+                {
+                    $method_array = u\StringUtility::getExplodedStringArray( ":", $functions[ $i ] );
+                    $class_name   = $method_array[ 0 ];
+                    $class_name   = Asset::NAME_SPACE . "\\" . $class_name;
+                    $method_name  = $method_array[ 1 ];
+                    $class_name::$method_name( $service, $child, $params, $results );
+                }
+                else
+                {
+                    $func_name = $functions[ $i ];
+                    $func_name( $service, $child, $params, $results );
                 }
             }
         }

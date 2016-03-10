@@ -5,7 +5,7 @@
   * MIT Licensed
   * Modification history:
   * 5/28/2015 Added namespaces.
-  	Swapped the last two arguments of PageConfiguration.
+      Swapped the last two arguments of PageConfiguration.
   * 9/22/2014 Fixed a bug in addPageConfiguration.
   * 9/8/2014 Fixed a bug in deletePageConfiguration.
   * 7/3/2014 Added addConfiguration.
@@ -24,7 +24,7 @@ class PageConfigurationSet extends ContainedAsset
     const TYPE  = c\T::CONFIGURATIONSET;
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -33,26 +33,26 @@ class PageConfigurationSet extends ContainedAsset
     
     public function addConfiguration( $name, Template $t, $extension, $type )
     {
-    	return $this->addPageConfiguration( $name, $t, $extension, $type );
+        return $this->addPageConfiguration( $name, $t, $extension, $type );
     }
     
     public function addPageConfiguration( $name, Template $t, $extension, $type )
     {
-    	if( trim( $extension ) == "" )
-    		throw new e\EmptyValueException( 
-    			S_SPAN . c\M::EMPTY_FILE_EXTENSION . E_SPAN );
-    		
-    	if( !c\SerializationTypeValues::isSerializationTypeValue( $type ) )
-    		throw new e\WrongSerializationTypeException( 
-    			S_SPAN . "The serialization type $type is not acceptable. " . E_SPAN );
-    	
-		$config                    = AssetTemplate::getPageConfiguration();
-		$config->name              = $name;
-		$config->templateId        = $t->getId();
-		$config->templatePath      = $t->getPath();
-		$config->pageRegions       = $t->getPageRegionStdForPageConfiguration();
-		$config->outputExtension   = $extension;
-		$config->serializationType = $type;
+        if( trim( $extension ) == "" )
+            throw new e\EmptyValueException( 
+                S_SPAN . c\M::EMPTY_FILE_EXTENSION . E_SPAN );
+            
+        if( !c\SerializationTypeValues::isSerializationTypeValue( $type ) )
+            throw new e\WrongSerializationTypeException( 
+                S_SPAN . "The serialization type $type is not acceptable. " . E_SPAN );
+        
+        $config                    = AssetTemplate::getPageConfiguration();
+        $config->name              = $name;
+        $config->templateId        = $t->getId();
+        $config->templatePath      = $t->getPath();
+        $config->pageRegions       = $t->getPageRegionStdForPageConfiguration();
+        $config->outputExtension   = $extension;
+        $config->serializationType = $type;
 
         $p = new p\PageConfiguration( $config, $this->getService(), NULL );
         $this->page_configurations[] = $p;
@@ -60,7 +60,7 @@ class PageConfigurationSet extends ContainedAsset
             
         $this->processPageConfigurations( 
             $this->getProperty()->pageConfigurations->pageConfiguration );
-    	return $this;
+        return $this;
     }
     
     public function deleteConfiguration( $name )
@@ -73,12 +73,12 @@ class PageConfigurationSet extends ContainedAsset
         if( $this->getDefaultConfiguration() == $name )
         {
             throw new \Exception( 
-            	S_SPAN . "Cannot delete the default configuration." . E_SPAN );
+                S_SPAN . "Cannot delete the default configuration." . E_SPAN );
         }
         
         if( !$this->hasConfiguration( $name ) )
-        	return $this;
-        	
+            return $this;
+            
         $id = $this->page_configuration_map[ $name ]->getId();
         $service = $this->getService();
         $service->delete( $service->createId( c\T::CONFIGURATION, $id ) );
@@ -146,7 +146,7 @@ class PageConfigurationSet extends ContainedAsset
     
     public function getPageConfiguration( $name )
     {
-		$this->checkPageConfiguration( $name );
+        $this->checkPageConfiguration( $name );
         $count = $this->page_configurations;
         
         for( $i = 0; $i < $count; $i++ )

@@ -53,7 +53,7 @@ class DatabaseTransport extends Transport
     {
         if( trim( $d ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . "The database name cannot be empty." . E_SPAN );
+                S_SPAN . "The database name cannot be empty." . E_SPAN );
         $this->getProperty()->databaseName = $d;
         return $this;
     }
@@ -68,7 +68,7 @@ class DatabaseTransport extends Transport
     {
         if( trim( $s ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . "The host name cannot be empty." . E_SPAN );
+                S_SPAN . "The host name cannot be empty." . E_SPAN );
         $this->getProperty()->serverName = $s;
         return $this;
     }
@@ -77,7 +77,7 @@ class DatabaseTransport extends Transport
     {
         if( !is_numeric( $p ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The server port must be numeric." . E_SPAN );
+                S_SPAN . "The server port must be numeric." . E_SPAN );
         $this->getProperty()->serverPort = $p;
         return $this;
     }
@@ -86,7 +86,7 @@ class DatabaseTransport extends Transport
     {
         if( !is_numeric( $t ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The transport site ID must be numeric." . E_SPAN );
+                S_SPAN . "The transport site ID must be numeric." . E_SPAN );
         $this->getProperty()->transportSiteId = $t;
         return $this;
     }
@@ -95,7 +95,7 @@ class DatabaseTransport extends Transport
     {
         if( trim( $u ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . "The username cannot be empty." . E_SPAN );
+                S_SPAN . "The username cannot be empty." . E_SPAN );
         $this->getProperty()->username = $u;
         return $this;
     }

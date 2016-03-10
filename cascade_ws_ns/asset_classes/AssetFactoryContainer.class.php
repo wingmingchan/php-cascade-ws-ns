@@ -24,7 +24,7 @@ class AssetFactoryContainer extends Container
         if( $g == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         }
         
         $group_name   = $g->getName();
@@ -50,7 +50,7 @@ class AssetFactoryContainer extends Container
         if( $g == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         }
 
         $group_name = $g->getName();
@@ -64,7 +64,7 @@ class AssetFactoryContainer extends Container
         if( $g == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         }
         
         $group_name   = $g->getName();

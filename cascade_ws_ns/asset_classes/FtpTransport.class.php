@@ -65,8 +65,8 @@ class FtpTransport extends Transport
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
-		if( self::DEBUG ) { u\DebugUtility::out( $bool ? 'true' : 'false' ); }
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+        if( self::DEBUG ) { u\DebugUtility::out( $bool ? 'true' : 'false' ); }
         $this->getProperty()->doPASV = $bool;
         return $this;
     }
@@ -75,7 +75,7 @@ class FtpTransport extends Transport
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
         $this->getProperty()->doSFTP = $bool;
         return $this;
     }
@@ -84,7 +84,7 @@ class FtpTransport extends Transport
     {
         if( trim( $h ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_HOST_NAME . E_SPAN );
+                S_SPAN . c\M::EMPTY_HOST_NAME . E_SPAN );
         $this->getProperty()->hostName = $h;
         return $this;
     }
@@ -93,7 +93,7 @@ class FtpTransport extends Transport
     {
         if( !is_numeric( $p ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The port must be numeric." . E_SPAN );
+                S_SPAN . "The port must be numeric." . E_SPAN );
         $this->getProperty()->port = $p;
         return $this;
     }
@@ -102,7 +102,7 @@ class FtpTransport extends Transport
     {
         if( trim( $pw ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_PASSWORD . E_SPAN );
+                S_SPAN . c\M::EMPTY_PASSWORD . E_SPAN );
         $this->getProperty()->password = $pw;
         return $this;
     }
@@ -111,7 +111,7 @@ class FtpTransport extends Transport
     {
         if( trim( $u ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_USER_NAME . E_SPAN );
+                S_SPAN . c\M::EMPTY_USER_NAME . E_SPAN );
         $this->getProperty()->username = $u;
         return $this;
     }

@@ -162,13 +162,13 @@ class Preference
         if( $service == NULL )
         {
             throw new e\NullServiceException(
-            	S_SPAN . c\M::NULL_SERVICE . E_SPAN );
+                S_SPAN . c\M::NULL_SERVICE . E_SPAN );
         }
         
         if( $preference_std == NULL )
         {
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::NULL_PREFERENCE . E_SPAN );
+                S_SPAN . c\M::NULL_PREFERENCE . E_SPAN );
         }
         
         //if( self::DEBUG && self::dump ) { u\DebugUtility::dump( $preference_std ); }
@@ -185,216 +185,216 @@ class Preference
     public function display()
     {
         echo "<table  class='preferences' summary='Preferences'>" .
-        	"<caption>System Preferences</caption>" .
-        	"<tr class='preferences-header'><th>Name</th><th>Value</th></tr>" .
-        	
-        	"<tr><td>" . self::ALLOW_FONT_ASSIGNMENT_MSG .
-        	"</td><td>" . $this->map[ self::ALLOW_FONT_ASSIGNMENT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ALLOW_FONT_FORMATTING_MSG .
-        	"</td><td>" . $this->map[ self::ALLOW_FONT_FORMATTING ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ALLOW_TEXT_FORMATTING_MSG .
-        	"</td><td>" . $this->map[ self::ALLOW_TEXT_FORMATTING ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ASSET_TREE_MODE_MSG .
-        	"</td><td>" . $this->map[ self::ASSET_TREE_MODE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ASSET_TREE_MODE_MSG .
-        	"</td><td>" . $this->map[ self::AVAILABLE_ASST_FACTORY_PLUGINS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::AVAILABLE_WORKFLOW_TRIGGERS_MSG .
-        	"</td><td>" . $this->map[ self::AVAILABLE_WORKFLOW_TRIGGERS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::CHECK_EXTERNAL_LINKS_MSG .
-        	"</td><td>" . $this->map[ self::CHECK_EXTERNAL_LINKS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EXTERNAL_LINKS_TIMEOUT_MSG .
-        	"</td><td>" . $this->map[ self::EXTERNAL_LINKS_TIMEOUT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::CHOOSER_HEIGHT_MSG .
-        	"</td><td>" . $this->map[ self::CHOOSER_HEIGHT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::CHOOSER_WIDTH_MSG .
-        	"</td><td>" . $this->map[ self::CHOOSER_WIDTH ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::CSS_CLASSES_MSG .
-        	"</td><td>" . $this->map[ self::CSS_CLASSES ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::DEFAULT_508_COMPLIANCE_BEHAVIOR_MSG .
-        	"</td><td>" . $this->map[ self::DEFAULT_508_COMPLIANCE_BEHAVIOR ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::DEFAULT_LANGUAGE_MSG .
-        	"</td><td>" . $this->map[ self::DEFAULT_LANGUAGE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::DEFAULT_LINK_CHECK_BEHAVIOR_MSG .
-        	"</td><td>" . $this->map[ self::DEFAULT_LINK_CHECK_BEHAVIOR ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::DEFAULT_SPELLCHECK_BEHAVIOR_MSG .
-        	"</td><td>" . $this->map[ self::DEFAULT_SPELLCHECK_BEHAVIOR ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::DEFAULT_TIDY_BEHAVIOR_MSG .
-        	"</td><td>" . $this->map[ self::DEFAULT_TIDY_BEHAVIOR ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::DISABLE_TABLE_CTRLS_MSG .
-        	"</td><td>" . $this->map[ self::DISABLE_TABLE_CTRLS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EDITABLE_FILE_EXTENSIONS_MSG .
-        	"</td><td>" . $this->map[ self::EDITABLE_FILE_EXTENSIONS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EMAIL_MAX_BATCH_SIZE_MSG .
-        	"</td><td>" . $this->map[ self::EMAIL_MAX_BATCH_SIZE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EMAIL_MAX_WAIT_TIME_MSG .
-        	"</td><td>" . $this->map[ self::EMAIL_MAX_WAIT_TIME ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ENABLE_FOLDER_GALLERY_MSG .
-        	"</td><td>" . $this->map[ self::ENABLE_FOLDER_GALLERY ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ENABLE_SMART_PUBLISH_MSG .
-        	"</td><td>" . $this->map[ self::ENABLE_SMART_PUBLISH ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EXPIRATION_FIRST_WARNING_DAYS_MSG .
-        	"</td><td>" . $this->map[ self::EXPIRATION_FIRST_WARNING_DAYS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EXPIRATION_SECOND_WARNING_DAYS_MSG .
-        	"</td><td>" . $this->map[ self::EXPIRATION_SECOND_WARNING_DAYS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::LICENSE_EXPIRATION_NOTIFICATION_MSG .
-        	"</td><td>" . $this->map[ self::LICENSE_EXPIRATION_NOTIFICATION ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::MAX_NUM_VERSIONS_MSG .
-        	"</td><td>" . $this->map[ self::MAX_NUM_VERSIONS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::MAX_RENDERED_ENTITIES_MSG .
-        	"</td><td>" . $this->map[ self::MAX_RENDERED_ENTITIES ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::MAX_UPLOAD_IN_KB_MSG .
-        	"</td><td>" . $this->map[ self::MAX_UPLOAD_IN_KB ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::OPTIMIZE_OFFICE_HTML_MSG .
-        	"</td><td>" . $this->map[ self::OPTIMIZE_OFFICE_HTML ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::OPTIMIZE_OFFICE_HTML_MSG .
-        	"</td><td>" . $this->map[ self::OPTIMIZE_OFFICE_HTML ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::OPTIMIZE_OFFICE_HTML_MSG .
-        	"</td><td>" . $this->map[ self::OPTIMIZE_OFFICE_HTML ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ORGANIZATION_NAME_MSG .
-        	"</td><td>" . $this->map[ self::ORGANIZATION_NAME ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::PLAIN_TEXT_FILE_EXTENSIONS_MSG .
-        	"</td><td>" . $this->map[ self::PLAIN_TEXT_FILE_EXTENSIONS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::PUBLISHER_CONCURRENCY_MSG .
-        	"</td><td>" . $this->map[ self::PUBLISHER_CONCURRENCY ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::PUBLISHER_JOB_TIMEOUT_MSG .
-        	"</td><td>" . $this->map[ self::PUBLISHER_JOB_TIMEOUT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::REMOVE_FONT_AND_STYLE_MSG .
-        	"</td><td>" . $this->map[ self::REMOVE_FONT_AND_STYLE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::REPORT_RELATIVE_LINKS_AS_ERRORS_MSG .
-        	"</td><td>" . $this->map[ self::REPORT_RELATIVE_LINKS_AS_ERRORS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SEARCH_INDEX_LOCATION_MSG .
-        	"</td><td>" . $this->map[ self::SEARCH_INDEX_LOCATION ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SEARCH_RESULTS_PER_TYPE_MSG .
-        	"</td><td>" . $this->map[ self::SEARCH_RESULTS_PER_TYPE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SESSION_TIMEOUT_MSG .
-        	"</td><td>" . $this->map[ self::SESSION_TIMEOUT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SIMPLE_INTERFACE_STARTING_PAGE_MSG .
-        	"</td><td>" . $this->map[ self::SIMPLE_INTERFACE_STARTING_PAGE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SITEWIDE_CSS_FILE_MSG .
-        	"</td><td>" . $this->map[ self::SITEWIDE_CSS_FILE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SMTP_EMAIL_ADDRESS_MSG .
-        	"</td><td>" . $this->map[ self::SMTP_EMAIL_ADDRESS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SMTP_HOST_MSG .
-        	"</td><td>" . $this->map[ self::SMTP_HOST ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SMTP_PASSWORD_MSG .
-        	"</td><td>" . $this->map[ self::SMTP_PASSWORD ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SMTP_PORT_MSG .
-        	"</td><td>" . $this->map[ self::SMTP_PORT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SMTP_USERNAME_MSG .
-        	"</td><td>" . $this->map[ self::SMTP_USERNAME ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SYSTEM_KEYWORDS_MSG .
-        	"</td><td>" . $this->map[ self::SYSTEM_KEYWORDS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SYSTEM_URL_MSG .
-        	"</td><td>" . $this->map[ self::SYSTEM_URL ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ULTRA_SIMPLE_INTERFACE_MSG .
-        	"</td><td>" . $this->map[ self::ULTRA_SIMPLE_INTERFACE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::XALAN_JAVA_EXTENSIONS_MSG .
-        	"</td><td>" . $this->map[ self::XALAN_JAVA_EXTENSIONS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::INDEX_BLOCK_RENDERING_CACHE_MSG .
-        	"</td><td>" . $this->map[ self::INDEX_BLOCK_RENDERING_CACHE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::MAX_INDEX_BLOCK_SIZE_MSG .
-        	"</td><td>" . $this->map[ self::MAX_INDEX_BLOCK_SIZE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::XALAN_JAVASCRIPT_EXTENSIONS_MSG .
-        	"</td><td>" . $this->map[ self::XALAN_JAVASCRIPT_EXTENSIONS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::RECYCLE_BIN_EXPIRATION_MSG .
-        	"</td><td>" . $this->map[ self::RECYCLE_BIN_EXPIRATION ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::USE_OLD_CACHE_MSG .
-        	"</td><td>" . $this->map[ self::USE_OLD_CACHE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::UNPUBLISH_GLOBAL_ON_EXPIRATION_MSG .
-        	"</td><td>" . $this->map[ self::UNPUBLISH_GLOBAL_ON_EXPIRATION ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::LINK_CHECKER_FREQUENCY_MSG .
-        	"</td><td>" . $this->map[ self::LINK_CHECKER_FREQUENCY ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::LINK_CHECKER_FREQUENCY_DAYS_MSG .
-        	"</td><td>" . $this->map[ self::LINK_CHECKER_FREQUENCY_DAYS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::LINK_CHECKER_FREQUENCY_TIME_MSG .
-        	"</td><td>" . $this->map[ self::LINK_CHECKER_FREQUENCY_TIME ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::GLOBAL_AREA_LINK_CHECKER_ENABLED_MSG .
-        	"</td><td>" . $this->map[ self::GLOBAL_AREA_LINK_CHECKER_ENABLED ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::EDITABLE_IMAGE_FILE_EXTENSIONS_MSG .
-        	"</td><td>" . $this->map[ self::EDITABLE_IMAGE_FILE_EXTENSIONS ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::SITEWIDE_CSS_FILE_TEXT_MSG .
-        	"</td><td>" . $this->map[ self::SITEWIDE_CSS_FILE_TEXT ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::ALLOW_TABLE_EDITING_MSG .
-        	"</td><td>" . $this->map[ self::ALLOW_TABLE_EDITING ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::TEMPLATE_CREATE_BLOCK_FOLDER_MSG .
-        	"</td><td>" . $this->map[ self::TEMPLATE_CREATE_BLOCK_FOLDER ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::GLOBAL_AREA_EXTERNAL_LINK_CHECK_ON_PUBLISH_MSG .
-        	"</td><td>" . $this->map[ self::GLOBAL_AREA_EXTERNAL_LINK_CHECK_ON_PUBLISH ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::LIST_SIZE_MSG .
-        	"</td><td>" . $this->map[ self::LIST_SIZE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  self::UNPUBLISH_BY_DEFAULT_ON_DELETE_MSG .
-        	"</td><td>" . $this->map[ self::UNPUBLISH_BY_DEFAULT_ON_DELETE ] . "</td></tr>" .
-        	
-        	"<tr><td>" .  "A_dummy_string_to_push_the_content_to_the_right" .
-        	"</td><td>" . "" . "</td></tr>" .
-        	
+            "<caption>System Preferences</caption>" .
+            "<tr class='preferences-header'><th>Name</th><th>Value</th></tr>" .
+            
+            "<tr><td>" . self::ALLOW_FONT_ASSIGNMENT_MSG .
+            "</td><td>" . $this->map[ self::ALLOW_FONT_ASSIGNMENT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ALLOW_FONT_FORMATTING_MSG .
+            "</td><td>" . $this->map[ self::ALLOW_FONT_FORMATTING ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ALLOW_TEXT_FORMATTING_MSG .
+            "</td><td>" . $this->map[ self::ALLOW_TEXT_FORMATTING ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ASSET_TREE_MODE_MSG .
+            "</td><td>" . $this->map[ self::ASSET_TREE_MODE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ASSET_TREE_MODE_MSG .
+            "</td><td>" . $this->map[ self::AVAILABLE_ASST_FACTORY_PLUGINS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::AVAILABLE_WORKFLOW_TRIGGERS_MSG .
+            "</td><td>" . $this->map[ self::AVAILABLE_WORKFLOW_TRIGGERS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::CHECK_EXTERNAL_LINKS_MSG .
+            "</td><td>" . $this->map[ self::CHECK_EXTERNAL_LINKS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EXTERNAL_LINKS_TIMEOUT_MSG .
+            "</td><td>" . $this->map[ self::EXTERNAL_LINKS_TIMEOUT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::CHOOSER_HEIGHT_MSG .
+            "</td><td>" . $this->map[ self::CHOOSER_HEIGHT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::CHOOSER_WIDTH_MSG .
+            "</td><td>" . $this->map[ self::CHOOSER_WIDTH ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::CSS_CLASSES_MSG .
+            "</td><td>" . $this->map[ self::CSS_CLASSES ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::DEFAULT_508_COMPLIANCE_BEHAVIOR_MSG .
+            "</td><td>" . $this->map[ self::DEFAULT_508_COMPLIANCE_BEHAVIOR ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::DEFAULT_LANGUAGE_MSG .
+            "</td><td>" . $this->map[ self::DEFAULT_LANGUAGE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::DEFAULT_LINK_CHECK_BEHAVIOR_MSG .
+            "</td><td>" . $this->map[ self::DEFAULT_LINK_CHECK_BEHAVIOR ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::DEFAULT_SPELLCHECK_BEHAVIOR_MSG .
+            "</td><td>" . $this->map[ self::DEFAULT_SPELLCHECK_BEHAVIOR ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::DEFAULT_TIDY_BEHAVIOR_MSG .
+            "</td><td>" . $this->map[ self::DEFAULT_TIDY_BEHAVIOR ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::DISABLE_TABLE_CTRLS_MSG .
+            "</td><td>" . $this->map[ self::DISABLE_TABLE_CTRLS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EDITABLE_FILE_EXTENSIONS_MSG .
+            "</td><td>" . $this->map[ self::EDITABLE_FILE_EXTENSIONS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EMAIL_MAX_BATCH_SIZE_MSG .
+            "</td><td>" . $this->map[ self::EMAIL_MAX_BATCH_SIZE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EMAIL_MAX_WAIT_TIME_MSG .
+            "</td><td>" . $this->map[ self::EMAIL_MAX_WAIT_TIME ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ENABLE_FOLDER_GALLERY_MSG .
+            "</td><td>" . $this->map[ self::ENABLE_FOLDER_GALLERY ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ENABLE_SMART_PUBLISH_MSG .
+            "</td><td>" . $this->map[ self::ENABLE_SMART_PUBLISH ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EXPIRATION_FIRST_WARNING_DAYS_MSG .
+            "</td><td>" . $this->map[ self::EXPIRATION_FIRST_WARNING_DAYS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EXPIRATION_SECOND_WARNING_DAYS_MSG .
+            "</td><td>" . $this->map[ self::EXPIRATION_SECOND_WARNING_DAYS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::LICENSE_EXPIRATION_NOTIFICATION_MSG .
+            "</td><td>" . $this->map[ self::LICENSE_EXPIRATION_NOTIFICATION ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::MAX_NUM_VERSIONS_MSG .
+            "</td><td>" . $this->map[ self::MAX_NUM_VERSIONS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::MAX_RENDERED_ENTITIES_MSG .
+            "</td><td>" . $this->map[ self::MAX_RENDERED_ENTITIES ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::MAX_UPLOAD_IN_KB_MSG .
+            "</td><td>" . $this->map[ self::MAX_UPLOAD_IN_KB ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::OPTIMIZE_OFFICE_HTML_MSG .
+            "</td><td>" . $this->map[ self::OPTIMIZE_OFFICE_HTML ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::OPTIMIZE_OFFICE_HTML_MSG .
+            "</td><td>" . $this->map[ self::OPTIMIZE_OFFICE_HTML ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::OPTIMIZE_OFFICE_HTML_MSG .
+            "</td><td>" . $this->map[ self::OPTIMIZE_OFFICE_HTML ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ORGANIZATION_NAME_MSG .
+            "</td><td>" . $this->map[ self::ORGANIZATION_NAME ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::PLAIN_TEXT_FILE_EXTENSIONS_MSG .
+            "</td><td>" . $this->map[ self::PLAIN_TEXT_FILE_EXTENSIONS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::PUBLISHER_CONCURRENCY_MSG .
+            "</td><td>" . $this->map[ self::PUBLISHER_CONCURRENCY ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::PUBLISHER_JOB_TIMEOUT_MSG .
+            "</td><td>" . $this->map[ self::PUBLISHER_JOB_TIMEOUT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::REMOVE_FONT_AND_STYLE_MSG .
+            "</td><td>" . $this->map[ self::REMOVE_FONT_AND_STYLE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::REPORT_RELATIVE_LINKS_AS_ERRORS_MSG .
+            "</td><td>" . $this->map[ self::REPORT_RELATIVE_LINKS_AS_ERRORS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SEARCH_INDEX_LOCATION_MSG .
+            "</td><td>" . $this->map[ self::SEARCH_INDEX_LOCATION ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SEARCH_RESULTS_PER_TYPE_MSG .
+            "</td><td>" . $this->map[ self::SEARCH_RESULTS_PER_TYPE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SESSION_TIMEOUT_MSG .
+            "</td><td>" . $this->map[ self::SESSION_TIMEOUT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SIMPLE_INTERFACE_STARTING_PAGE_MSG .
+            "</td><td>" . $this->map[ self::SIMPLE_INTERFACE_STARTING_PAGE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SITEWIDE_CSS_FILE_MSG .
+            "</td><td>" . $this->map[ self::SITEWIDE_CSS_FILE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SMTP_EMAIL_ADDRESS_MSG .
+            "</td><td>" . $this->map[ self::SMTP_EMAIL_ADDRESS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SMTP_HOST_MSG .
+            "</td><td>" . $this->map[ self::SMTP_HOST ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SMTP_PASSWORD_MSG .
+            "</td><td>" . $this->map[ self::SMTP_PASSWORD ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SMTP_PORT_MSG .
+            "</td><td>" . $this->map[ self::SMTP_PORT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SMTP_USERNAME_MSG .
+            "</td><td>" . $this->map[ self::SMTP_USERNAME ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SYSTEM_KEYWORDS_MSG .
+            "</td><td>" . $this->map[ self::SYSTEM_KEYWORDS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SYSTEM_URL_MSG .
+            "</td><td>" . $this->map[ self::SYSTEM_URL ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ULTRA_SIMPLE_INTERFACE_MSG .
+            "</td><td>" . $this->map[ self::ULTRA_SIMPLE_INTERFACE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::XALAN_JAVA_EXTENSIONS_MSG .
+            "</td><td>" . $this->map[ self::XALAN_JAVA_EXTENSIONS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::INDEX_BLOCK_RENDERING_CACHE_MSG .
+            "</td><td>" . $this->map[ self::INDEX_BLOCK_RENDERING_CACHE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::MAX_INDEX_BLOCK_SIZE_MSG .
+            "</td><td>" . $this->map[ self::MAX_INDEX_BLOCK_SIZE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::XALAN_JAVASCRIPT_EXTENSIONS_MSG .
+            "</td><td>" . $this->map[ self::XALAN_JAVASCRIPT_EXTENSIONS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::RECYCLE_BIN_EXPIRATION_MSG .
+            "</td><td>" . $this->map[ self::RECYCLE_BIN_EXPIRATION ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::USE_OLD_CACHE_MSG .
+            "</td><td>" . $this->map[ self::USE_OLD_CACHE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::UNPUBLISH_GLOBAL_ON_EXPIRATION_MSG .
+            "</td><td>" . $this->map[ self::UNPUBLISH_GLOBAL_ON_EXPIRATION ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::LINK_CHECKER_FREQUENCY_MSG .
+            "</td><td>" . $this->map[ self::LINK_CHECKER_FREQUENCY ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::LINK_CHECKER_FREQUENCY_DAYS_MSG .
+            "</td><td>" . $this->map[ self::LINK_CHECKER_FREQUENCY_DAYS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::LINK_CHECKER_FREQUENCY_TIME_MSG .
+            "</td><td>" . $this->map[ self::LINK_CHECKER_FREQUENCY_TIME ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::GLOBAL_AREA_LINK_CHECKER_ENABLED_MSG .
+            "</td><td>" . $this->map[ self::GLOBAL_AREA_LINK_CHECKER_ENABLED ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::EDITABLE_IMAGE_FILE_EXTENSIONS_MSG .
+            "</td><td>" . $this->map[ self::EDITABLE_IMAGE_FILE_EXTENSIONS ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::SITEWIDE_CSS_FILE_TEXT_MSG .
+            "</td><td>" . $this->map[ self::SITEWIDE_CSS_FILE_TEXT ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::ALLOW_TABLE_EDITING_MSG .
+            "</td><td>" . $this->map[ self::ALLOW_TABLE_EDITING ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::TEMPLATE_CREATE_BLOCK_FOLDER_MSG .
+            "</td><td>" . $this->map[ self::TEMPLATE_CREATE_BLOCK_FOLDER ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::GLOBAL_AREA_EXTERNAL_LINK_CHECK_ON_PUBLISH_MSG .
+            "</td><td>" . $this->map[ self::GLOBAL_AREA_EXTERNAL_LINK_CHECK_ON_PUBLISH ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::LIST_SIZE_MSG .
+            "</td><td>" . $this->map[ self::LIST_SIZE ] . "</td></tr>" .
+            
+            "<tr><td>" .  self::UNPUBLISH_BY_DEFAULT_ON_DELETE_MSG .
+            "</td><td>" . $this->map[ self::UNPUBLISH_BY_DEFAULT_ON_DELETE ] . "</td></tr>" .
+            
+            "<tr><td>" .  "A_dummy_string_to_push_the_content_to_the_right" .
+            "</td><td>" . "" . "</td></tr>" .
+            
             "</table>" . HR ;
         return $this;
     }
@@ -410,48 +410,48 @@ class Preference
 
     public function getValue( $name )
     {
-    	if( !in_array( $name, $this->names ) )
-    		throw new e\NoSuchNameException( "The name $name does not exist. " );
-    		
-    	return $this->map[ $name ];
+        if( !in_array( $name, $this->names ) )
+            throw new e\NoSuchNameException( "The name $name does not exist. " );
+            
+        return $this->map[ $name ];
     }
   
     public function toStdClass()
     {
-    	return $this->preference_std;
+        return $this->preference_std;
     }
     
     public function setValue( $name, $value )
     {
-    	if( !in_array( $name, $this->names ) )
-    		throw new e\NoSuchNameException( "The name $name does not exist. " );
+        if( !in_array( $name, $this->names ) )
+            throw new e\NoSuchNameException( "The name $name does not exist. " );
 
-		$this->service->editPreferences( $name, $value );
-		$this->reloadPreferences();
-    	return $this;
+        $this->service->editPreferences( $name, $value );
+        $this->reloadPreferences();
+        return $this;
     }
     
     private function reloadPreferences()
     {
-    	$this->service->readPreferences();
-    	$this->preference_std = $this->service->getPreferences();
-    	$this->processPreferences( $this->preference_std );
+        $this->service->readPreferences();
+        $this->preference_std = $this->service->getPreferences();
+        $this->processPreferences( $this->preference_std );
     }
     
     private function processPreferences( \stdClass $preference_std )
     {
         if( isset( $preference_std->preference ) && is_array( $preference_std->preference ) )
         {
-        	$pref_array = $preference_std->preference;
-        	
-        	//if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $pref_array ); }
-        	
-        	foreach( $pref_array as $pref )
-        	{
-        		$this->map[ $pref->name ] = $pref->value;
-        	}
-        	
-        	$this->names = array_keys( $this->map );
+            $pref_array = $preference_std->preference;
+            
+            //if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $pref_array ); }
+            
+            foreach( $pref_array as $pref )
+            {
+                $this->map[ $pref->name ] = $pref->value;
+            }
+            
+            $this->names = array_keys( $this->map );
         }
     }
     

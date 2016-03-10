@@ -37,12 +37,12 @@ class MetadataSet extends ContainedAsset
     const TITLE       = "title";
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
         if( 
-        	isset( $this->getProperty()->dynamicMetadataFieldDefinitions ) &&
+            isset( $this->getProperty()->dynamicMetadataFieldDefinitions ) &&
             isset( $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition ) )
         {
             $this->processDynamicMetadataFieldDefinition();
@@ -50,75 +50,75 @@ class MetadataSet extends ContainedAsset
     }
     
     public function addDynamicFieldDefinition( $field_name, $type, $label, 
-    	$required=false, $visibility=c\T::VISIBLE, $possible_values="" )
+        $required=false, $visibility=c\T::VISIBLE, $possible_values="" )
     {
-    	if( $this->hasDynamicMetadataFieldDefinition( $field_name ) )
-    	{
-    		throw new \Exception( 
-    			S_SPAN . "The dynamic field definition $field_name already exists." . E_SPAN );
-    	}
-    	
-		if( $type != c\T::TEXT && trim( $possible_values ) == "" )
-		{
-			throw new e\EmptyValueException( 
-				S_SPAN . c\M::EMPTY_POSSIBLE_VALUES . E_SPAN );
-		}
-		
-    	$dmfd = AssetTemplate::getDynamicMetadataFieldDefinition();
-		$dmfd->dynamicMetadataFieldDefinition->name       = $field_name;
-		$dmfd->dynamicMetadataFieldDefinition->label      = $label;
-		$dmfd->dynamicMetadataFieldDefinition->fieldType  = $type;
-		$dmfd->dynamicMetadataFieldDefinition->required   = $required;
-		$dmfd->dynamicMetadataFieldDefinition->visibility = $visibility;
-		
-		if( $type != c\T::TEXT )
-		{
-			$dmfd->dynamicMetadataFieldDefinition->possibleValues = new \stdClass();
-			$values      = u\StringUtility::getExplodedStringArray( ";", $possible_values );
-			$value_count = count( $values );
-			
-			if( $value_count == 1 )
-			{
-				$pv                    = new \stdClass();
-				$pv->value             = $values[ 0 ];
-				$pv->selectedByDefault = false;
-				
-				$dmfd->dynamicMetadataFieldDefinition->possibleValues->possibleValue = $pv;
-			}
-			else
-			{
-				$dmfd->dynamicMetadataFieldDefinition->possibleValues->possibleValue = array();
-				
-				foreach( $values as $value )
-				{
-					if( self::DEBUG ) { u\DebugUtility::out( $value ); }
-				
-					$pv                    = new \stdClass();
-					$pv->value             = $value;
-					$pv->selectedByDefault = false;
-					
-					$dmfd->dynamicMetadataFieldDefinition->possibleValues->possibleValue[] = $pv;
-				}
-			}
-		}
-		if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $dmfd ); }
-		
-		$dmfd_obj = new p\DynamicMetadataFieldDefinition( $dmfd->dynamicMetadataFieldDefinition );
-		
-    	$this->dynamic_metadata_field_definitions[] = $dmfd_obj;
-    	
-		if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $dmfd_obj->toStdClass() ); }
-    	
-    	$this->edit();
-    	$this->processDynamicMetadataFieldDefinition();
-    	
-    	return $this;
+        if( $this->hasDynamicMetadataFieldDefinition( $field_name ) )
+        {
+            throw new \Exception( 
+                S_SPAN . "The dynamic field definition $field_name already exists." . E_SPAN );
+        }
+        
+        if( $type != c\T::TEXT && trim( $possible_values ) == "" )
+        {
+            throw new e\EmptyValueException( 
+                S_SPAN . c\M::EMPTY_POSSIBLE_VALUES . E_SPAN );
+        }
+        
+        $dmfd = AssetTemplate::getDynamicMetadataFieldDefinition();
+        $dmfd->dynamicMetadataFieldDefinition->name       = $field_name;
+        $dmfd->dynamicMetadataFieldDefinition->label      = $label;
+        $dmfd->dynamicMetadataFieldDefinition->fieldType  = $type;
+        $dmfd->dynamicMetadataFieldDefinition->required   = $required;
+        $dmfd->dynamicMetadataFieldDefinition->visibility = $visibility;
+        
+        if( $type != c\T::TEXT )
+        {
+            $dmfd->dynamicMetadataFieldDefinition->possibleValues = new \stdClass();
+            $values      = u\StringUtility::getExplodedStringArray( ";", $possible_values );
+            $value_count = count( $values );
+            
+            if( $value_count == 1 )
+            {
+                $pv                    = new \stdClass();
+                $pv->value             = $values[ 0 ];
+                $pv->selectedByDefault = false;
+                
+                $dmfd->dynamicMetadataFieldDefinition->possibleValues->possibleValue = $pv;
+            }
+            else
+            {
+                $dmfd->dynamicMetadataFieldDefinition->possibleValues->possibleValue = array();
+                
+                foreach( $values as $value )
+                {
+                    if( self::DEBUG ) { u\DebugUtility::out( $value ); }
+                
+                    $pv                    = new \stdClass();
+                    $pv->value             = $value;
+                    $pv->selectedByDefault = false;
+                    
+                    $dmfd->dynamicMetadataFieldDefinition->possibleValues->possibleValue[] = $pv;
+                }
+            }
+        }
+        if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $dmfd ); }
+        
+        $dmfd_obj = new p\DynamicMetadataFieldDefinition( $dmfd->dynamicMetadataFieldDefinition );
+        
+        $this->dynamic_metadata_field_definitions[] = $dmfd_obj;
+        
+        if( self::DEBUG && self::DUMP ) { u\DebugUtility::dump( $dmfd_obj->toStdClass() ); }
+        
+        $this->edit();
+        $this->processDynamicMetadataFieldDefinition();
+        
+        return $this;
     }
     
     public function addField( $field_name, $type, $label, 
-    	$required=false, $visibility=c\T::VISIBLE, $possible_values="" )
+        $required=false, $visibility=c\T::VISIBLE, $possible_values="" )
     {
-    	return $this->addDynamicFieldDefinition( $field_name, $type, $label, $required, $visibility, $possible_values );
+        return $this->addDynamicFieldDefinition( $field_name, $type, $label, $required, $visibility, $possible_values );
     }
     
     /**
@@ -130,12 +130,12 @@ class MetadataSet extends ContainedAsset
         
         if( $value == '' )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
             
         $def = $this->getDynamicMetadataFieldDefinition( $name );
         $def->appendValue( $value );
         $this->edit();
-    	$this->processDynamicMetadataFieldDefinition();
+        $this->processDynamicMetadataFieldDefinition();
 
         return $this;
     }
@@ -151,11 +151,11 @@ class MetadataSet extends ContainedAsset
         $count = $this->dynamic_metadata_field_definitions;
         
         if( $count > 0 )
-			foreach( $this->dynamic_metadata_field_definitions as $definition )
-			{
-				$metadata_set->dynamicMetadataFieldDefinitions->
-					dynamicMetadataFieldDefinition[] = $definition->toStdClass();
-			}
+            foreach( $this->dynamic_metadata_field_definitions as $definition )
+            {
+                $metadata_set->dynamicMetadataFieldDefinitions->
+                    dynamicMetadataFieldDefinition[] = $definition->toStdClass();
+            }
         
         $asset->{ $p = $this->getPropertyName() } = $metadata_set;
         // edit asset
@@ -220,7 +220,7 @@ class MetadataSet extends ContainedAsset
     
     public function getDynamicMetadataFieldDefinitionsStdClass()
     {
-    	return $this->getProperty()->dynamicMetadataFieldDefinitions;
+        return $this->getProperty()->dynamicMetadataFieldDefinitions;
     }
     
     public function getDynamicMetadataFieldPossibleValueStrings( $name )
@@ -268,28 +268,28 @@ class MetadataSet extends ContainedAsset
     
     public function getMetaData()
     {
-    	$m = AssetTemplate::getMetadata();
-    	
-    	if( isset( $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition ) &&
-    		is_array( $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition )
-    	)
-    	{
-    		$defs = $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition;
-    		$a    = array();
-    		
-    		foreach( $defs as $def )
-    		{
-    			$df              = new \stdClass();
-    			$df->name        = $def->name;
-    			$df->fieldValues = new \stdClass();
-    			$df->fieldValues->fieldValue = array();
-    			$a[] = $df;
-    		}
-    		$m->dynamicFields = new \stdClass();
-    		$m->dynamicFields->dynamicField = $a;
-    	}
-    	
-    	return new p\Metadata( $m, $this->getService(), $this->getId() );
+        $m = AssetTemplate::getMetadata();
+        
+        if( isset( $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition ) &&
+            is_array( $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition )
+        )
+        {
+            $defs = $this->getProperty()->dynamicMetadataFieldDefinitions->dynamicMetadataFieldDefinition;
+            $a    = array();
+            
+            foreach( $defs as $def )
+            {
+                $df              = new \stdClass();
+                $df->name        = $def->name;
+                $df->fieldValues = new \stdClass();
+                $df->fieldValues->fieldValue = array();
+                $a[] = $df;
+            }
+            $m->dynamicFields = new \stdClass();
+            $m->dynamicFields->dynamicField = $a;
+        }
+        
+        return new p\Metadata( $m, $this->getService(), $this->getId() );
     }
     
     // used by WordPressConnector
@@ -367,10 +367,10 @@ class MetadataSet extends ContainedAsset
     
     public function hasDynamicMetadataFieldDefinition( $name )
     {
-    	if( !is_array( $this->field_names ) )
-    	{
-    		return false;
-    	}
+        if( !is_array( $this->field_names ) )
+        {
+            return false;
+        }
         return in_array( $name, $this->field_names );
     }
     
@@ -379,7 +379,7 @@ class MetadataSet extends ContainedAsset
         if( !in_array( $name, $this->field_names ) )
         {
             throw new e\NoSuchFieldException( 
-            	S_SPAN . "The field $name does not exist." . E_SPAN );
+                S_SPAN . "The field $name does not exist." . E_SPAN );
         }
         
         $count = count( $this->dynamic_metadata_field_definitions );
@@ -404,7 +404,7 @@ class MetadataSet extends ContainedAsset
             }
         }
         $this->edit();
-    	$this->processDynamicMetadataFieldDefinition();
+        $this->processDynamicMetadataFieldDefinition();
 
         return $this;
     }
@@ -415,12 +415,12 @@ class MetadataSet extends ContainedAsset
         
         if( $value == '' )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
             
         $def = $this->getDynamicMetadataFieldDefinition( $name );
         $def->removeValue( $value );
         $this->edit();
-    	$this->processDynamicMetadataFieldDefinition();
+        $this->processDynamicMetadataFieldDefinition();
 
         return $this;
     }
@@ -429,7 +429,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $author_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $author_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $author_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->authorFieldRequired = $author_field_required;
         return $this;
@@ -439,7 +439,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $author_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $author_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $author_field_visibility is not acceptable." . E_SPAN );
 
         $this->getProperty()->authorFieldVisibility = $author_field_visibility;
         return $this;
@@ -449,7 +449,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $description_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $description_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $description_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->descriptionFieldRequired = $description_field_required;
         return $this;
@@ -459,7 +459,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $description_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $description_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $description_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->descriptionFieldVisibility = $description_field_visibility;
         return $this;
@@ -469,7 +469,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $display_name_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $display_name_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $display_name_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->displayNameFieldRequired = $display_name_field_required;
         return $this;
@@ -479,7 +479,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $display_name_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $display_name_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $display_name_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->displayNameFieldVisibility = $display_name_field_visibility;
         return $this;
@@ -487,39 +487,39 @@ class MetadataSet extends ContainedAsset
     
     public function setDynamicMetadataFieldDefinitions( \stdClass $dmfd=NULL )
     {
-    	if( $dmfd == NULL || !isset( $dmfd->dynamicMetadataFieldDefinition ) )
-    	{
-    		$this->getProperty()->dynamicMetadataFieldDefinitions = new \stdClass();
-    	}
-    	else
-    	{
-			$this->dynamic_metadata_field_definitions = array();
-			$this->field_names                        = array();
+        if( $dmfd == NULL || !isset( $dmfd->dynamicMetadataFieldDefinition ) )
+        {
+            $this->getProperty()->dynamicMetadataFieldDefinitions = new \stdClass();
+        }
+        else
+        {
+            $this->dynamic_metadata_field_definitions = array();
+            $this->field_names                        = array();
 
-			$definitions = $dmfd->dynamicMetadataFieldDefinition;
-			
-			if( !is_array( $definitions ) )
-			{
-				$definitions = array( $definitions );
-			}
-		
-			$count = count( $definitions );
-		
-			for( $i = 0; $i < $count; $i++ )
-			{
-				$this->dynamic_metadata_field_definitions[] = 
-					new p\DynamicMetadataFieldDefinition( $definitions[ $i ] );
-				$this->field_names[] = $definitions[ $i ]->name;
-			}
-		}
-    	return $this->edit();
+            $definitions = $dmfd->dynamicMetadataFieldDefinition;
+            
+            if( !is_array( $definitions ) )
+            {
+                $definitions = array( $definitions );
+            }
+        
+            $count = count( $definitions );
+        
+            for( $i = 0; $i < $count; $i++ )
+            {
+                $this->dynamic_metadata_field_definitions[] = 
+                    new p\DynamicMetadataFieldDefinition( $definitions[ $i ] );
+                $this->field_names[] = $definitions[ $i ]->name;
+            }
+        }
+        return $this->edit();
     }
     
     public function setEndDateFieldRequired( $end_date_field_required=false )
     {
         if( !c\BooleanValues::isBoolean( $end_date_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $end_date_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $end_date_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->endDateFieldRequired = $end_date_field_required;
         return $this;
@@ -529,7 +529,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $end_date_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $end_date_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $end_date_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->endDateFieldVisibility = $end_date_field_visibility;
         return $this;
@@ -539,7 +539,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $expiration_folder_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $expiration_folder_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $expiration_folder_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->expirationFolderFieldRequired = $expiration_folder_field_required;
         return $this;
@@ -549,7 +549,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $expiration_folder_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $expiration_folder_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $expiration_folder_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->expirationFolderFieldVisibility = $expiration_folder_field_visibility;
         return $this;
@@ -559,7 +559,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $keywords_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $keywords_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $keywords_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->keywordsFieldRequired = $keywords_field_required;
         return $this;
@@ -569,7 +569,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $keywords_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $keywords_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $keywords_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->keywordsFieldVisibility = $keywords_field_visibility;
         return $this;
@@ -581,7 +581,7 @@ class MetadataSet extends ContainedAsset
         
         if( $label == '' )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_LABEL . E_SPAN );
+                S_SPAN . c\M::EMPTY_LABEL . E_SPAN );
     
         if( $this->hasDynamicMetadataFieldDefinition( $name ) )
         {
@@ -593,7 +593,7 @@ class MetadataSet extends ContainedAsset
         else
         {
             throw new e\NoSuchMetadataFieldDefinitionException( 
-            	S_SPAN . "The definition $name does not exist." . E_SPAN );
+                S_SPAN . "The definition $name does not exist." . E_SPAN );
         }
     }
     
@@ -601,7 +601,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $required must be a boolean." . E_SPAN );
             
         if( $this->hasDynamicMetadataFieldDefinition( $name ) )
         {
@@ -613,7 +613,7 @@ class MetadataSet extends ContainedAsset
         else
         {
             throw new e\NoSuchMetadataFieldDefinitionException( 
-            	S_SPAN . "The definition $name does not exist." . E_SPAN );
+                S_SPAN . "The definition $name does not exist." . E_SPAN );
         }
     }
     
@@ -621,7 +621,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $review_date_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $review_date_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $review_date_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->reviewDateFieldRequired = $review_date_field_required;
         return $this;
@@ -631,7 +631,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $review_date_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $review_date_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $review_date_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->reviewDateFieldVisibility = $review_date_field_visibility;
         return $this;
@@ -643,7 +643,7 @@ class MetadataSet extends ContainedAsset
         
         if( $value == '' )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
     
         if( $this->hasDynamicMetadataFieldDefinition( $name ) )
         {
@@ -657,7 +657,7 @@ class MetadataSet extends ContainedAsset
         else
         {
             throw new e\NoSuchMetadataFieldDefinitionException( 
-            	S_SPAN . "The definition $name does not exist." . E_SPAN );
+                S_SPAN . "The definition $name does not exist." . E_SPAN );
         }
             
         return $this;
@@ -667,7 +667,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $start_date_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $start_date_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $start_date_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->startDateFieldRequired = $start_date_field_required;
         return $this;
@@ -677,7 +677,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $start_date_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $start_date_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $start_date_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->startDateFieldVisibility = $start_date_field_visibility;
         return $this;
@@ -687,7 +687,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $summary_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $summary_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $summary_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->summaryFieldRequired = $summary_field_required;
         return $this;
@@ -697,7 +697,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $summary_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $summary_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $summary_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->summaryFieldVisibility = $summary_field_visibility;
         return $this;
@@ -707,7 +707,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $teaser_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $teaser_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $teaser_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->teaserFieldRequired = $teaser_field_required;
         return $this;
@@ -717,7 +717,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $teaser_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $teaser_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $teaser_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->teaserFieldVisibility = $teaser_field_visibility;
         return $this;
@@ -727,7 +727,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $title_field_required ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $title_field_required must be a boolean." . E_SPAN );
+                S_SPAN . "The value $title_field_required must be a boolean." . E_SPAN );
             
         $this->getProperty()->titleFieldRequired = $title_field_required;
         return $this;
@@ -737,7 +737,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $title_field_visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $title_field_visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $title_field_visibility is not acceptable." . E_SPAN );
         
         $this->getProperty()->titleFieldVisibility = $title_field_visibility;
         return $this;
@@ -747,7 +747,7 @@ class MetadataSet extends ContainedAsset
     {
         if( !c\VisibilityValues::isVisibility( $visibility ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $visibility is not acceptable." . E_SPAN );
+                S_SPAN . "The value $visibility is not acceptable." . E_SPAN );
 
         if( $this->hasDynamicMetadataFieldDefinition( $name ) )
         {
@@ -761,13 +761,13 @@ class MetadataSet extends ContainedAsset
             else
             {
                 throw new e\NoSuchVisibilityException( 
-                	S_SPAN . "The definition $name does not exist." . E_SPAN );
+                    S_SPAN . "The definition $name does not exist." . E_SPAN );
             }
         }
         else
         {
             throw new e\NoSuchMetadataFieldDefinitionException( 
-            	S_SPAN . "The definition $name does not exist." . E_SPAN );
+                S_SPAN . "The definition $name does not exist." . E_SPAN );
         }
     }
     
@@ -775,15 +775,15 @@ class MetadataSet extends ContainedAsset
     {
         if( $def1 == '' || $def2 == '' )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
             
         if( !in_array( $def1, $this->field_names ) )
             throw new e\NoSuchFieldException( 
-            	S_SPAN . "The definition $def1 does not exist." . E_SPAN );
+                S_SPAN . "The definition $def1 does not exist." . E_SPAN );
         
         if( !in_array( $def1, $this->field_names ) )
             throw new e\NoSuchFieldException( 
-            	S_SPAN . "The definition $def2 does not exist." . E_SPAN );
+                S_SPAN . "The definition $def2 does not exist." . E_SPAN );
             
         $first_def_pos  = -1;
         $second_def_pos = -1;
@@ -824,7 +824,7 @@ class MetadataSet extends ContainedAsset
         $def = $this->getDynamicMetadataFieldDefinition( $name );
         $def->swapValues( $value1, $value2 );
         $this->edit();
-    	$this->processDynamicMetadataFieldDefinition();
+        $this->processDynamicMetadataFieldDefinition();
 
         return $this;
     }
@@ -835,7 +835,7 @@ class MetadataSet extends ContainedAsset
         
         if( $value == '' )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+                S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
     
         if( $this->hasDynamicMetadataFieldDefinition( $name ) )
         {
@@ -849,7 +849,7 @@ class MetadataSet extends ContainedAsset
         else
         {
             throw new e\NoSuchMetadataFieldDefinitionException( 
-            	S_SPAN . "The definition $name does not exist." . E_SPAN );
+                S_SPAN . "The definition $name does not exist." . E_SPAN );
         }
             
         return $this;

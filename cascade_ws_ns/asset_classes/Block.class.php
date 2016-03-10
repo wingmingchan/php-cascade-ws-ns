@@ -23,7 +23,7 @@ abstract class Block extends ContainedAsset
     const DEBUG = false;
 
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         $this->processMetadata();
@@ -33,11 +33,11 @@ abstract class Block extends ContainedAsset
     {
         $asset                           = new \stdClass();
         //$this->getProperty()->metadata   = $this->metadata->toStdClass();
-		
+        
         $asset->{ $p = $this->getPropertyName() }           = $this->getProperty();
         $asset->{ $p = $this->getPropertyName() }->metadata = $this->metadata->toStdClass();
 
-		if( self::DEBUG ){ u\DebugUtility::dump( $asset ); }
+        if( self::DEBUG ){ u\DebugUtility::dump( $asset ); }
 
         // edit asset
         $service = $this->getService();
@@ -133,17 +133,17 @@ abstract class Block extends ContainedAsset
     
     public function setExpirationFolder( Folder $f )
     {
-    	$this->getProperty()->expirationFolderId   = $f->getId();
-    	$this->getProperty()->expirationFolderPath = $f->getPath();
-    	return $this;
+        $this->getProperty()->expirationFolderId   = $f->getId();
+        $this->getProperty()->expirationFolderPath = $f->getPath();
+        return $this;
     }
         
     public function setMetadata( p\Metadata $m )
     {
-    	$this->metadata = $m;
-    	$this->edit();
-    	$this->processMetadata();
-    	return $this;
+        $this->metadata = $m;
+        $this->edit();
+        $this->processMetadata();
+        return $this;
     }
     
     public function setMetadataSet( MetadataSet $m )
@@ -151,7 +151,7 @@ abstract class Block extends ContainedAsset
         if( $m == NULL )
         {
             throw new e\NullAssetException(
-            	S_SPAN . c\M::NULL_ASSET . E_SPAN );
+                S_SPAN . c\M::NULL_ASSET . E_SPAN );
         }
     
         $this->getProperty()->metadataSetId   = $m->getId();
@@ -164,16 +164,16 @@ abstract class Block extends ContainedAsset
     
     public static function getBlock( aohs\AssetOperationHandlerService $service, $id_string )
     {
-    	return self::getAsset( $service, 
-    		self::getBlockType( $service, $id_string ), $id_string );
-	}
+        return self::getAsset( $service, 
+            self::getBlockType( $service, $id_string ), $id_string );
+    }
 
     public static function getBlockType( aohs\AssetOperationHandlerService $service, $id_string )
     {
-    	$types      
-    	    = array( 
-    	    	DataBlock::TYPE, FeedBlock::TYPE, IndexBlock::TYPE, 
-    	    	TextBlock::TYPE, XmlBlock::TYPE );
+        $types      
+            = array( 
+                DataBlock::TYPE, FeedBlock::TYPE, IndexBlock::TYPE, 
+                TextBlock::TYPE, XmlBlock::TYPE );
         $type_count = count( $types );
         
         for( $i = 0; $i < $type_count; $i++ )

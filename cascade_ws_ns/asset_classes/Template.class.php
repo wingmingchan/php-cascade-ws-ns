@@ -22,7 +22,7 @@ class Template extends ContainedAsset
     const TYPE  = c\T::TEMPLATE;
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -124,7 +124,7 @@ class Template extends ContainedAsset
         
         if( !isset( $this->page_region_map[ $name ] ) )
             throw new e\NoSuchPageRegionException( 
-            	S_SPAN . "The region $name does not exist." . E_SPAN );
+                S_SPAN . "The region $name does not exist." . E_SPAN );
             
         return $this->page_region_map[ $name ];
     }
@@ -151,40 +151,40 @@ class Template extends ContainedAsset
     
     public function getPageRegionStdForPageConfiguration()
     {
-    	$temp = array();
-    	
-    	// there is at least 1
-    	foreach( $this->page_regions as $region )
-    	{
-    		// only returns regions with block and/or format
-    		if( $region->getBlockId() != NULL || $region->getFormatId() != NULL )
-    		{
-    			$temp[] = $region;
-    		}
-    	}
-    	
-    	$std          = new \stdClass();
-     	$region_count = count( $temp );
-   	
-   		if( $region_count == 0 )
-   		{
-   			// do nothing
-   		}
-    	else if( $region_count == 1 )
-    	{
-    		$std->pageRegions->pageRegion = $temp[ 0 ]->toStdClass();
-    	}
-    	else
-    	{
-    		$std->pageRegions->pageRegion = array();
-    		
-    		for( $i = 0; $i < $region_count; $i++ )
-    		{
-    			$std->pageRegions->pageRegion[] = $temp[ $i ]->toStdClass();
-    		}
-    	}
-    	
-    	return $std;
+        $temp = array();
+        
+        // there is at least 1
+        foreach( $this->page_regions as $region )
+        {
+            // only returns regions with block and/or format
+            if( $region->getBlockId() != NULL || $region->getFormatId() != NULL )
+            {
+                $temp[] = $region;
+            }
+        }
+        
+        $std          = new \stdClass();
+         $region_count = count( $temp );
+       
+           if( $region_count == 0 )
+           {
+               // do nothing
+           }
+        else if( $region_count == 1 )
+        {
+            $std->pageRegions->pageRegion = $temp[ 0 ]->toStdClass();
+        }
+        else
+        {
+            $std->pageRegions->pageRegion = array();
+            
+            for( $i = 0; $i < $region_count; $i++ )
+            {
+                $std->pageRegions->pageRegion[] = $temp[ $i ]->toStdClass();
+            }
+        }
+        
+        return $std;
     }
     
     public function getRegionNames()
@@ -220,7 +220,7 @@ class Template extends ContainedAsset
             if( $format->getType() != c\T::XSLTFORMAT )
             {
                 throw new \Exception( 
-                	S_SPAN . "Wrong type of format." . E_SPAN );
+                    S_SPAN . "Wrong type of format." . E_SPAN );
             }
             $this->getProperty()->formatId   = $format->getId();
             $this->getProperty()->formatPath = $format->getPath();
@@ -239,7 +239,7 @@ class Template extends ContainedAsset
         if( !isset( $this->page_region_map[ $name ] ) )
         {
             throw new e\NoSuchPageRegionException( 
-            	S_SPAN . "The region $name does not exist." . E_SPAN );
+                S_SPAN . "The region $name does not exist." . E_SPAN );
         }
         
         $this->page_region_map[ $name ] = $page_region;
@@ -281,7 +281,7 @@ class Template extends ContainedAsset
     {
         if( trim( $xml ) == "" )
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_XML . E_SPAN );
+                S_SPAN . c\M::EMPTY_XML . E_SPAN );
 
         $this->getProperty()->xml = $xml;
         return $this;

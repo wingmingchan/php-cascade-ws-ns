@@ -22,7 +22,7 @@ class PublishSet extends ScheduledPublishing
     const TYPE  = c\T::PUBLISHSET;
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -154,13 +154,13 @@ class PublishSet extends ScheduledPublishing
         }
         
         if( $publish_set->timeToPublish == NULL )
-        	unset( $publish_set->timeToPublish );
+            unset( $publish_set->timeToPublish );
         
         if( $publish_set->publishIntervalHours == NULL )
-        	unset( $publish_set->publishIntervalHours );
-        	
+            unset( $publish_set->publishIntervalHours );
+            
         if( $publish_set->cronExpression == NULL )
-        	unset( $publish_set->cronExpression );
+            unset( $publish_set->cronExpression );
 
         $asset                                    = new \stdClass();
         $asset->{ $p = $this->getPropertyName() } = $publish_set;
@@ -222,11 +222,11 @@ class PublishSet extends ScheduledPublishing
         $service = $this->getService();
         
         if( isset( $destination ) )
-        	$service->publish( 
-            	$service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
+            $service->publish( 
+                $service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
         else
-        	$service->publish( 
-            	$service->createId( self::TYPE, $this->getProperty()->id ) );
+            $service->publish( 
+                $service->createId( self::TYPE, $this->getProperty()->id ) );
         return $this;
     }
     
@@ -289,7 +289,7 @@ class PublishSet extends ScheduledPublishing
 
         // files
         if( isset( $this->getProperty()->files) &&
-        	isset( $this->getProperty()->files->publishableAssetIdentifier ) )
+            isset( $this->getProperty()->files->publishableAssetIdentifier ) )
         {
             $identifiers = $this->getProperty()->files->publishableAssetIdentifier;
             
@@ -305,7 +305,7 @@ class PublishSet extends ScheduledPublishing
         }
         // folders
         if( isset( $this->getProperty()->folders ) &&
-        	isset( $this->getProperty()->folders->publishableAssetIdentifier ) )
+            isset( $this->getProperty()->folders->publishableAssetIdentifier ) )
         {
             $identifiers = $this->getProperty()->folders->publishableAssetIdentifier;
             
@@ -321,7 +321,7 @@ class PublishSet extends ScheduledPublishing
         }
         // pages
         if( isset( $this->getProperty()->pages ) &&
-        	isset( $this->getProperty()->pages->publishableAssetIdentifier ) )
+            isset( $this->getProperty()->pages->publishableAssetIdentifier ) )
         {
             $identifiers = $this->getProperty()->pages->publishableAssetIdentifier;
             

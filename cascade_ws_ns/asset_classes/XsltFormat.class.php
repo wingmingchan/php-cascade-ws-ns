@@ -41,17 +41,17 @@ class XsltFormat extends Format
         if( trim( $xml ) == '' )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_XML . E_SPAN );
+                S_SPAN . c\M::EMPTY_XML . E_SPAN );
         }
         if( $enforce_xml )
         {
-			$xml_obj = new \SimpleXMLElement( $xml );
-			$this->getProperty()->xml = $xml_obj->asXML();
-		}
-		else
-		{
-			$this->getProperty()->xml = $xml;
-		}
+            $xml_obj = new \SimpleXMLElement( $xml );
+            $this->getProperty()->xml = $xml_obj->asXML();
+        }
+        else
+        {
+            $this->getProperty()->xml = $xml;
+        }
         return $this;
     }
 }

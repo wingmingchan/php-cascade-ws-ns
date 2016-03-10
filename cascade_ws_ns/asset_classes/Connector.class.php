@@ -32,19 +32,19 @@ abstract class Connector extends ContainedAsset
         if( $this->getPropertyName() == c\P::GOOGLEANALYTICSCONNECTOR )
         {
             throw new \Exception( 
-            	S_SPAN . c\M::GOOGLE_CONNECTOR_NO_CT . E_SPAN );
+                S_SPAN . c\M::GOOGLE_CONNECTOR_NO_CT . E_SPAN );
         }
     
         if( $ct == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_CONTENT_TYPE . E_SPAN );
+                S_SPAN . c\M::NULL_CONTENT_TYPE . E_SPAN );
         }
             
         if( trim( $page_config_name ) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_PAGE_CONFIGURATION_NAME . E_SPAN );
+                S_SPAN . c\M::EMPTY_PAGE_CONFIGURATION_NAME . E_SPAN );
         }
             
         $config_set = $ct->getConfigurationSet();
@@ -209,7 +209,7 @@ abstract class Connector extends ContainedAsset
         if( $this->getPropertyName() == c\P::GOOGLEANALYTICSCONNECTOR )
         {
             throw new \Exception( 
-            	S_SPAN . c\M::GOOGLE_CONNECTOR_NO_CT . E_SPAN );
+                S_SPAN . c\M::GOOGLE_CONNECTOR_NO_CT . E_SPAN );
         }
     
         $temp = array();
@@ -244,7 +244,7 @@ abstract class Connector extends ContainedAsset
     private function processParameters()
     {
         if( isset( $this->getProperty()->connectorParameters ) &&
-        	isset( $this->getProperty()->connectorParameters->connectorParameter ) )
+            isset( $this->getProperty()->connectorParameters->connectorParameter ) )
         {
             $params = $this->getProperty()->connectorParameters->connectorParameter;
             
@@ -259,7 +259,7 @@ abstract class Connector extends ContainedAsset
         }
         
         if( isset( $this->getProperty()->connectorContentTypeLinks ) &&
-        	isset( $this->getProperty()->connectorContentTypeLinks->connectorContentTypeLink ) )
+            isset( $this->getProperty()->connectorContentTypeLinks->connectorContentTypeLink ) )
         {
             $links = $this->getProperty()->connectorContentTypeLinks->connectorContentTypeLink;
             

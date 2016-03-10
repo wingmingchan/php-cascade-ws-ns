@@ -65,12 +65,12 @@ class Reference extends ContainedAsset
     
     public function setAsset( Asset $asset )
     {
-    	$property = $this->getProperty();
-    	$property->referencedAssetId   = $asset->getId();
-    	$property->referencedAssetPath = $asset->getPath();
-    	$property->referencedAssetType = $asset->getType();
-    	
-    	$asset                          = new \stdClass();
+        $property = $this->getProperty();
+        $property->referencedAssetId   = $asset->getId();
+        $property->referencedAssetPath = $asset->getPath();
+        $property->referencedAssetType = $asset->getType();
+        
+        $asset                          = new \stdClass();
         $asset->{ $p = $this->getPropertyName() } = $property;
         // edit asset
         $service = $this->getService();

@@ -699,7 +699,7 @@ class Page extends Linkable
     
     public function hasPhantomNodes() // detects phantom nodes of type B
     {
-    	return $this->structured_data->hasPhantomNodes();
+        return $this->structured_data->hasPhantomNodes();
     }
     
     public function hasStructuredData()
@@ -757,9 +757,9 @@ class Page extends Linkable
     
     public function mapData()
     {
-    	$this->checkStructuredData();
-    	$new_sd = $this->structured_data->mapData();
-    	return $this->setStructuredData( $new_sd );
+        $this->checkStructuredData();
+        $new_sd = $this->structured_data->mapData();
+        return $this->setStructuredData( $new_sd );
     }
     
     public function publish( Destination $destination=NULL )

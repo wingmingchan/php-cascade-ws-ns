@@ -32,7 +32,7 @@ abstract class ScheduledPublishing extends ContainedAsset
     const DEFAULT_TIME = "00:00:00.000";
 
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -47,7 +47,7 @@ abstract class ScheduledPublishing extends ContainedAsset
     {
         if( $g == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
         
         $g_name       = $g->getName();
         $group_string = $this->getProperty()->sendReportToGroups;
@@ -67,7 +67,7 @@ abstract class ScheduledPublishing extends ContainedAsset
     {
         if( $u == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_USER . E_SPAN );
+                S_SPAN . c\M::NULL_USER . E_SPAN );
         
         $u_name      = $u->getName();
         $user_string = $this->getProperty()->sendReportToUsers;
@@ -105,7 +105,7 @@ abstract class ScheduledPublishing extends ContainedAsset
     
     public function getScheduledDestinationMode()
     {
-    	return $this->getProperty()->scheduledPublishDestinationMode;
+        return $this->getProperty()->scheduledPublishDestinationMode;
     }
   
     public function getSendReportOnErrorOnly()
@@ -140,7 +140,7 @@ abstract class ScheduledPublishing extends ContainedAsset
             return $this->setScheduledPublishing( true, NULL, NULL, $cron, NULL );
         }
         throw new e\EmptyValueException( 
-        	S_SPAN . c\M::EMPTY_CRON_EXPRESSION . E_SPAN );
+            S_SPAN . c\M::EMPTY_CRON_EXPRESSION . E_SPAN );
     }
     
     public function setDayOfWeek( $days, $time=NULL )
@@ -160,7 +160,7 @@ abstract class ScheduledPublishing extends ContainedAsset
             return $this->setScheduledPublishing( true, $days, NULL, NULL, $time );
         }
         throw new e\EmptyValueException(
-        	S_SPAN . c\M::NULL_DAYS . E_SPAN );
+            S_SPAN . c\M::NULL_DAYS . E_SPAN );
     }
     
     public function setPublishIntervalHours( $hours, $time=NULL )
@@ -170,7 +170,7 @@ abstract class ScheduledPublishing extends ContainedAsset
             return $this->setScheduledPublishing( true, NULL, $hours, NULL, $time );
         }
         throw new e\EmptyValueException( 
-        	S_SPAN . c\M::NULL_INTERVAL . E_SPAN );
+            S_SPAN . c\M::NULL_INTERVAL . E_SPAN );
     }
     
     public function setScheduledPublishing( 
@@ -185,7 +185,7 @@ abstract class ScheduledPublishing extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $uses_scheduled_publishing ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $uses_scheduled_publishing must be a boolean. " . E_SPAN );
+                S_SPAN . "The value $uses_scheduled_publishing must be a boolean. " . E_SPAN );
     
         if( !$uses_scheduled_publishing ) // unset
         {
@@ -202,135 +202,135 @@ abstract class ScheduledPublishing extends ContainedAsset
         }
         else // use scheduled publishing
         {
-        	$this->getProperty()->usesScheduledPublishing = true;
-        	$this->getProperty()->scheduledPublishDestinationMode = c\T::ALLDESTINATIONS;
-        	
-/*        	
-        	if( $mode != c\T::SELECTEDDESTINATIONS && $mode != c\T::ALLDESTINATIONS )
-				$mode = c\T::ALLDESTINATIONS;
-		
-			if( $mode == c\T::SELECTEDDESTINATIONS )
-			{
-				if( isset( $destinations ) )
-				{
-					if( is_array( $destinations ) )
-					{
-						if( count( $destinations ) > 0 )
-							$this->getProperty()->scheduledPublishDestinations = $destinations;
-						else
-							$mode = c\T::ALLDESTINATIONS;
-					}
-					else // not an array
-					{
-						$this->getProperty()->scheduledPublishDestinations = array( $destinations );
-					}
-				}
-				else
-				{
-					echo "All mode" . BR;
-					$mode = c\T::ALLDESTINATIONS;
-				}
-			}
-		
-			//if( $mode == c\T::ALLDESTINATIONS )
-				//$this->getProperty()->scheduledPublishDestinations = NULL;
+            $this->getProperty()->usesScheduledPublishing = true;
+            $this->getProperty()->scheduledPublishDestinationMode = c\T::ALLDESTINATIONS;
+            
+/*            
+            if( $mode != c\T::SELECTEDDESTINATIONS && $mode != c\T::ALLDESTINATIONS )
+                $mode = c\T::ALLDESTINATIONS;
         
-        	$this->getProperty()->scheduledPublishDestinationMode = $mode;
+            if( $mode == c\T::SELECTEDDESTINATIONS )
+            {
+                if( isset( $destinations ) )
+                {
+                    if( is_array( $destinations ) )
+                    {
+                        if( count( $destinations ) > 0 )
+                            $this->getProperty()->scheduledPublishDestinations = $destinations;
+                        else
+                            $mode = c\T::ALLDESTINATIONS;
+                    }
+                    else // not an array
+                    {
+                        $this->getProperty()->scheduledPublishDestinations = array( $destinations );
+                    }
+                }
+                else
+                {
+                    echo "All mode" . BR;
+                    $mode = c\T::ALLDESTINATIONS;
+                }
+            }
+        
+            //if( $mode == c\T::ALLDESTINATIONS )
+                //$this->getProperty()->scheduledPublishDestinations = NULL;
+        
+            $this->getProperty()->scheduledPublishDestinationMode = $mode;
 */
-			// days are supplied
-			if( isset( $day_of_week ) )
-			{
-				// a string
-				if( in_array( $day_of_week, $this->days_of_week ) )
-				{
-					$this->getProperty()->publishDaysOfWeek->dayOfWeek = $day_of_week;
-				
-					// possible error message from Cascade?
-					if( isset( $time_to_publish ) )
-					{
-						$this->getProperty()->timeToPublish = $time_to_publish;
-					}
-					else
-					{
-						$this->getProperty()->timeToPublish = self::DEFAULT_TIME;
-					}
-				}
-				// an array of strings
-				else if( is_array( $day_of_week ) )
-				{
-					foreach( $day_of_week as $day )
-					{
-						if( !in_array( $day, $this->days_of_week ) )
-						{
-							throw new e\UnacceptableValueException( 
-								S_SPAN . "The value $day is not acceptable." . E_SPAN );
-						}
-					}
-			
-					$temp = array();
-			
-					// to preserve order, which does not matter
-					foreach( $this->days_of_week as $day ) 
-					{
-						if( in_array( $day, $day_of_week ) )
-						{
-							$temp[] = $day;
-						}
-					}
-				
-					$this->getProperty()->publishDaysOfWeek->dayOfWeek = $temp;
-					// possible error message from Cascade: yes
-					if( isset( $time_to_publish ) )
-					{
-						$this->getProperty()->timeToPublish = $time_to_publish;
-					}
-					else
-					{
-						$this->getProperty()->timeToPublish = self::DEFAULT_TIME;
-					}
-				}
-				else
-				{
-					throw new e\UnacceptableValueException( 
-						S_SPAN . "The value $day_of_week is not acceptable." . E_SPAN );
-				}
-				unset( $this->getProperty()->publishIntervalHours );
-				unset( $this->getProperty()->cronExpression );
-			}
-			// interval is supplied
-			else if( isset( $publish_interval_hours ) ) 
-			{
-				if( intval( $publish_interval_hours ) > 0 &&
-					intval( $publish_interval_hours ) < 24 )
-				{
-					$this->getProperty()->publishIntervalHours = $publish_interval_hours;
-				}
-				else
-				{
-					throw new e\UnacceptableValueException( 
-						S_SPAN . "The value $publish_interval_hours is not acceptable." . E_SPAN );
-				}
-			
-				unset( $this->getProperty()->publishDaysOfWeek );
-				unset( $this->getProperty()->cronExpression );
-				// possible error message from Cascade?
-				$this->getProperty()->timeToPublish     = $time_to_publish;
-			}
-			// a cron expression is supplied
-			else if( isset( $cron_expression ) )
-			{
-				unset( $this->getProperty()->timeToPublish );
-				unset( $this->getProperty()->publishIntervalHours );
-				unset( $this->getProperty()->publishDaysOfWeek );
-				$this->getProperty()->cronExpression = $cron_expression;
-			}
-			else
-			{
-				throw new e\EmptyValueException(
-					S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
-			}
-		}
-		
+            // days are supplied
+            if( isset( $day_of_week ) )
+            {
+                // a string
+                if( in_array( $day_of_week, $this->days_of_week ) )
+                {
+                    $this->getProperty()->publishDaysOfWeek->dayOfWeek = $day_of_week;
+                
+                    // possible error message from Cascade?
+                    if( isset( $time_to_publish ) )
+                    {
+                        $this->getProperty()->timeToPublish = $time_to_publish;
+                    }
+                    else
+                    {
+                        $this->getProperty()->timeToPublish = self::DEFAULT_TIME;
+                    }
+                }
+                // an array of strings
+                else if( is_array( $day_of_week ) )
+                {
+                    foreach( $day_of_week as $day )
+                    {
+                        if( !in_array( $day, $this->days_of_week ) )
+                        {
+                            throw new e\UnacceptableValueException( 
+                                S_SPAN . "The value $day is not acceptable." . E_SPAN );
+                        }
+                    }
+            
+                    $temp = array();
+            
+                    // to preserve order, which does not matter
+                    foreach( $this->days_of_week as $day ) 
+                    {
+                        if( in_array( $day, $day_of_week ) )
+                        {
+                            $temp[] = $day;
+                        }
+                    }
+                
+                    $this->getProperty()->publishDaysOfWeek->dayOfWeek = $temp;
+                    // possible error message from Cascade: yes
+                    if( isset( $time_to_publish ) )
+                    {
+                        $this->getProperty()->timeToPublish = $time_to_publish;
+                    }
+                    else
+                    {
+                        $this->getProperty()->timeToPublish = self::DEFAULT_TIME;
+                    }
+                }
+                else
+                {
+                    throw new e\UnacceptableValueException( 
+                        S_SPAN . "The value $day_of_week is not acceptable." . E_SPAN );
+                }
+                unset( $this->getProperty()->publishIntervalHours );
+                unset( $this->getProperty()->cronExpression );
+            }
+            // interval is supplied
+            else if( isset( $publish_interval_hours ) ) 
+            {
+                if( intval( $publish_interval_hours ) > 0 &&
+                    intval( $publish_interval_hours ) < 24 )
+                {
+                    $this->getProperty()->publishIntervalHours = $publish_interval_hours;
+                }
+                else
+                {
+                    throw new e\UnacceptableValueException( 
+                        S_SPAN . "The value $publish_interval_hours is not acceptable." . E_SPAN );
+                }
+            
+                unset( $this->getProperty()->publishDaysOfWeek );
+                unset( $this->getProperty()->cronExpression );
+                // possible error message from Cascade?
+                $this->getProperty()->timeToPublish     = $time_to_publish;
+            }
+            // a cron expression is supplied
+            else if( isset( $cron_expression ) )
+            {
+                unset( $this->getProperty()->timeToPublish );
+                unset( $this->getProperty()->publishIntervalHours );
+                unset( $this->getProperty()->publishDaysOfWeek );
+                $this->getProperty()->cronExpression = $cron_expression;
+            }
+            else
+            {
+                throw new e\EmptyValueException(
+                    S_SPAN . c\M::EMPTY_VALUE . E_SPAN );
+            }
+        }
+        
         return $this;
     }
     
@@ -338,7 +338,7 @@ abstract class ScheduledPublishing extends ContainedAsset
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
         $this->getProperty()->sendReportOnErrorOnly   = $bool;
         return $this;
     }

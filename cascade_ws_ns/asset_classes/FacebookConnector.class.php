@@ -62,7 +62,7 @@ class FacebookConnector extends Connector
         if( trim( $value) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . "The page name cannot be empty." . E_SPAN );
+                S_SPAN . "The page name cannot be empty." . E_SPAN );
         }
         $connector_parameters = $this->getConnectorParameters();
         

@@ -36,7 +36,7 @@ class Group extends Asset
             }
             else
             {
-            	$users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+                $users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
                 
                 if( !in_array( $u_name, $users ) )
                 {
@@ -51,13 +51,13 @@ class Group extends Asset
     
     public function addUserName( $u_name )
     {
-    	if( !$this->hasUserName( $u_name ) )
-    	{
+        if( !$this->hasUserName( $u_name ) )
+        {
             $users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
             $users[] = $u_name;
             $this->getProperty()->users = implode( self::DELIMITER, $users );
-    	}
-    	return $this;
+        }
+        return $this;
     }
 
     public function edit()
@@ -186,16 +186,16 @@ class Group extends Asset
         }
         else
         {
-    		$users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
-    		return ( in_array( $u->getName(), $users ) );
-    	}
+            $users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+            return ( in_array( $u->getName(), $users ) );
+        }
     }
     
     public function hasUserName( $u_name )
     {
-    	if( trim( $u_name ) == "" )
-    		throw new e\EmptyValueException();
-    	
+        if( trim( $u_name ) == "" )
+            throw new e\EmptyValueException();
+        
             // no users yet
             if( $this->getProperty()->users == "" || $this->getProperty()->users == NULL )
             {
@@ -203,9 +203,9 @@ class Group extends Asset
             }
             else
             {
-    			$users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
-    			return ( in_array( $u_name, $users ) );
-    		}
+                $users = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+                return ( in_array( $u_name, $users ) );
+            }
     }
     
     public function removeUser( User $u )
@@ -241,9 +241,9 @@ class Group extends Asset
     
     public function removeUserName( $u_name )
     {
-    	if( $this->hasUserName( $u_name ) )
-    	{
-    		$user_array = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
+        if( $this->hasUserName( $u_name ) )
+        {
+            $user_array = u\StringUtility::getExplodedStringArray( self::DELIMITER, $this->getUsers() );
                 
             $temp = array();
                 
@@ -256,15 +256,15 @@ class Group extends Asset
             }
                 
             $this->getProperty()->users = implode( self::DELIMITER, $temp );
-    	}
-    	return $this;
+        }
+        return $this;
     }
     
     /* 
-	setGroupBaseFolder, setGroupStartingPage, setGroupAssetFactoryContainer
-	not implemented because they only work for Global site
-	*/
-	
+    setGroupBaseFolder, setGroupStartingPage, setGroupAssetFactoryContainer
+    not implemented because they only work for Global site
+    */
+    
     public function setWysiwygAllowFontAssignment( $bool )
     {
         $this->checkBoolean( $bool );   
@@ -311,7 +311,7 @@ class Group extends Asset
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException(
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
     }
 }
 ?>

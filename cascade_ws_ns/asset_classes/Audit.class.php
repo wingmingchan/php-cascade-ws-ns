@@ -26,13 +26,13 @@ class Audit
         if( $service == NULL )
         {
             throw new e\NullServiceException(
-            	S_SPAN . c\M::NULL_SERVICE . E_SPAN );
+                S_SPAN . c\M::NULL_SERVICE . E_SPAN );
         }
         
         if( $audit_std == NULL )
         {
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_AUDIT . E_SPAN );
+                S_SPAN . c\M::EMPTY_AUDIT . E_SPAN );
         }
         
         if( self::DEBUG ) { u\DebugUtility::dump( $audit_std->identifier ); }
@@ -83,12 +83,12 @@ class Audit
     
     public function getUserString()
     {
-    	return $this->user;
+        return $this->user;
     }
     
     public function toStdClass()
     {
-    	return $this->audit_std;
+        return $this->audit_std;
     }
     
     /* for sorting, ascending */
@@ -110,7 +110,7 @@ class Audit
     
     public static function compareAscending( Audit $a1, Audit $a2 )
     {
-		return self::compare( $a1, $a2 );
+        return self::compare( $a1, $a2 );
     }
 
     public static function compareDescending( Audit $a1, Audit $a2 )

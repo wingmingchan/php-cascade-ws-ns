@@ -27,13 +27,13 @@ class IndexBlock extends Block
     
     public function getContentType()
     {
-    	if( $this->isContent() && $this->getIndexedContentTypeId() != NULL )
-    	{
-    		$service = $this->getService();
-    		return new ContentType( 
-    			$service, $service->createId( ContentType::TYPE, $this->getIndexedContentTypeId() ) );
-    	}
-    	return NULL;
+        if( $this->isContent() && $this->getIndexedContentTypeId() != NULL )
+        {
+            $service = $this->getService();
+            return new ContentType( 
+                $service, $service->createId( ContentType::TYPE, $this->getIndexedContentTypeId() ) );
+        }
+        return NULL;
     }
     
     public function getDepthOfIndex()
@@ -43,14 +43,14 @@ class IndexBlock extends Block
     
     public function getFolder()
     {
-    	if( $this->isFolder() && $this->getIndexedFolderId() != NULL )
-    	{
-    		$service = $this->getService();
-    		if( self::DEBUG ) { u\DebugUtility::out( "Returning folder" . "ID " . $this->getIndexedFolderPath() ); }
-    		return new Folder( 
-    			$service, $service->createId( Folder::TYPE, $this->getIndexedFolderId() ) );
-    	}
-    	return NULL;
+        if( $this->isFolder() && $this->getIndexedFolderId() != NULL )
+        {
+            $service = $this->getService();
+            if( self::DEBUG ) { u\DebugUtility::out( "Returning folder" . "ID " . $this->getIndexedFolderPath() ); }
+            return new Folder( 
+                $service, $service->createId( Folder::TYPE, $this->getIndexedFolderId() ) );
+        }
+        return NULL;
     }
     
     public function getIndexAccessRights()
@@ -182,7 +182,7 @@ class IndexBlock extends Block
         if( $this->getIndexBlockType() != c\T::CONTENTTYPEINDEX )
         {
             throw new \Exception( 
-            	S_SPAN . "This block is not a content type index block." . E_SPAN );
+                S_SPAN . "This block is not a content type index block." . E_SPAN );
         }
     
         $this->getProperty()->indexedContentTypeId   = $content_type->getId();
@@ -195,13 +195,13 @@ class IndexBlock extends Block
         if( intval( $num ) < 1 )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $num is unacceptable." . E_SPAN );
+                S_SPAN . "The value $num is unacceptable." . E_SPAN );
         }
         
         if( $this->getIndexBlockType() != Folder::TYPE )
         {
             throw new \Exception( 
-            	S_SPAN . "This block is not a folder index block." . E_SPAN );
+                S_SPAN . "This block is not a folder index block." . E_SPAN );
         }
         
         $this->getProperty()->depthOfIndex = $num;
@@ -213,7 +213,7 @@ class IndexBlock extends Block
         if( $this->getIndexBlockType() != Folder::TYPE )
         {
             throw new \Exception( 
-            	S_SPAN . "This block is not a folder index block." . E_SPAN );
+                S_SPAN . "This block is not a folder index block." . E_SPAN );
         }
     
         $this->getProperty()->indexedFolderId = $folder->getId();
@@ -303,7 +303,7 @@ class IndexBlock extends Block
         if( intval( $num ) < 0 )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $num is unacceptable." . E_SPAN );
+                S_SPAN . "The value $num is unacceptable." . E_SPAN );
         }
         
         $this->getProperty()->maxRenderedAssets = $num;
@@ -318,7 +318,7 @@ class IndexBlock extends Block
         )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The pageXML $page_xml is unacceptable." . E_SPAN );
+                S_SPAN . "The pageXML $page_xml is unacceptable." . E_SPAN );
         }
     
         $this->getProperty()->pageXML = $page_xml;
@@ -334,7 +334,7 @@ class IndexBlock extends Block
         )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The behavior $behavior is unacceptable." . E_SPAN );
+                S_SPAN . "The behavior $behavior is unacceptable." . E_SPAN );
         }
         
         $this->getProperty()->renderingBehavior = $behavior;
@@ -350,7 +350,7 @@ class IndexBlock extends Block
         )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The method $method is unacceptable." . E_SPAN );
+                S_SPAN . "The method $method is unacceptable." . E_SPAN );
         }
         
         $this->getProperty()->sortMethod = $method;
@@ -364,7 +364,7 @@ class IndexBlock extends Block
         )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The order $order is unacceptable." . E_SPAN );
+                S_SPAN . "The order $order is unacceptable." . E_SPAN );
         }
         
         $this->getProperty()->sortOrder = $order;
@@ -376,7 +376,7 @@ class IndexBlock extends Block
         if( !c\BooleanValues::isBoolean( $b ) )
         {
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $b is not a boolean." . E_SPAN );
+                S_SPAN . "The value $b is not a boolean." . E_SPAN );
         }
     }
 }

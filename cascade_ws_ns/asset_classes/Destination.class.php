@@ -25,7 +25,7 @@ class Destination extends ScheduledPublishing
     {
         if( $g == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
             
         $group_name = $g->getName();
         
@@ -135,7 +135,7 @@ class Destination extends ScheduledPublishing
     {
         if( $g == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
             
         $group_name = $g->getName();
         
@@ -147,7 +147,7 @@ class Destination extends ScheduledPublishing
     {
         if( $g == NULL )
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_GROUP . E_SPAN );
+                S_SPAN . c\M::NULL_GROUP . E_SPAN );
             
         $group_name = $g->getName();
         
@@ -170,7 +170,7 @@ class Destination extends ScheduledPublishing
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->checkedByDefault = $bool;
         return $this;
@@ -181,7 +181,7 @@ class Destination extends ScheduledPublishing
         if( trim( $d ) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_DIRECTORY . E_SPAN );
+                S_SPAN . c\M::EMPTY_DIRECTORY . E_SPAN );
         }
         
         $this->getProperty()->directory = $d;
@@ -192,7 +192,7 @@ class Destination extends ScheduledPublishing
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->enabled = $bool;
         return $this;
@@ -202,7 +202,7 @@ class Destination extends ScheduledPublishing
     {
         if( !c\BooleanValues::isBoolean( $bool ) )
             throw new e\UnacceptableValueException( 
-            	S_SPAN . "The value $bool must be a boolean." . E_SPAN );
+                S_SPAN . "The value $bool must be a boolean." . E_SPAN );
 
         $this->getProperty()->publishASCII = $bool;
         return $this;
@@ -213,7 +213,7 @@ class Destination extends ScheduledPublishing
         if( $t == NULL )
         {
             throw new e\NullAssetException( 
-            	S_SPAN . c\M::NULL_TRANSPORT . E_SPAN );
+                S_SPAN . c\M::NULL_TRANSPORT . E_SPAN );
         }
         
         $this->getProperty()->transportId   = $t->getId();
@@ -226,7 +226,7 @@ class Destination extends ScheduledPublishing
         if( trim( $u ) == "" )
         {
             throw new e\EmptyValueException( 
-            	S_SPAN . c\M::EMPTY_URL . E_SPAN );
+                S_SPAN . c\M::EMPTY_URL . E_SPAN );
         }
         
         $this->getProperty()->webUrl = $u;

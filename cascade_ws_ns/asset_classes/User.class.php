@@ -115,12 +115,12 @@ class User extends Asset
     
     public function isInGroup( Group $group )
     {
-    	$users = $group->getUsers();
-    	
-    	if( strpos( $users, Group::DELIMITER . $this->getProperty()->username . Group::DELIMITER ) !== false )
-    		return true;
-    		
-    	return false;
+        $users = $group->getUsers();
+        
+        if( strpos( $users, Group::DELIMITER . $this->getProperty()->username . Group::DELIMITER ) !== false )
+            return true;
+            
+        return false;
     }
     
     public function joinGroup( Group $g )
@@ -186,7 +186,7 @@ class User extends Asset
     {
         if( trim( $name ) == '' )
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_FULL_NAME . E_SPAN );
+                S_SPAN . c\M::EMPTY_FULL_NAME . E_SPAN );
 
         $this->getProperty()->fullName = $name;
         return $this;
@@ -196,7 +196,7 @@ class User extends Asset
     {
         if( trim( $pw ) == '' )
             throw new e\EmptyValueException(
-            	S_SPAN . c\M::EMPTY_PASSWORD . E_SPAN );
+                S_SPAN . c\M::EMPTY_PASSWORD . E_SPAN );
 
         $this->getProperty()->password = $pw;
         return $this;

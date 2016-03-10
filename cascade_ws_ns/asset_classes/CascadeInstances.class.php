@@ -80,13 +80,13 @@ class CascadeInstances
     
     public function getSourceSite()
     {
-    	return $this->source_site;
+        return $this->source_site;
     }
     
     public function getSourceSiteName()
     {
-    	if( $this->isSourceSiteSet() )
-    		return $this->source_site->getName();
+        if( $this->isSourceSiteSet() )
+            return $this->source_site->getName();
     }
     
     public function getTargetCascade()
@@ -101,13 +101,13 @@ class CascadeInstances
     
     public function getTargetSite()
     {
-    	return $this->target_site;
+        return $this->target_site;
     }
     
     public function getTargetSiteName()
     {
-    	if( $this->isTargetSiteSet() )
-    		return $this->target_site->getName();
+        if( $this->isTargetSiteSet() )
+            return $this->target_site->getName();
     }
     
     public function isSameInstance()
@@ -132,7 +132,7 @@ class CascadeInstances
         if( $other != c\T::SOURCE && $other != c\T::TARGET )
         {
             throw new e\CascadeInstancesErrorException(
-				S_SPAN . "The instance $other is not acceptable. " . E_SPAN );
+                S_SPAN . "The instance $other is not acceptable. " . E_SPAN );
         }
         
         // figure out the class name of the asset and 
@@ -142,7 +142,7 @@ class CascadeInstances
         
         if( !isset( $asset_class ) )
             throw new e\CascadeInstancesErrorException(
-				S_SPAN . "The type $type is not acceptable. " . E_SPAN );
+                S_SPAN . "The type $type is not acceptable. " . E_SPAN );
             
         $parent_type   = c\T::getParentType( $type );
         $parent_class  = c\T::getClassNameByType( $parent_type );
@@ -455,7 +455,7 @@ class CascadeInstances
     }
 
     public function updatePage( Folder $f=NULL, $exception_thrown=true,
-    	$update_data=true, $update_metadata=true )
+        $update_data=true, $update_metadata=true )
     {
         $this->checkSourceTargetSite();
 
@@ -766,8 +766,8 @@ class CascadeInstances
         $source_placement_folder_path = $source_af->getPlacementFolderPath();
         
         if( isset( $source_placement_folder_id ) )
-        	$source_placement_folder  = $source_cascade->getFolder(
-            	$source_placement_folder_id, $source_af->getSiteName() );
+            $source_placement_folder  = $source_cascade->getFolder(
+                $source_placement_folder_id, $source_af->getSiteName() );
             
         if( isset( $source_placement_folder ) )
         {
@@ -1081,7 +1081,7 @@ class CascadeInstances
         catch( \Exception $e )
         {
             throw new e\CascadeInstancesErrorException(
-		        $e . BR . S_SPAN . "Path: " . $child->getPathPath() . E_SPAN );
+                $e . BR . S_SPAN . "Path: " . $child->getPathPath() . E_SPAN );
         }
         
         $target_dd = NULL;
@@ -1107,7 +1107,7 @@ class CascadeInstances
             if( !u\XMLUtility::isXmlIdentical( $source_xml, $target_xml ) )
             {
                 throw new e\CascadeInstancesErrorException(
-					S_SPAN . c\M::DIFFERENT_DATA_DEFINITIONS . E_SPAN );
+                    S_SPAN . c\M::DIFFERENT_DATA_DEFINITIONS . E_SPAN );
             }
             $source_structured_data_std = $source_block->getStructuredData()->toStdClass();
             $target_dd_id               = $target_dd->getId();
@@ -1130,8 +1130,8 @@ class CascadeInstances
             $source_block_parent_path, $target_site_name );
             
         if( !isset( $source_content ) )
-        	$source_content = "";
-        	
+            $source_content = "";
+            
         $target_block     = $target_cascade->createXhtmlDataDefinitionBlock( 
             $target_parent, $source_block_path, $target_dd, $source_content );
             
@@ -1615,8 +1615,8 @@ class CascadeInstances
     public static function assetTreeUpdateIndexBlock( 
         aohs\AssetOperationHandlerService $service, p\Child $child, $params=NULL, &$results=NULL )
     {
-    	$ct = NULL;
-    	$f  = NULL;
+        $ct = NULL;
+        $f  = NULL;
     
         if( isset( $params[ 'target-cascade' ] ) )
             $target_cascade = $params[ 'target-cascade' ];
@@ -1679,7 +1679,7 @@ class CascadeInstances
                     {
                         $msg = "The content type $source_ct_path does not exist in $target_ct_site. ";
                         throw new e\CascadeInstancesErrorException(
-							S_SPAN . $msg . E_SPAN . $e );
+                            S_SPAN . $msg . E_SPAN . $e );
                     }
                 }
                 else
@@ -1718,7 +1718,7 @@ class CascadeInstances
                     {
                         $msg = "The folder $source_f_path does not exist in $target_f_site. ";
                         throw new e\CascadeInstancesErrorException(
-							S_SPAN . $msg . E_SPAN . $e );
+                            S_SPAN . $msg . E_SPAN . $e );
                     }
                 }
                 else
@@ -1753,7 +1753,7 @@ class CascadeInstances
             $target_block->setDepthOfIndex( $depth );
             
             if( isset( $source_f ) )
-            	$target_block->setFolder( $f );
+                $target_block->setFolder( $f );
         }
         else
         {
@@ -1877,8 +1877,8 @@ class CascadeInstances
     public static function assetTreeUpdatePage( 
         aohs\AssetOperationHandlerService $service, p\Child $child, $params=NULL, &$results=NULL )
     {
-    	$source_content = NULL;
-    	
+        $source_content = NULL;
+        
         if( isset( $params[ 'source-cascade' ] ) )
             $source_cascade = $params[ 'source-cascade' ];
         else
@@ -1922,12 +1922,12 @@ class CascadeInstances
         if( isset( $params[ 'update-data' ] ) )
             $update_data = $params[ 'update-data' ];
         else
-        	$update_data = true;
-        	
+            $update_data = true;
+            
         if( isset( $params[ 'update-metadata' ] ) )
             $update_metadata = $params[ 'update-metadata' ];
         else
-        	$update_metadata = true;
+            $update_metadata = true;
     
         try
         {
@@ -1960,7 +1960,7 @@ class CascadeInstances
             if( !u\XMLUtility::isXmlIdentical( $source_xml, $target_xml ) )
             {
                 throw new e\CascadeInstancesErrorException(
-					S_SPAN . c\M::DIFFERENT_DATA_DEFINITIONS . E_SPAN );
+                    S_SPAN . c\M::DIFFERENT_DATA_DEFINITIONS . E_SPAN );
             }
             
             $source_structured_data_std = $source_page->getStructuredData()->toStdClass();
@@ -1999,241 +1999,241 @@ class CascadeInstances
         // update data
         if( $update_data )
         {
-			if( $target_page->hasStructuredData() )
-			{
-				try
-				{
-					$target_service        = $target_cascade->getService();
-					$identifiers           = $source_page->getIdentifiers();
-					$identifier_asset_map  = array();
-					$identifier_method_map = array();
-				
-					$structured_data = new p\StructuredData( $target_structured_data_std, $target_service );
+            if( $target_page->hasStructuredData() )
+            {
+                try
+                {
+                    $target_service        = $target_cascade->getService();
+                    $identifiers           = $source_page->getIdentifiers();
+                    $identifier_asset_map  = array();
+                    $identifier_method_map = array();
+                
+                    $structured_data = new p\StructuredData( $target_structured_data_std, $target_service );
 
-					foreach( $identifiers as $identifier )
-					{
-						// store the resources
-						if( $source_page->isAssetNode( $identifier ) )
-						{
-							$block_id   = $source_page->getBlockId( $identifier );
-							if( isset( $block_id ) )
-							{
-								$resource_id = $block_id;
-								$source_resource_type = Block::getBlockType( $service, $resource_id );
-							}
-						
-							$file_id    = $source_page->getFileId( $identifier );
-							if( isset( $file_id ) ) 
-							{
-								$resource_id = $file_id;
-								$source_resource_type = File::TYPE;
-							}
-							
-							$page_id    = $source_page->getPageId( $identifier );
-							if( isset( $page_id ) ) 
-							{
-								$resource_id = $page_id;
-								$source_resource_type = Page::TYPE;
-							}
-							$symlink_id = $source_page->getSymlinkId( $identifier );
-							if( isset( $symlink_id ) ) 
-							{
-								$resource_id = $symlink_id;
-								$source_resource_type = Symlink::TYPE;
-							}
-						
-							if( isset( $resource_id ) )
-							{
-								try
-								{
-									$source_resource =
-										$service->retrieve( 
-											$service->createId( $source_resource_type, $resource_id ) );
-								
-									if( $service->isSuccessful() )
-									{
-										$source_resource_site = $source_resource->siteName;
-										$source_resource_path = $source_resource->path;
-										$target_resource_site = $source_resource_site;
-									
-										try
-										{
-											$asset = $target_cascade->getAsset( 
-												$source_resource_type, $source_resource_path, $source_resource_site );
-											$target_resource_id = $asset->getId();
-								
-											$identifier_asset_map[ $identifier ] = $asset;
-											$resource_id = NULL;
-										}
-										catch( \Exception $e )
-										{
-											if( $exception_thrown )
-												throw new e\CascadeInstancesErrorException(
-													$e . BR . S_SPAN . "Path: " . 
-													$source_resource_path . E_SPAN );
-											else
-												DebugUtility::out( $e->getMessage() );
-										}
-									}
-								}
-								catch( \Exception $e )
-								{
-									if( $exception_thrown )
-										throw new e\CascadeInstancesErrorException( $e );
-									else
-										DebugUtility::out( $e->getMessage() );
-								}
-							}
-							
-							// reinitialized for next round
-							$resource_id = NULL;
-						}
-					}
-						
-					$identifiers     = array_keys( $identifier_asset_map );
-					$count           = count( $identifiers );
-				
-					if( $count > 0 )
-					{
-						foreach( $identifiers as $identifier )
-						{
-							$asset = $identifier_asset_map[ $identifier ];
-							$type  = $asset->getType();
-						
-							switch( $type )
-							{
-								case 'file':
-									$method = 'setFile';
-									break;
-								case 'page':
-									$method = 'setPage';
-									break;
-								case 'symlink':
-									$method = 'setSymlink';
-									break;
-								default:
-									$method = 'setBlock';
-							}
-						
-							$identifier_method_map[ $identifier ] = $method;
-						
-							// unplug everything from source
-							$structured_data->$method( $identifier, NULL );
-							// unset method name
-							$method = NULL;
-						}
-					}
-				
-					try
-					{
-						$target_page->setStructuredData( $structured_data );
-					}
-					catch( \Exception $e )
-					{
-						if( $exception_thrown )
-							throw new e\CascadeInstancesErrorException( $e );
-						else
-							DebugUtility::out( $e->getMessage() );
-					}
-				
-					if( $count > 0 )
-					{
-						foreach( $identifier_method_map as $identifier => $method )
-						{
-							$asset = $identifier_asset_map[ $identifier ];
-							$target_page->$method( $identifier, $identifier_asset_map[ $identifier ] );
-						}
-					}
-					$target_page->edit();
-				}
-				catch( \Exception $e )
-				{
-					if( $exception_thrown )
-						throw new e\CascadeInstancesErrorException( $e );
-					else
-						DebugUtility::out( $e->getMessage() );
-				}
-			}
-		
-			// page-level blocks and formats
-			$map = self::getPageLevelBlockFormat( $source_cascade, $source_page );
-		
-			foreach( $map as $config_name => $regions )
-			{
-				if( count( $regions[ 0 ] ) > 0 )
-				{
-					$region_map = $regions[ 0 ];
-				
-					foreach( $region_map as $region => $block_format )
-					{
-						if( isset( $block_format[ 'block' ] ) )
-						{
-							if( self::DEBUG ) { u\DebugUtility::out( "Block " . $block_format[ 'block' ] ); }
-							$type = Block::getBlockType( $service, $block_format[ 'block' ] );
-							if( self::DEBUG ) { u\DebugUtility::out( "Type " . $type ); }
-							$source_block = $source_cascade->getAsset( $type, $block_format[ 'block' ] );
-							$source_block_path = u\StringUtility::removeSiteNameFromPath( $source_block->getPath() );
-							$source_block_site = $source_block->getSiteName();
-						
-							if( $source_block_site == $source_page->getSiteName() )
-								$target_block_site = $target_page->getSiteName();
-							else
-								$target_block_site = $source_block_site;
-							
-							try
-							{
-								$target_block = $target_cascade->getAsset( $type, $source_block_path, $target_block_site );
-								$target_page->setRegionBlock( $config_name, $region, $target_block )->edit();
-								if( self::DEBUG ) { u\DebugUtility::out( "Page: " . $target_page->getName() . " Region: " . $region ); }
-							}
-							catch( \Exception $e )
-							{
-								if( $exception_thrown )
-									throw new e\CascadeInstancesErrorException( $e );
-								else
-									DebugUtility::out( $e->getMessage() );
-							}
-						}
-						else if( isset( $block_format[ 'no-block' ] ) )
-						{
-							$target_page->setRegionNoBlock( $config_name, $region, true );
-						}
-					
-						if( isset( $block_format[ 'format' ] ) )
-						{
-							if( self::DEBUG ) { u\DebugUtility::out( "Format " . $block_format[ 'format' ] ); }
-							$type = Format::getFormatType( $service, $block_format[ 'format' ] );
-							if( self::DEBUG ) { u\DebugUtility::out( "Type " . $type ); }
-							$source_format = $source_cascade->getAsset( $type, $block_format[ 'format' ] );
-							$source_format_path = u\StringUtility::removeSiteNameFromPath( $source_format->getPath() );
-							$source_format_site = $source_format->getSiteName();
-						
-							if( $source_format_site == $source_page->getSiteName() )
-								$target_format_site = $target_page->getSiteName();
-							else
-								$target_format_site = $source_format_site;
-							
-							try
-							{
-								$target_format = $target_cascade->getAsset( $type, $source_format_path, $target_format_site );
-								$target_page->setRegionFormat( $config_name, $region, $target_format )->edit();
-								if( self::DEBUG ) { u\DebugUtility::out( "Page: " . $target_page->getName() . " Region: " . $region ); }
-							}
-							catch( \Exception $e )
-							{
-								if( $exception_thrown )
-									throw new e\CascadeInstancesErrorException( $e );
-								else
-									DebugUtility::out( $e->getMessage() );
-							}
-						}
-						else if( isset( $block_format[ 'no-format' ] ) )
-						{
-							$target_page->setRegionNoFormat( $config_name, $region, true );
-						}
-					}
-				}
-			}
+                    foreach( $identifiers as $identifier )
+                    {
+                        // store the resources
+                        if( $source_page->isAssetNode( $identifier ) )
+                        {
+                            $block_id   = $source_page->getBlockId( $identifier );
+                            if( isset( $block_id ) )
+                            {
+                                $resource_id = $block_id;
+                                $source_resource_type = Block::getBlockType( $service, $resource_id );
+                            }
+                        
+                            $file_id    = $source_page->getFileId( $identifier );
+                            if( isset( $file_id ) ) 
+                            {
+                                $resource_id = $file_id;
+                                $source_resource_type = File::TYPE;
+                            }
+                            
+                            $page_id    = $source_page->getPageId( $identifier );
+                            if( isset( $page_id ) ) 
+                            {
+                                $resource_id = $page_id;
+                                $source_resource_type = Page::TYPE;
+                            }
+                            $symlink_id = $source_page->getSymlinkId( $identifier );
+                            if( isset( $symlink_id ) ) 
+                            {
+                                $resource_id = $symlink_id;
+                                $source_resource_type = Symlink::TYPE;
+                            }
+                        
+                            if( isset( $resource_id ) )
+                            {
+                                try
+                                {
+                                    $source_resource =
+                                        $service->retrieve( 
+                                            $service->createId( $source_resource_type, $resource_id ) );
+                                
+                                    if( $service->isSuccessful() )
+                                    {
+                                        $source_resource_site = $source_resource->siteName;
+                                        $source_resource_path = $source_resource->path;
+                                        $target_resource_site = $source_resource_site;
+                                    
+                                        try
+                                        {
+                                            $asset = $target_cascade->getAsset( 
+                                                $source_resource_type, $source_resource_path, $source_resource_site );
+                                            $target_resource_id = $asset->getId();
+                                
+                                            $identifier_asset_map[ $identifier ] = $asset;
+                                            $resource_id = NULL;
+                                        }
+                                        catch( \Exception $e )
+                                        {
+                                            if( $exception_thrown )
+                                                throw new e\CascadeInstancesErrorException(
+                                                    $e . BR . S_SPAN . "Path: " . 
+                                                    $source_resource_path . E_SPAN );
+                                            else
+                                                DebugUtility::out( $e->getMessage() );
+                                        }
+                                    }
+                                }
+                                catch( \Exception $e )
+                                {
+                                    if( $exception_thrown )
+                                        throw new e\CascadeInstancesErrorException( $e );
+                                    else
+                                        DebugUtility::out( $e->getMessage() );
+                                }
+                            }
+                            
+                            // reinitialized for next round
+                            $resource_id = NULL;
+                        }
+                    }
+                        
+                    $identifiers     = array_keys( $identifier_asset_map );
+                    $count           = count( $identifiers );
+                
+                    if( $count > 0 )
+                    {
+                        foreach( $identifiers as $identifier )
+                        {
+                            $asset = $identifier_asset_map[ $identifier ];
+                            $type  = $asset->getType();
+                        
+                            switch( $type )
+                            {
+                                case 'file':
+                                    $method = 'setFile';
+                                    break;
+                                case 'page':
+                                    $method = 'setPage';
+                                    break;
+                                case 'symlink':
+                                    $method = 'setSymlink';
+                                    break;
+                                default:
+                                    $method = 'setBlock';
+                            }
+                        
+                            $identifier_method_map[ $identifier ] = $method;
+                        
+                            // unplug everything from source
+                            $structured_data->$method( $identifier, NULL );
+                            // unset method name
+                            $method = NULL;
+                        }
+                    }
+                
+                    try
+                    {
+                        $target_page->setStructuredData( $structured_data );
+                    }
+                    catch( \Exception $e )
+                    {
+                        if( $exception_thrown )
+                            throw new e\CascadeInstancesErrorException( $e );
+                        else
+                            DebugUtility::out( $e->getMessage() );
+                    }
+                
+                    if( $count > 0 )
+                    {
+                        foreach( $identifier_method_map as $identifier => $method )
+                        {
+                            $asset = $identifier_asset_map[ $identifier ];
+                            $target_page->$method( $identifier, $identifier_asset_map[ $identifier ] );
+                        }
+                    }
+                    $target_page->edit();
+                }
+                catch( \Exception $e )
+                {
+                    if( $exception_thrown )
+                        throw new e\CascadeInstancesErrorException( $e );
+                    else
+                        DebugUtility::out( $e->getMessage() );
+                }
+            }
+        
+            // page-level blocks and formats
+            $map = self::getPageLevelBlockFormat( $source_cascade, $source_page );
+        
+            foreach( $map as $config_name => $regions )
+            {
+                if( count( $regions[ 0 ] ) > 0 )
+                {
+                    $region_map = $regions[ 0 ];
+                
+                    foreach( $region_map as $region => $block_format )
+                    {
+                        if( isset( $block_format[ 'block' ] ) )
+                        {
+                            if( self::DEBUG ) { u\DebugUtility::out( "Block " . $block_format[ 'block' ] ); }
+                            $type = Block::getBlockType( $service, $block_format[ 'block' ] );
+                            if( self::DEBUG ) { u\DebugUtility::out( "Type " . $type ); }
+                            $source_block = $source_cascade->getAsset( $type, $block_format[ 'block' ] );
+                            $source_block_path = u\StringUtility::removeSiteNameFromPath( $source_block->getPath() );
+                            $source_block_site = $source_block->getSiteName();
+                        
+                            if( $source_block_site == $source_page->getSiteName() )
+                                $target_block_site = $target_page->getSiteName();
+                            else
+                                $target_block_site = $source_block_site;
+                            
+                            try
+                            {
+                                $target_block = $target_cascade->getAsset( $type, $source_block_path, $target_block_site );
+                                $target_page->setRegionBlock( $config_name, $region, $target_block )->edit();
+                                if( self::DEBUG ) { u\DebugUtility::out( "Page: " . $target_page->getName() . " Region: " . $region ); }
+                            }
+                            catch( \Exception $e )
+                            {
+                                if( $exception_thrown )
+                                    throw new e\CascadeInstancesErrorException( $e );
+                                else
+                                    DebugUtility::out( $e->getMessage() );
+                            }
+                        }
+                        else if( isset( $block_format[ 'no-block' ] ) )
+                        {
+                            $target_page->setRegionNoBlock( $config_name, $region, true );
+                        }
+                    
+                        if( isset( $block_format[ 'format' ] ) )
+                        {
+                            if( self::DEBUG ) { u\DebugUtility::out( "Format " . $block_format[ 'format' ] ); }
+                            $type = Format::getFormatType( $service, $block_format[ 'format' ] );
+                            if( self::DEBUG ) { u\DebugUtility::out( "Type " . $type ); }
+                            $source_format = $source_cascade->getAsset( $type, $block_format[ 'format' ] );
+                            $source_format_path = u\StringUtility::removeSiteNameFromPath( $source_format->getPath() );
+                            $source_format_site = $source_format->getSiteName();
+                        
+                            if( $source_format_site == $source_page->getSiteName() )
+                                $target_format_site = $target_page->getSiteName();
+                            else
+                                $target_format_site = $source_format_site;
+                            
+                            try
+                            {
+                                $target_format = $target_cascade->getAsset( $type, $source_format_path, $target_format_site );
+                                $target_page->setRegionFormat( $config_name, $region, $target_format )->edit();
+                                if( self::DEBUG ) { u\DebugUtility::out( "Page: " . $target_page->getName() . " Region: " . $region ); }
+                            }
+                            catch( \Exception $e )
+                            {
+                                if( $exception_thrown )
+                                    throw new e\CascadeInstancesErrorException( $e );
+                                else
+                                    DebugUtility::out( $e->getMessage() );
+                            }
+                        }
+                        else if( isset( $block_format[ 'no-format' ] ) )
+                        {
+                            $target_page->setRegionNoFormat( $config_name, $region, true );
+                        }
+                    }
+                }
+            }
         }
         $target_page->setMaintainAbsoluteLinks( $source_page->getMaintainAbsoluteLinks() )->
             setShouldBeIndexed( $source_page->getShouldBeIndexed() )->
@@ -2243,7 +2243,7 @@ class CascadeInstances
         // metadata
         if( $update_metadata )
         {
-        	$target_page->setMetadata( $source_page->getMetadata() );
+            $target_page->setMetadata( $source_page->getMetadata() );
         }
     }
     
@@ -2390,7 +2390,7 @@ class CascadeInstances
                     {
                         $msg = "The format $source_config_format_path does not exist in $target_config_format_site. ";
                         throw new e\CascadeInstancesErrorException(
-							S_SPAN . $msg . E_SPAN . $e );
+                            S_SPAN . $msg . E_SPAN . $e );
                     }
                 }
 
@@ -2432,7 +2432,7 @@ class CascadeInstances
                             {
                                 $msg = "The block $source_block_path does not exist in $target_block_site. ";
                                 throw new e\CascadeInstancesErrorException(
-									S_SPAN . $msg . E_SPAN . $e );
+                                    S_SPAN . $msg . E_SPAN . $e );
                             }
                         }
                         if( $source_format )
@@ -2460,13 +2460,13 @@ class CascadeInstances
                             {
                                 $msg = "The format $source_format_path does not exist in $target_format_site. ";
                                 throw new e\CascadeInstancesErrorException(
-									S_SPAN . $msg . E_SPAN . $e );
+                                    S_SPAN . $msg . E_SPAN . $e );
                             }
                         }
                     }
                 }
             
-            	$target_pcs->edit();
+                $target_pcs->edit();
             }
         }
         catch( \Exception $e )
@@ -2721,7 +2721,7 @@ class CascadeInstances
             {
                 $msg = "The format $source_format_path does not exist in $target_format_site. ";
                 throw new e\CascadeInstancesErrorException(
-					S_SPAN . $msg . E_SPAN . $e );
+                    S_SPAN . $msg . E_SPAN . $e );
             }
         }
         
@@ -2760,7 +2760,7 @@ class CascadeInstances
                 {
                     $msg = "The block $source_block_path does not exist in $target_block_site. ";
                     throw new e\CascadeInstancesErrorException(
-						S_SPAN . $msg . E_SPAN . $e );
+                        S_SPAN . $msg . E_SPAN . $e );
                 }
             }
             
@@ -2794,7 +2794,7 @@ class CascadeInstances
                 {
                     $msg = "The format $source_format_path does not exist in $target_format_site. ";
                     throw new e\CascadeInstancesErrorException(
-						S_SPAN . $msg . E_SPAN . $e );
+                        S_SPAN . $msg . E_SPAN . $e );
                 }
             }
         }
@@ -3038,7 +3038,7 @@ class CascadeInstances
             {
                 $msg = "The metadata set $source_ms_path does not exist in $target_ms_site. ";
                 throw new e\CascadeInstancesErrorException(
-					S_SPAN . $msg . E_SPAN . $e );
+                    S_SPAN . $msg . E_SPAN . $e );
             }
         }
         else
@@ -3095,10 +3095,10 @@ class CascadeInstances
     {
         if( !$this->source_site_set )
             throw new e\CascadeInstancesErrorException(
-				S_SPAN . c\M::SOURCE_SITE_NOT_SET . E_SPAN );
+                S_SPAN . c\M::SOURCE_SITE_NOT_SET . E_SPAN );
         if( !$this->target_site_set )
             throw new e\CascadeInstancesErrorException(
-				S_SPAN . c\M::TARGET_SITE_NOT_SET . E_SPAN );
+                S_SPAN . c\M::TARGET_SITE_NOT_SET . E_SPAN );
     }    
     
     private function getPageLevelBlockFormat( Cascade $c, Page $p )

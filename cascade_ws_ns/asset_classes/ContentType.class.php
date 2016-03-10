@@ -36,7 +36,7 @@ class ContentType extends ContainedAsset
     const TITLE            = "title";
     
     public function __construct( 
-    	aohs\AssetOperationHandlerService $service, \stdClass $identifier )
+        aohs\AssetOperationHandlerService $service, \stdClass $identifier )
     {
         parent::__construct( $service, $identifier );
         
@@ -45,7 +45,7 @@ class ContentType extends ContainedAsset
             contentTypePageConfiguration );
         
         if( isset( $this->getProperty()->inlineEditableFields ) &&
-        	isset( $this->getProperty()->inlineEditableFields->inlineEditableField ))
+            isset( $this->getProperty()->inlineEditableFields->inlineEditableField ))
             $this->processInlineEditableFields(
                 $this->getProperty()->inlineEditableFields->inlineEditableField );
         
@@ -94,25 +94,25 @@ class ContentType extends ContainedAsset
         if( !$this->hasPageConfiguration( $config ) )
         {
             throw new e\NoSuchPageConfigurationException( 
-            	S_SPAN . "The page configuration $config does not exist." . E_SPAN );
+                S_SPAN . "The page configuration $config does not exist." . E_SPAN );
         }
         
         if( !$this->hasRegion( $config, $region ) )
         {
             throw new e\NoSuchPageRegionException( 
-            	S_SPAN . "The page region $region does not exist." . E_SPAN );
+                S_SPAN . "The page region $region does not exist." . E_SPAN );
         }
         
         if( $type == c\T::WIRED_METADATA && !in_array( $name, $this->wired_field_types ) )
         {
             throw new \Exception( 
-            	S_SPAN . "The name $name is not acceptable." . E_SPAN );
+                S_SPAN . "The name $name is not acceptable." . E_SPAN );
         }
         else if( $type == c\T::DYNAMIC_METADATA && !in_array( 
             $name, $this->metadata_set->getDynamicMetadataFieldDefinitionNames() ) )
         {
             throw new e\NoSuchFieldException( 
-            	S_SPAN . "The field $name does not exist." . E_SPAN );
+                S_SPAN . "The field $name does not exist." . E_SPAN );
         }
         
         if( isset( $group_path ) && $group_path != 'NULL' )
@@ -123,7 +123,7 @@ class ContentType extends ContainedAsset
             if( !$this->data_definition->hasField( $field_name ) )
             {
                 throw new e\NoSuchFieldException( 
-                	S_SPAN . "The field $name does not exist." . E_SPAN );
+                    S_SPAN . "The field $name does not exist." . E_SPAN );
             }
         }
         
@@ -287,7 +287,7 @@ class ContentType extends ContainedAsset
         if( !in_array( $config_name, $this->content_type_page_configuration_names ) )
         {
             throw new \Exception( 
-            	S_SPAN . "The page configuration $config_name does not exist." . E_SPAN );
+                S_SPAN . "The page configuration $config_name does not exist." . E_SPAN );
         }
     
         foreach( $this->content_type_page_configurations as $config )
@@ -307,8 +307,8 @@ class ContentType extends ContainedAsset
     
     public function hasInlineEditableField( $name )
     {
-    	if( isset( $this->inline_editable_field_names ) && is_array( $this->inline_editable_field_names ) )
-        	return in_array( $name, $this->inline_editable_field_names );
+        if( isset( $this->inline_editable_field_names ) && is_array( $this->inline_editable_field_names ) )
+            return in_array( $name, $this->inline_editable_field_names );
         return false;
     }
     
@@ -328,7 +328,7 @@ class ContentType extends ContainedAsset
         if( !$this->hasInlineEditableField( $identifier ) )
         {
             throw new e\NoSuchFieldException( 
-            	S_SPAN . "The field $identifier does not exist." . E_SPAN );
+                S_SPAN . "The field $identifier does not exist." . E_SPAN );
         }
         
         $count = count( $this->inline_editable_fields );
@@ -358,7 +358,7 @@ class ContentType extends ContainedAsset
 
     public function setDataDefinition( DataDefinition $dd=NULL )
     {
-		if( isset( $dd ) )
+        if( isset( $dd ) )
         {
             $this->getProperty()->dataDefinitionId   = $dd->getId();
             $this->getProperty()->dataDefinitionPath = $dd->getPath();
@@ -390,14 +390,14 @@ class ContentType extends ContainedAsset
         if( !in_array( $config_name, $this->content_type_page_configuration_names ) )
         {
             throw new \Exception( 
-            	S_SPAN . "The page configuration $config_name does not exist." . E_SPAN );
+                S_SPAN . "The page configuration $config_name does not exist." . E_SPAN );
         }
     
         if( $mode != self::PUBLISH_MODE_ALL_DESTINATIONS && 
             $mode != self::PUBLISH_MODE_DO_NOT_PUBLISH )
         {
             throw new \Exception( 
-            	S_SPAN . "The mode $mode is not supported." . E_SPAN );
+                S_SPAN . "The mode $mode is not supported." . E_SPAN );
         }
         
         foreach( $this->content_type_page_configurations as $config )
