@@ -1063,49 +1063,56 @@ class StructuredData extends Property
         {
             $asset_type = $source->getAssetNodeType( $id );
             
-            switch( $asset_type )
+            try
             {
-                case "page":
-                    $page_id = $source->getPageId( $id );
-                    
-                    if( isset( $page_id ) )
-                    {
-                        $target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
-                    }
-                    break;
-                case "file":
-                    $file_id = $source->getFileId( $id );
-                    
-                    if( isset( $file_id ) )
-                    {
-                        $target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
-                    }
-                    break;
-                case "block":
-                    $block_id = $source->getBlockId( $id );
-                    
-                    if( isset( $block_id ) )
-                    {
-                        $target->setBlock( $id, a\Block::getBlock( $source->service, $block_id ) );
-                    }
-                    break;
-                case "symlink":
-                    $symlink_id = $source->getSymlinkId( $id );
-                    
-                    if( isset( $symlink_id ) )
-                    {
-                        $target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
-                    }
-                    break;
-                case "page,file,symlink":
-                    $linkable_id = $source->getLinkableId( $id );
-                    
-                    if( isset( $linkable_id ) )
-                    {
-                        $target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
-                    }
-                    break;
-            }
+				switch( $asset_type )
+				{
+					case "page":
+						$page_id = $source->getPageId( $id );
+					
+						if( isset( $page_id ) )
+						{
+							$target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
+						}
+						break;
+					case "file":
+						$file_id = $source->getFileId( $id );
+					
+						if( isset( $file_id ) )
+						{
+							$target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
+						}
+						break;
+					case "block":
+						$block_id = $source->getBlockId( $id );
+					
+						if( isset( $block_id ) )
+						{
+							$target->setBlock( $id, a\Block::getBlock( $target->service, $block_id ) );
+						}
+						break;
+					case "symlink":
+						$symlink_id = $source->getSymlinkId( $id );
+					
+						if( isset( $symlink_id ) )
+						{
+							$target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
+						}
+						break;
+					case "page,file,symlink":
+						$linkable_id = $source->getLinkableId( $id );
+					
+						if( isset( $linkable_id ) )
+						{
+							$target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
+						}
+						break;
+				}
+			}
+			catch( e\NoSuchTypeException $e )
+			{
+				// do nothing to skip deleted blocks
+			}
         }
     }
 

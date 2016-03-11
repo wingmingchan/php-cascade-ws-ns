@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/11/2016 Added call to checkStructuredData in hasPhantomNodes.
   * 3/10/2016 Added hasPhantomNodes.
   * 3/9/2016 Added mapData.
   * 1/8/2016 Added code to deal with host asset.
@@ -699,6 +700,7 @@ class Page extends Linkable
     
     public function hasPhantomNodes() // detects phantom nodes of type B
     {
+    	$this->checkStructuredData();
         return $this->structured_data->hasPhantomNodes();
     }
     
