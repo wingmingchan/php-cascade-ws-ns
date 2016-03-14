@@ -534,7 +534,7 @@ class MetadataSet extends ContainedAsset
         $this->getProperty()->endDateFieldVisibility = $end_date_field_visibility;
         return $this;
     }
-/*
+/* commented out because they don't work until 7.14.3
     public function setExpirationFolderFieldRequired( $expiration_folder_field_required=false )
     {
         if( !c\BooleanValues::isBoolean( $expiration_folder_field_required ) )
