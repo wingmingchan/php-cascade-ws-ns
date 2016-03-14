@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/14/2016 Minor bug fix.
   * 5/28/2015 Added namespaces.
   * 7/3/2014 Added getPageRegionStdForPageConfiguration.
   * 6/4/2014 Added getPageRegionNames.
@@ -28,8 +29,9 @@ class Template extends ContainedAsset
         
         $this->page_regions     = array();
         $this->page_region_map  = array();
-        self::processPageRegions( $this->getProperty()->pageRegions->pageRegion, 
-            $this->page_regions, $this->page_region_map, $this->getService() );
+        if( !is_null( $this->getProperty()->pageRegions ) && !is_null( $this->getProperty()->pageRegions->pageRegion ) )
+            self::processPageRegions( $this->getProperty()->pageRegions->pageRegion, 
+                $this->page_regions, $this->page_region_map, $this->getService() );
             
         $this->xml = $this->getProperty()->xml;
     }
