@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/15/2016 Fixed a bug in getFeedBlock.
   * 9/14/2015 Added getMetadata.
   * 5/28/2015 Added namespaces.
  */
@@ -180,7 +181,7 @@ class AssetTemplate
         $feed_block->feedURL          = "";
 
         $asset            = new \stdClass ();
-        $asset->feedBlock = $text_block;
+        $asset->feedBlock = $feed_block;
         return $asset;
     }
     
