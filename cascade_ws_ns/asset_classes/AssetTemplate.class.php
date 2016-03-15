@@ -357,7 +357,7 @@ class AssetTemplate
         $publish_set->parentContainerId = "";
 
         $asset             = new \stdClass ();
-        $asset->publishSet = $text_block;
+        $asset->publishSet = $publish_set;
         return $asset;
     }
     
