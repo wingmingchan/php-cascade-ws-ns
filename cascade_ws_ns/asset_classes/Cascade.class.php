@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/16/2016 Fixed a bug in createFolderIndexBlock.
   * 1/5/2016 Added copyAsset.
   * 7/6/2015 Added getPreference and setPreference.
   * 5/28/2015 Added namespaces.
@@ -617,7 +618,10 @@ class Cascade
         $asset->indexBlock->maxRenderedAssets     = $max_rendered_assets;
         $asset->indexBlock->renderingBehavior     = "render-normally";
         if( isset( $f ) )
+        {
             $asset->indexBlock->indexFolderId     = $f->getId();
+            $asset->indexBlock->indexedFolderPath = $f->getPath();
+        }
         $asset->indexBlock->indexPages            = false;
         $asset->indexBlock->indexBlocks           = false;
         $asset->indexBlock->indexLinks            = false;
