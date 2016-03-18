@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/17/2016 Minor bug fix.
   * 5/28/2015 Added namespaces.
   * 7/16/2014 Class created.
  */
@@ -35,7 +36,7 @@ class DebugUtility
     	// +1 to i cos we have to account for calling this function
     	for ( $i = 1; $i < count( $trace ); $i++ ) 
     	{
-        	if ( isset( $trace[ $i ] ) ) // is it set?
+        	if ( isset( $trace[ $i ] ) && isset( $trace[ $i ][ 'class' ] ) ) // is it set?
         	{
              	if ( $class_temp != $trace[ $i ][ 'class' ] ) // is it a different class
              	{

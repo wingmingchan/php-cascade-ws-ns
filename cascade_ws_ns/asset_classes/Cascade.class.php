@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 3/18/2016 Fixed bugs related to MessageArrays.
   * 3/16/2016 Fixed a bug in createFolderIndexBlock.
   * 1/5/2016 Added copyAsset.
   * 7/6/2015 Added getPreference and setPreference.
@@ -1271,12 +1272,14 @@ class Cascade
     
     public function deleteAllMessages()
     {
+    	MessageArrays::initialize( $this->service );
         return $this->deleteMessagesWithIds( 
             MessageArrays::$all_message_ids );
     }
     
     public function deleteAllMessagesWithoutIssues()
     {
+    	MessageArrays::initialize( $this->service );
         return
             $this->deletePublishMessagesWithoutIssues()->
                    deleteUnpublishMessagesWithoutIssues();

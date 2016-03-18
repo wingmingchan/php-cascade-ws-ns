@@ -20,7 +20,6 @@ class MessageArrays
     const DEBUG = false;
     const DUMP  = false;
     const NAME_SPACE = "cascade_ws_asset";
-    
 
     // all messages
     public static $all_messages    = array();
