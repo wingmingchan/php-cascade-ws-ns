@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 4/13/2016 Added more initialization of stdClass objects.
   * 3/8/2016 Added get_class to dump.
   * 2/11/2016 Added more code to constructor so getIdentifier can return more info.
   * 9/29/2015 Changed line 334, using isset, per Mark Nokes's request.
@@ -90,28 +91,42 @@ abstract class Asset
         if( isset( $property->id ) )
         {
             $this->id            = $property->id;
+            
             if( !isset( $this->identifier->id ) )
                 $this->identifier->id = $this->id;
         }
+        
         if( isset( $property->name ) )
             $this->name          = $property->name;
+            
         if( isset( $property->path ) )
         {
             $this->path          = $property->path;
+            
             if( !isset( $this->identifier->path ) )
             {
                 $this->identifier->path = new \stdClass();
                 $this->identifier->path->path = $this->path;
             }
         }
+        
         if( isset( $property->siteId ) )
         {
             $this->site_id       = $property->siteId;
+            
+            if( !isset( $this->identifier->path ) )
+            	$this->identifier->path = new \stdClass();
+            	
             $this->identifier->path->siteId = $this->site_id;
         }
+        
         if( isset( $property->siteName ) )
         {
             $this->site_name     = $property->siteName;
+            
+            if( !isset( $this->identifier->path ) )
+            	$this->identifier->path = new \stdClass();
+            	
             $this->identifier->path->siteName = $this->site_name;
         }
     }
