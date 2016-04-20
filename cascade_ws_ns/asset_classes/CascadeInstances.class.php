@@ -907,6 +907,10 @@ class CascadeInstances
             // data definition must be there
             $dd = $target_cascade->getAsset( DataDefinition::TYPE, $source_ct_dd_path, $target_ct_dd_site );
         }
+        else
+        {
+        	$dd = NULL;
+        }
         
         $source_ct_ms      = $source_ct->getMetadataSet();
         

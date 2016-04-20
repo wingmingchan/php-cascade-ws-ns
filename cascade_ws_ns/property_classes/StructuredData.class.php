@@ -109,9 +109,12 @@ class StructuredData extends Property
         $parent_id   = $first_node->getParentId();
         $parent_node = $this->getNode( $parent_id );
         
-        if( self::DEBUG ) { u\DebugUtility::out( "Parent ID: " . $parent_id ); }
-        $shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
-        if( self::DEBUG ) { u\DebugUtility::out( "Shared ID: " . $shared_id ); }
+        if( self::DEBUG ) 
+        { 
+        	u\DebugUtility::out( "Parent ID: " . $parent_id );
+        	$shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
+        	u\DebugUtility::out( "Shared ID: " . $shared_id ); 
+        }
 
         $parent_node->addChildNode( $first_node_id );
         
