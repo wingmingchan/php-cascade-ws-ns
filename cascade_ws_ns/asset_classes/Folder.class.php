@@ -244,7 +244,6 @@ class Folder extends Container
         }
         else
         {
-            
             $parent = $this->getAsset( $this->getService(), Folder::TYPE, $this->getParentContainerId() );
             return $parent->isPublishable() && $this->getShouldBePublished();
         }
