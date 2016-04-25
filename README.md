@@ -1,5 +1,5 @@
 # php-cascade-ws-ns
-The newer version of my library, using namespaces.
+My Cascade web service library, using namespaces.
 
 1. For more information, visit http://www.upstate.edu/cascade-admin/projects/web-services/index.php
 2. Asset classes API: http://www.upstate.edu/cascade-admin/projects/web-services/oop/classes/asset-classes/index.php
