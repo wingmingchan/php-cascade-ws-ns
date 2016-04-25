@@ -1549,6 +1549,10 @@ class CascadeInstances
             $target_parent = $target_cascade->getAsset( Folder::TYPE,
                 $source_f_parent_path, $target_site_name );
         }
+        else
+        {
+        	$target_parent = NULL;
+        }
                 
         $target_f = $target_cascade->createFolder( 
             $target_parent, $source_f_path, $target_site_name );
