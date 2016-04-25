@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 4/25/2016 Added isDescendantOf.
   * 5/28/2015 Added namespaces.
  */
 namespace cascade_ws_asset;
@@ -60,6 +61,11 @@ abstract class ContainedAsset extends Asset
             return $this->getProperty()->parentContainerPath;
         else
         	return NULL;
+    }
+    
+    public function isDescendantOf( Container $container )
+    {
+    	return $container->isAncestorOf( $this );
     }
     
     public function isInContainer( Container $c )
