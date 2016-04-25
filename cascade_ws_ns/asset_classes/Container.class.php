@@ -4,6 +4,8 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 4/25/2016 Added isAncestorOf and contains.
+  * 4/22/2016 Added isParentOf.
   * 5/28/2015 Added namespaces.
   * 6/10/2014 Added a dummy string to parentFolderId in edit.
  */
@@ -27,6 +29,11 @@ abstract class Container extends ContainedAsset
         {
             $this->processChildren();
         }
+    }
+    
+    public function contains( Asset $asset )
+    {
+    	return $this->isAncestorOf( $asset );
     }
 
     public function deleteAllChildren()
@@ -97,6 +104,34 @@ abstract class Container extends ContainedAsset
     public function getContainerChildrenIds()
     {
         return $this->container_children_ids;
+    }
+    
+    public function isAncestorOf( Asset $asset )
+    {
+        if( !is_subclass_of( $asset, "cascade_ws_asset\ContainedAsset" ) )
+            throw new e\WrongAssetTypeException( 
+                "The asset is not a type of ContainedAsset object" );
+            
+        // case 1: is the parent
+        if( $this->isParentOf( $asset ) )
+        	return true;
+        // case 2: $asset is a root asset; use short-circuiting here
+        elseif( $asset->getParentContainer()->getPath() == "/" )
+        	return false;
+        // recursive call
+        elseif( $this->isAncestorOf( $asset->getParentContainer() ) )
+        	return true;
+        else
+        	return false;
+    }
+            
+    public function isParentOf( Asset $asset )
+    {
+        if( !is_subclass_of( $asset, "cascade_ws_asset\ContainedAsset" ) )
+            throw new e\WrongAssetTypeException( 
+                "The asset is not a type of ContainedAsset object" );
+            
+        return $asset->isInContainer( $this );
     }
             
     public function toChild()
