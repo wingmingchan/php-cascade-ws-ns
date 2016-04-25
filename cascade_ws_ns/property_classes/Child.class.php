@@ -30,7 +30,9 @@ class Child extends Property
     {
         if( isset( $c ) )
         {
-            $this->id       = $c->id;
+        	if( isset( $c->id ) )
+            	$this->id = $c->id;
+            	
             if( isset( $c->path ) )
                 $this->path = new Path( $c->path );
             else
