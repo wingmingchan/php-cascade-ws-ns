@@ -56,8 +56,10 @@ abstract class ContainedAsset extends Asset
         
         if( isset( $this->getProperty()->parentFolderPath ) )
             return $this->getProperty()->parentFolderPath;
-        else
+        elseif( isset( $this->getProperty()->parentContainerPath ) )
             return $this->getProperty()->parentContainerPath;
+        else
+        	return NULL;
     }
     
     public function isInContainer( Container $c )
