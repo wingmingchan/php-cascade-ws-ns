@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 5/5/2016 Added getStructuredDataStdClass, getStructuredDataObject.
   * 5/28/2015 Added namespaces.
   * 9/23/2014 Fixed a bug in isMultiple.
   * 7/1/2014 Added getStructuredData.
@@ -113,6 +114,16 @@ class DataDefinition extends ContainedAsset
     }
     
     public function getStructuredData()
+    {
+        return $this->structured_data;
+    }
+    
+    public function getStructuredDataObject()
+    {
+        return new p\StructuredData( $this->structured_data, $this->getService(), $this->getId() );
+    }
+    
+    public function getStructuredDataStdClass()
     {
         return $this->structured_data;
     }
