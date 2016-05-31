@@ -1044,7 +1044,8 @@ class StructuredData extends Property
             $this->getNode( $par_id )->removeLastChildNode( $field_name );
         }
         
-        unset( $this->node_map[ $last_id ] );
+        if( isset( $last_id ) && isset( $this->node_map[ $last_id ] ) )
+        	unset( $this->node_map[ $last_id ] );
         $this->identifiers = array_keys( $this->node_map );
 
         return $this;
