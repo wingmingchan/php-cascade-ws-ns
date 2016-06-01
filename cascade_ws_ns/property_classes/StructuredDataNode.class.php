@@ -4,6 +4,9 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
+  * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
+  * isRadioNode, isSymlinkChooser, isTextBox, and isWYSIWYGNode.
   * 12/23/2015 Fixed a bug in addChildNode.
   * 5/28/2015 Added namespaces.
   * 2/24/2015 Added getPossibleValues.
@@ -50,13 +53,19 @@ class StructuredDataNode extends Property
             // note that parent_id ends with a semi-colon
             $this->identifier = $parent_id . $node->identifier;
             
-            // check if this is a multiple field
             $field_identifier = self::getFieldIdentifier( $this->identifier );
             $field            = $this->data_definition->getField( $field_identifier );
             
+            // check if this is a multiple field
             if( isset( $field[ 'multiple' ] ) )
             {
                 $this->multiple = $field[ 'multiple' ];
+            }
+            
+            // check if this is a radio
+            if( isset( $field[ "type" ] ) )
+            {
+                $this->radio = ( $field[ "type" ] == "radiobutton" );
             }
             
             // store the items for radio, multi-selectors, and so on
@@ -398,25 +407,85 @@ class StructuredDataNode extends Property
         return $this->type == c\T::ASSET;
     }
     
+    public function isBlockChooser()
+    {
+        return $this->asset_type == "block";
+    }
+
+    public function isCalendarNode()
+    {
+        return $this->text_type == "calendar";
+    }
+    
+    public function isCheckboxNode()
+    {
+        return $this->text_type == "checkbox";
+    }
+    
+    public function isDatetimeNode()
+    {
+        return $this->text_type == "datetime";
+    }
+    
+    public function isDropdownNode()
+    {
+        return $this->text_type == "dropdown";
+    }
+    
+    public function isFileChooser()
+    {
+        return $this->asset_type == "file";
+    }
+
     public function isGroupNode()
     {
         return $this->type == c\T::GROUP;
     }
     
+    public function isLinkableChooser()
+    {
+        return $this->asset_type == "page,file,symlink";
+    }
+
     public function isMultiLineNode()
     {
-        if( $this->multi_line )
-            return true;
-        else
-            return false;
+        return $this->multi_line;
     }
     
     public function isMultiple()
     {
-        if( $this->multiple )
-            return true;
-        else
+        return $this->multiple;
+    }
+    
+    public function isMultiSelectorNode()
+    {
+        return $this->text_type == "multi-selector";
+    }
+
+    public function isPageChooser()
+    {
+        return $this->asset_type == "page";
+    }
+
+    public function isRadioNode()
+    {
+        return $this->radio;
+    }
+    
+    public function isSymlinkChooser()
+    {
+        return $this->asset_type == "symlink";
+    }
+
+    public function isTextBox()
+    {
+        if( !$this->isTextNode() || $this->multi_line || $this->wysiwyg ||
+            $this->text_type == "datetime" || $this->text_type == "calendar" || 
+            $this->text_type == "multi-selector" || $this->text_type == "dropdown" ||
+            $this->text_type == "checkbox" || $this->radio
+        )
             return false;
+        return true;
     }
     
     public function isRequired()
@@ -431,10 +500,12 @@ class StructuredDataNode extends Property
     
     public function isWYSIWYG()
     {
-        if( $this->wysiwyg )
-            return true;
-        else
-            return false;
+        return $this->wysiwyg;
+    }
+    
+    public function isWYSIWYGNode()
+    {
+        return $this->wysiwyg;
     }
     
     public function removeLastChildNode( $node_id )
@@ -1125,6 +1196,7 @@ class StructuredDataNode extends Property
     private $text_type; // type of text, radiobutton, dropdown, and so on
     private $index;     // index of a multiple field
     private $items;     // items string of radio, checkbox, dropdown & selector
+    private $radio;     // whether this is a radio
     private $wysiwyg;   // whether this is a wysiwyg
     private $data_definition;
     private $node_map;

@@ -4,6 +4,9 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
+  * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
+  * isRadioNode, isSymlinkChooser, isTextBox, and isWYSIWYGNode.
   * 3/10/2016 Added hasPhantomNodes.
   * 3/9/2016 Added removePhantomNodes and copyData.
   * 2/26/2016 Added mapData.
@@ -111,9 +114,9 @@ class StructuredData extends Property
         
         if( self::DEBUG ) 
         { 
-        	u\DebugUtility::out( "Parent ID: " . $parent_id );
-        	$shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
-        	u\DebugUtility::out( "Shared ID: " . $shared_id ); 
+            u\DebugUtility::out( "Parent ID: " . $parent_id );
+            $shared_id = StructuredDataNode::removeLastIndex( $first_node_id );
+            u\DebugUtility::out( "Shared ID: " . $shared_id ); 
         }
 
         $parent_node->addChildNode( $first_node_id );
@@ -432,13 +435,70 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isAssetNode();
     }
     
-    public function isIdentifierOfFirstNode( $identifier )
+    public function isBlockChooser( $identifier )
     {
-        if( $this->isMultiple( $identifier ) )
+        if( !in_array( $identifier, $this->identifiers ) )
         {
-            return u\StringUtility::endsWith( $identifier, ";0" );
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
         }
-        return false;
+        
+        return $this->node_map[ $identifier ]->isBlockChooser();
+    }
+    
+    public function isCalendarNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isCalendarNode();
+    }
+    
+    public function isCheckboxNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isCheckboxNode();
+    }
+    
+    public function isDatetimeNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isDatetimeNode();
+    }
+    
+    public function isDropdownNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isDropdownNode();
+    }
+    
+    public function isFileChooser( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isFileChooser();
     }
     
     public function isGroupNode( $identifier )
@@ -450,6 +510,26 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isGroupNode();
+    }
+    
+    public function isIdentifierOfFirstNode( $identifier )
+    {
+        if( $this->isMultiple( $identifier ) )
+        {
+            return u\StringUtility::endsWith( $identifier, ";0" );
+        }
+        return false;
+    }
+    
+    public function isLinkableChooser( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isLinkableChooser();
     }
     
     public function isMultiLineNode( $identifier )
@@ -474,6 +554,39 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isMultiple();
     }
     
+    public function isMultiSelectorNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isMultiSelectorNode();
+    }
+    
+    public function isPageChooser( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isPageChooser();
+    }
+    
+    public function isRadioNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isRadioNode();
+    }
+    
     public function isRequired( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -485,6 +598,28 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isRequired();
     }
 
+    public function isSymlinkChooser( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isSymlinkChooser();
+    }
+    
+    public function isTextBox( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isTextBox();
+    }
+    
     public function isTextNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -505,6 +640,17 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isWYSIWYG();
+    }
+    
+    public function isWYSIWYGNode( $identifier )
+    {
+        if( !in_array( $identifier, $this->identifiers ) )
+        {
+            throw new e\NodeException( 
+                S_SPAN . "The node $identifier does not exist" . E_SPAN );
+        }
+        
+        return $this->node_map[ $identifier ]->isWYSIWYGNode();
     }
     
     public function mapData()
@@ -1045,7 +1191,7 @@ class StructuredData extends Property
         }
         
         if( isset( $last_id ) && isset( $this->node_map[ $last_id ] ) )
-        	unset( $this->node_map[ $last_id ] );
+            unset( $this->node_map[ $last_id ] );
         $this->identifiers = array_keys( $this->node_map );
 
         return $this;
@@ -1069,54 +1215,54 @@ class StructuredData extends Property
             
             try
             {
-				switch( $asset_type )
-				{
-					case "page":
-						$page_id = $source->getPageId( $id );
-					
-						if( isset( $page_id ) )
-						{
-							$target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
-						}
-						break;
-					case "file":
-						$file_id = $source->getFileId( $id );
-					
-						if( isset( $file_id ) )
-						{
-							$target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
-						}
-						break;
-					case "block":
-						$block_id = $source->getBlockId( $id );
-					
-						if( isset( $block_id ) )
-						{
-							$target->setBlock( $id, a\Block::getBlock( $target->service, $block_id ) );
-						}
-						break;
-					case "symlink":
-						$symlink_id = $source->getSymlinkId( $id );
-					
-						if( isset( $symlink_id ) )
-						{
-							$target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
-						}
-						break;
-					case "page,file,symlink":
-						$linkable_id = $source->getLinkableId( $id );
-					
-						if( isset( $linkable_id ) )
-						{
-							$target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
-						}
-						break;
-				}
-			}
-			catch( e\NoSuchTypeException $e )
-			{
-				// do nothing to skip deleted blocks
-			}
+                switch( $asset_type )
+                {
+                    case "page":
+                        $page_id = $source->getPageId( $id );
+                    
+                        if( isset( $page_id ) )
+                        {
+                            $target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
+                        }
+                        break;
+                    case "file":
+                        $file_id = $source->getFileId( $id );
+                    
+                        if( isset( $file_id ) )
+                        {
+                            $target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
+                        }
+                        break;
+                    case "block":
+                        $block_id = $source->getBlockId( $id );
+                    
+                        if( isset( $block_id ) )
+                        {
+                            $target->setBlock( $id, a\Block::getBlock( $target->service, $block_id ) );
+                        }
+                        break;
+                    case "symlink":
+                        $symlink_id = $source->getSymlinkId( $id );
+                    
+                        if( isset( $symlink_id ) )
+                        {
+                            $target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
+                        }
+                        break;
+                    case "page,file,symlink":
+                        $linkable_id = $source->getLinkableId( $id );
+                    
+                        if( isset( $linkable_id ) )
+                        {
+                            $target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
+                        }
+                        break;
+                }
+            }
+            catch( e\NoSuchTypeException $e )
+            {
+                // do nothing to skip deleted blocks
+            }
         }
     }
 

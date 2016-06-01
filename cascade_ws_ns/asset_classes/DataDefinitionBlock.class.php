@@ -4,6 +4,9 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
+  * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
+  * isRadioNode, isSymlinkChooser, isTextBox, and isWYSIWYGNode.
   * 3/10/2016 Added hasPhantomNodes.
   * 3/9/2016 Added mapData.
   * 1/8/2016 Added code to deal with host asset.
@@ -317,10 +320,52 @@ class DataDefinitionBlock extends Block
         return $this->structured_data->isAssetNode( $identifier );
     }
     
+    public function isBlockChooser( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isBlockChooser( $identifier );
+    }
+    
+    public function isCalendarNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isCalendarNode( $identifier );
+    }
+    
+    public function isCheckboxNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isCheckboxNode( $identifier );
+    }
+    
+    public function isDatetimeNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isDatetimeNode( $identifier );
+    }
+    
+    public function isDropdownNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isDropdownNode( $identifier );
+    }
+    
+    public function isFileChooser( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isFileChooser( $identifier );
+    }
+    
     public function isGroupNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isGroupNode( $identifier );
+    }
+    
+    public function isLinkableChooser( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isLinkableChooser( $identifier );
     }
     
     public function isMultiLineNode( $identifier )
@@ -335,12 +380,42 @@ class DataDefinitionBlock extends Block
         return $this->getDataDefinition()->isMultiple( $field_name );
     }
     
+    public function isMultiSelectorNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isMultiSelectorNode( $identifier );
+    }
+    
+    public function isPageChooser( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isPageChooser( $identifier );
+    }
+    
+    public function isRadioNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isRadioNode( $identifier );
+    }
+    
     public function isRequired( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isRequired( $identifier );
     }
 
+    public function isSymlinkChooser( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isSymlinkChooser( $identifier );
+    }
+    
+    public function isTextBox( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isTextBox( $identifier );
+    }
+    
     public function isTextNode( $identifier )
     {
         $this->checkStructuredData();
@@ -351,6 +426,12 @@ class DataDefinitionBlock extends Block
     {
         $this->checkStructuredData();
         return $this->structured_data->isWYSIWYG( $identifier );
+    }
+    
+    public function isWYSIWYGNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isWYSIWYGNode( $identifier );
     }
     
     public function mapData()
