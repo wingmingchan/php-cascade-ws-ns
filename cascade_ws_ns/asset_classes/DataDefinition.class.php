@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/2/2016 Replaced most string literals with constants.
   * 5/5/2016 Added getStructuredDataStdClass, getStructuredDataObject.
   * 5/28/2015 Added namespaces.
   * 9/23/2014 Fixed a bug in isMultiple.
@@ -151,11 +152,11 @@ class DataDefinition extends ContainedAsset
                 S_SPAN . "The field name $field_name does not exist." . E_SPAN );
         }
         
-        if( isset( $this->attributes[ $field_name ][ 'multiple' ] ) ) 
+        if( isset( $this->attributes[ $field_name ][ c\T::MULTIPLE ] ) ) 
         {
             return true;
         }
-        else if( isset( $this->attributes[ $field_name ][ 0 ][ 'multiple' ] ) )
+        else if( isset( $this->attributes[ $field_name ][ 0 ][ c\T::MULTIPLE ] ) )
         {
             return true;
         }
@@ -176,12 +177,12 @@ class DataDefinition extends ContainedAsset
     {
         foreach( $xml_element->children() as $child )
         {
-            $type       = trim( $child->attributes()->{ $a = 'type' } );
+            $type       = trim( $child->attributes()->{ $a = c\T::TYPE } );
             $name       = $child->getName();
-            $identifier = $child[ 'identifier' ]->__toString();
+            $identifier = $child[ c\T::IDENTIFIER ]->__toString();
             $old_group  = $group_names;
             
-            if( $name == 'group' )
+            if( $name == c\T::GROUP )
             {
                 // fully qualified identifier
                 // if a field/group belongs to a group,
@@ -191,7 +192,7 @@ class DataDefinition extends ContainedAsset
                 $attributes      = $child->attributes();
                 $attribute_array = array();
                 // add the name
-                $attribute_array[ 'name' ] = $name;
+                $attribute_array[ c\T::NAME ] = $name;
 
                 // create the attribute array
                 foreach( $attributes as $key => $value )
@@ -212,23 +213,23 @@ class DataDefinition extends ContainedAsset
                 $value_string = '';
                 
                 // process checkbox, dropdown, radio, selector
-                if( $name == 'text' && isset( $type ) && 
-                    $type != 'datetime' && $type != 'calendar' )
+                if( $name == c\T::TEXT && isset( $type ) && 
+                    $type != c\T::DATETIME && $type != c\T::CALENDAR )
                 {
                     $item_name = '';
                 
                     // if type is not defined, then normal, multi-line, wysiwyg
                     switch( $type )
                     {
-                        case 'checkbox':
-                        case 'dropdown':
+                        case c\T::CHECKBOX:
+                        case c\T::DROPDOWN:
                             $item_name = $type;
                             break;
-                        case 'radiobutton':
-                            $item_name = 'radio';
+                        case c\T::RADIOBUTTON:
+                            $item_name = c\T::RADIO;
                             break;
-                        case 'multi-selector':
-                            $item_name = 'selector';
+                        case c\T::MULTISELECTOR:
+                            $item_name = c\T::SELECTOR;
                             break;
                     }
                 
@@ -236,7 +237,7 @@ class DataDefinition extends ContainedAsset
                 
                     foreach( $child->{$p = "$item_name-item"} as $item )
                     {
-                        $text[] = $item->attributes()->{ $a = 'value' };
+                        $text[] = $item->attributes()->{ $a = c\T::VALUE };
                     }
                     
                     $value_string = implode( self::DELIMITER, $text );
@@ -245,12 +246,12 @@ class DataDefinition extends ContainedAsset
                 $attributes      = $child->attributes();
                 $attribute_array = array();
                 // add the name
-                $attribute_array[ 'name' ] = $name;
+                $attribute_array[ c\T::NAME ] = $name;
                 
                 // attach items for checkbox, dropdown, radio, selector
                 if( $value_string != '' )
                 {
-                    $attribute_array[ 'items' ] = $value_string;
+                    $attribute_array[ c\T::ITEMS ] = $value_string;
                 }
                 // create the attribute array
                 foreach( $attributes as $key => $value )
@@ -272,7 +273,7 @@ class DataDefinition extends ContainedAsset
         
         $obj = AssetTemplate::getStructuredDataNode();
         
-        if( $type == "group" )
+        if( $type == c\T::GROUP )
         {
             $obj->type       = $type;
             $obj->identifier = $identifier;
@@ -291,9 +292,9 @@ class DataDefinition extends ContainedAsset
                     
                     if( self::DEBUG ) { u\DebugUtility::out( "Child type in group: $child_type" ); }
                     
-                    if( isset( $child[ 'identifier' ] ) )
+                    if( isset( $child[ c\T::IDENTIFIER ] ) )
                     {
-                        $child_identifier = $child[ 'identifier' ]->__toString();
+                        $child_identifier = $child[ c\T::IDENTIFIER ]->__toString();
                         
                         $child_std = $this->createChildStd( $child, $child_type, $child_identifier );
                     
@@ -312,7 +313,7 @@ class DataDefinition extends ContainedAsset
                 
                 if( self::DEBUG ) { u\DebugUtility::out( "Child type in group: $child_type" ); }
                 
-                $child_identifier = $child[ 'identifier' ]->__toString();
+                $child_identifier = $child[ c\T::IDENTIFIER ]->__toString();
                 $child_std = $this->createChildStd( $child, $child_type, $child_identifier );
                 $obj->structuredDataNodes->structuredDataNode = $child_std;
             }
@@ -342,9 +343,9 @@ class DataDefinition extends ContainedAsset
             {
                 $child_type = $child->getName();
                 
-                if( isset( $child[ 'identifier' ] ) )
+                if( isset( $child[ c\T::IDENTIFIER ] ) )
                 {
-                    $child_identifier = $child[ 'identifier' ]->__toString();
+                    $child_identifier = $child[ c\T::IDENTIFIER ]->__toString();
                     $child_std = $this->createChildStd( $child, $child_type, $child_identifier );
                     $this->structured_data->structuredDataNodes->structuredDataNode[] = $child_std;
                 }
@@ -356,9 +357,9 @@ class DataDefinition extends ContainedAsset
             $child_type = $child->getName();
             $attributes = $child->attributes();
             
-            if( isset( $attributes[ 'identifier' ] ) )
+            if( isset( $attributes[ c\T::IDENTIFIER ] ) )
             {
-                $child_identifier = $attributes[ 'identifier' ]->__toString();
+                $child_identifier = $attributes[ c\T::IDENTIFIER ]->__toString();
                 $this->structured_data->structuredDataNodes                     = new \stdClass();
                 $this->structured_data->structuredDataNodes->structuredDataNode = new \stdClass();
                 $this->structured_data->structuredDataNodes->structuredDataNode = 
@@ -377,20 +378,20 @@ class DataDefinition extends ContainedAsset
         {
             $grandchild_type = $grandchild->getName();
             
-            if( $grandchild_type == "checkbox-item" )
+            if( $grandchild_type == c\T::CHECKBOXITEM )
             {
                 $child_std->text = p\StructuredDataNode::CHECKBOX_PREFIX;
             }
-            else if( $grandchild_type == "selector-item" )
+            else if( $grandchild_type == c\T::SELECTORITEM )
             {
                 $child_std->text = p\StructuredDataNode::SELECTOR_PREFIX;
             }
         }
         
-        if( $child_type == "asset" )
+        if( $child_type == c\T::ASSET )
         {
             $child_attributes     = $child->attributes();
-            $asset_type           = $child_attributes[ "type" ]->__toString();
+            $asset_type           = $child_attributes[ c\T::TYPE ]->__toString();
             $child_std->assetType = $asset_type;
         }
         return $child_std;
