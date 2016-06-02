@@ -4,6 +4,8 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  *  6/2/2016 Added constants related to types of structured data nodes.
+  *  5/6/2016 Added S_H3, E_H3, S_OL, E_OL.
   *  12/10/2014 Added constants JSON, JS, CSS.
   *  9/25/2014 Added WorkflowModeValues class.
   *  5/14/2014 Added S class and SearchTypes.
@@ -36,17 +38,21 @@ define( 'BR',    "<br />\n" );
 define( 'HR',    "<hr class='thin width100 text_lightgray bg_lightgray' />" );
 define( 'E_H2',  "</h2>\n" );
 define( 'S_H2',  "<h2>" );
+define( 'E_H3',  "</h3>\n" );
+define( 'S_H3',  "<h3>" );
 define( 'E_LI', "</li>\n" );
 define( 'S_LI', "<li>\n" );
+define( 'S_OL', "<ol>" );
+define( 'E_OL', "</ol>" );
 define( 'E_PRE', "</pre>\n" );
 define( 'S_PRE', "<pre>\n" );
 define( 'SPACE', "&nbsp;&nbsp;&nbsp;&nbsp;" );
+define( 'S_SPAN', "<span style='color:red;font-weight:bold'>" );
+define( 'E_SPAN', "</span>" );
 define( 'E_STRONG', "</strong>\n" );
 define( 'S_STRONG', "<strong>\n" );
 define( 'E_UL', "</ul>\n" );
 define( 'S_UL', "<ul>\n" );
-define( 'S_SPAN', "<span style='color:red;font-weight:bold'>" );
-define( 'E_SPAN', "</span>" );
 
 class F // global functions
 {
@@ -405,7 +411,10 @@ class T // types
     const BLOCKXML                         = "block_XML";
     const BLOCK_TWITTER_FEED               = "block_TWITTER_FEED";
     const BLOCKTWITTERFEED                 = "block_TWITTER_FEED";
+    const CALENDAR                         = "calendar";
     const CHECKBOX                         = "checkbox";
+    const CHECKBOX_ITEM                    = "checkbox-item";
+    const CHECKBOXITEM                     = "checkbox-item";
     const CHECK_IN                         = "check_in";
     const CHECKIN                          = "check_in";
     const CHECK_OUT                        = "check_out";
@@ -444,6 +453,7 @@ class T // types
     const DATADEFINITIONCONTAINER          = "datadefinitioncontainer";
     const DATABASE_TRANSPORT               = "transport_db";
     const DATABASETRANSPORT                = "transport_db";
+    const DATETIME                         = "datetime";
     const DB_TRANSPORT                     = "transport_db";
     const DBTRANSPORT                      = "transport_db";
     const DELETE                           = "delete";
@@ -500,11 +510,13 @@ class T // types
     const HIERARCHY_SIBLINGS_FORWARD       = "hierarchy-siblings_forward";
     const HIERARCHYSIBLINGSFORWARD         = "hierarchy-siblings_forward";
     const HTML                             = "HTML";
+    const IDENTIFIER                       = "identifier";
     const INDEX_BLOCK                      = "block_INDEX";
     const INDEXBLOCK                       = "block_INDEX";
     const INLINE                           = "inline";
     const INLINE_DATA_DEFINITION           = "data-definition";
     const INLINEDATADEFINITION             = "data-definition";
+    const ITEMS                            = "items";    
     const JS                               = "JS";    
     const JSON                             = "JSON";    
     const LAST_MODIFIED_DATE               = "last-modified-date";
@@ -529,8 +541,14 @@ class T // types
     const METADATASETCONTAINER             = "metadatasetcontainer";
     const MONDAY                           = "Monday";
     const MOVE                             = "move";
+    const MULTIPLE                         = "multiple";
+    const MULTI_LINE                       = "multi-line";
+    const MULTILINE                        = "multi-line";
     const MULTI_SELECT                     = "multiselect";
     const MULTISELECT                      = "multiselect";
+    const MULTI_SELECTOR                   = "multi-selector";
+    const MULTISELECTOR                    = "multi-selector";
+    const NAME                             = "name";
     const NAME_OF_DEFINITION               = "name-of-definition";
     const NAMEOFDEFINITION                 = "name-of-definition";
     const NEVER                            = "never";
@@ -558,6 +576,7 @@ class T // types
     const PUBLISH_SET_CONTAINER            = "publishsetcontainer";
     const PUBLISHSETCONTAINER              = "publishsetcontainer";
     const RADIO                            = "radio";
+    const RADIOBUTTON                      = "radiobutton";
     const READ                             = "read";
     const RECYCLE                          = "recycle";
     const REFERENCE                        = "reference";
@@ -566,6 +585,7 @@ class T // types
     const RENDERCURRENTPAGEONLY            = "render-current-page-only";
     const RENDER_NORMALLY                  = "render-normally";
     const RENDERNORMALLY                   = "render-normally";
+    const REQUIRED                         = "required";
     const RESTORE                          = "restore";
     const ROLE                             = "role";
     const RTF                              = "RTF";
@@ -576,6 +596,9 @@ class T // types
     const SCRIPTFORMAT                     = "format_SCRIPT"; 
     const SELECTED_DESTINATIONS            = "selected-destinations";
     const SELECTEDDESTINATIONS             = "selected-destinations";
+    const SELECTOR                         = "selector";
+    const SELECTOR_ITEM                    = "selector-item";
+    const SELECTORITEM                     = "selector-item";
     const SITE                             = "site";
     const SITE_DESTINATION_CONTAINER       = "sitedestinationcontainer";
     const SITEDESTINATIONCONTAINER         = "sitedestinationcontainer";
@@ -603,6 +626,7 @@ class T // types
     const TUESDAY                          = "Tuesday";
     const TWITTER_CONNECTOR                = 'twitterconnector';
     const TWITTERCONNECTOR                 = 'twitterconnector';
+    const TYPE                             = 'type';
     const UN_PUBLISH                       = "unpublish";
     const UNPUBLISH                        = "unpublish";
     const UN_READ                          = "unread";
@@ -612,6 +636,7 @@ class T // types
     const USERANDMENTIONS                  = "user-and-mentions";
     const USER_ONLY                        = "user-only";
     const USERONLY                         = "user-only";
+    const VALUE                            = "value";
     const VELOCITY_FORMAT                  = "format_SCRIPT"; 
     const VELOCITYFORMAT                   = "format_SCRIPT"; 
     const VISIBLE                          = "visible";
@@ -627,6 +652,7 @@ class T // types
     const WORKFLOW_DEFINITION_CONTAINER    = "workflowdefinitioncontainer";
     const WORKFLOWDEFINITIONCONTAINER      = "workflowdefinitioncontainer";
     const WRITE                            = "write";
+    const WYSIWYG                          = "wysiwyg";
     const XHTML                            = "xhtml";
     const XHTML_DATA_DEFINITION_BLOCK      = "block_XHTML_DATADEFINITION";
     const XHTMLDATADEFINITION_BLOCK        = "block_XHTML_DATADEFINITION";
