@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/2/2016 Added aliases.
   * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
   * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
   * isRadioNode, isSymlinkChooser, isTextBox, and isWYSIWYGNode.
@@ -314,6 +315,12 @@ class DataDefinitionBlock extends Block
         return $this->structured_data != NULL;
     }
     
+    public function isAsset( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isAssetNode( $identifier );
+    }
+    
     public function isAssetNode( $identifier )
     {
         $this->checkStructuredData();
@@ -326,10 +333,28 @@ class DataDefinitionBlock extends Block
         return $this->structured_data->isBlockChooser( $identifier );
     }
     
+    public function isBlockChooserNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isBlockChooser( $identifier );
+    }
+    
+    public function isCalendar( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isCalendarNode( $identifier );
+    }
+    
     public function isCalendarNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isCalendarNode( $identifier );
+    }
+    
+    public function isCheckbox( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isCheckboxNode( $identifier );
     }
     
     public function isCheckboxNode( $identifier )
@@ -338,10 +363,22 @@ class DataDefinitionBlock extends Block
         return $this->structured_data->isCheckboxNode( $identifier );
     }
     
+    public function isDatetime( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isDatetimeNode( $identifier );
+    }
+    
     public function isDatetimeNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isDatetimeNode( $identifier );
+    }
+    
+    public function isDropdown( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isDropdownNode( $identifier );
     }
     
     public function isDropdownNode( $identifier )
@@ -356,6 +393,18 @@ class DataDefinitionBlock extends Block
         return $this->structured_data->isFileChooser( $identifier );
     }
     
+    public function isFileChooserNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isFileChooser( $identifier );
+    }
+    
+    public function isGroup( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isGroupNode( $identifier );
+    }
+    
     public function isGroupNode( $identifier )
     {
         $this->checkStructuredData();
@@ -366,6 +415,18 @@ class DataDefinitionBlock extends Block
     {
         $this->checkStructuredData();
         return $this->structured_data->isLinkableChooser( $identifier );
+    }
+    
+    public function isLinkableChooserNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isLinkableChooser( $identifier );
+    }
+    
+    public function isMultiLine( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isMultiLineNode( $identifier );
     }
     
     public function isMultiLineNode( $identifier )
@@ -380,6 +441,12 @@ class DataDefinitionBlock extends Block
         return $this->getDataDefinition()->isMultiple( $field_name );
     }
     
+    public function isMultiSelector( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isMultiSelectorNode( $identifier );
+    }
+    
     public function isMultiSelectorNode( $identifier )
     {
         $this->checkStructuredData();
@@ -390,6 +457,18 @@ class DataDefinitionBlock extends Block
     {
         $this->checkStructuredData();
         return $this->structured_data->isPageChooser( $identifier );
+    }
+    
+    public function isPageChooserNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isPageChooser( $identifier );
+    }
+    
+    public function isRadio( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isRadioNode( $identifier );
     }
     
     public function isRadioNode( $identifier )
@@ -410,10 +489,40 @@ class DataDefinitionBlock extends Block
         return $this->structured_data->isSymlinkChooser( $identifier );
     }
     
+    public function isSymlinkChooserNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isSymlinkChooser( $identifier );
+    }
+    
     public function isTextBox( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isTextBox( $identifier );
+    }
+    
+    public function isTextBoxNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isTextBox( $identifier );
+    }
+    
+    public function isText( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isTextNode( $identifier );
+    }
+    
+    public function isTextarea( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isMultiLineNode( $identifier );
+    }
+    
+    public function isTextareaNode( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isMultiLineNode( $identifier );
     }
     
     public function isTextNode( $identifier )
