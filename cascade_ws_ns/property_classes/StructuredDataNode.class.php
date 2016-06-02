@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/2/2016 Added aliases. Replaced most string literals with constants.
   * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
   * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
   * isRadioNode, isSymlinkChooser, isTextBox, and isWYSIWYGNode.
@@ -16,10 +17,10 @@
 namespace cascade_ws_property;
 
 use cascade_ws_constants as c;
-use cascade_ws_AOHS as aohs;
-use cascade_ws_utility as u;
+use cascade_ws_AOHS      as aohs;
+use cascade_ws_utility   as u;
 use cascade_ws_exception as e;
-use cascade_ws_asset as a;
+use cascade_ws_asset     as a;
 
 class StructuredDataNode extends Property
 {
@@ -28,12 +29,12 @@ class StructuredDataNode extends Property
     const DELIMITER          = a\DataDefinition::DELIMITER;
     const CHECKBOX_PREFIX    = '::CONTENT-XML-CHECKBOX::';
     const SELECTOR_PREFIX    = '::CONTENT-XML-SELECTOR::';
-    const TEXT_TYPE_CALENDAR = "calendar";
-    const TEXT_TYPE_CHECKBOX = "checkbox";
-    const TEXT_TYPE_DATETIME = "datetime";
-    const TEXT_TYPE_DROPDOWN = "dropdown";
-    const TEXT_TYPE_RADIO    = "radiobutton";
-    const TEXT_TYPE_SELECTOR = "multi-selector";
+    const TEXT_TYPE_CALENDAR = c\T::CALENDAR;
+    const TEXT_TYPE_CHECKBOX = c\T::CHECKBOX;
+    const TEXT_TYPE_DATETIME = c\T::DATETIME;
+    const TEXT_TYPE_DROPDOWN = c\T::DROPDOWN;
+    const TEXT_TYPE_RADIO    = c\T::RADIOBUTTON;
+    const TEXT_TYPE_SELECTOR = c\T::MULTISELECTOR;
     
     public function __construct( 
         \stdClass $node=NULL,
@@ -57,45 +58,45 @@ class StructuredDataNode extends Property
             $field            = $this->data_definition->getField( $field_identifier );
             
             // check if this is a multiple field
-            if( isset( $field[ 'multiple' ] ) )
+            if( isset( $field[ c\T::MULTIPLE ] ) )
             {
-                $this->multiple = $field[ 'multiple' ];
+                $this->multiple = $field[ c\T::MULTIPLE ];
             }
             
             // check if this is a radio
-            if( isset( $field[ "type" ] ) )
+            if( isset( $field[ c\T::TYPE ] ) )
             {
-                $this->radio = ( $field[ "type" ] == "radiobutton" );
+                $this->radio = ( $field[ c\T::TYPE ] == c\T::RADIOBUTTON );
             }
             
             // store the items for radio, multi-selectors, and so on
-            if( isset( $field[ 'items' ] ) )
+            if( isset( $field[ c\T::ITEMS ] ) )
             {
-                $this->items = $field[ 'items' ];
+                $this->items = $field[ c\T::ITEMS ];
             }
             
             // is it required?
-            if( isset( $field[ 'required' ] ) )
+            if( isset( $field[ c\T::REQUIRED ] ) )
             {
-                $this->required = $field[ 'required' ];
+                $this->required = $field[ c\T::REQUIRED ];
             }
             
             // type mostly for setText
-            if( isset( $field[ 'type' ] ) )
+            if( isset( $field[ c\T::TYPE ] ) )
             {
-                $this->text_type = $field[ 'type' ];
+                $this->text_type = $field[ c\T::TYPE ];
             }
             
             // is it multi-line?
-            if( isset( $field[ 'multi-line' ] ) )
+            if( isset( $field[ c\T::MULTILINE ] ) )
             {
-                $this->multi_line = $field[ 'multi-line' ];
+                $this->multi_line = $field[ c\T::MULTILINE ];
             }
             
             // is it wysiwyg?
-            if( isset( $field[ 'wysiwyg' ] ) )
+            if( isset( $field[ c\T::WYSIWYG ] ) )
             {
-                $this->wysiwyg = $field[ 'wysiwyg' ];
+                $this->wysiwyg = $field[ c\T::WYSIWYG ];
             }
             
             // add the index if this is a multiple field
@@ -180,9 +181,7 @@ class StructuredDataNode extends Property
             throw new e\NodeException( 
                 S_SPAN . "Cannot add a node to a non-multiple field." . E_SPAN );
         }
-/*
-        $child_count = count( $this->structured_data_nodes );
-*/
+
         $last_pos    = self::getPositionOfLastNode( $this->structured_data_nodes, $node_id );
         if( self::DEBUG ) { u\DebugUtility::out( "Last position: " . $last_pos ); }
         
@@ -190,22 +189,8 @@ class StructuredDataNode extends Property
         $cloned_node = $this->structured_data_nodes[ $last_pos ]->cloneNode();
         if( self::DEBUG ) { u\DebugUtility::dump( $cloned_node->toStdClass() ); }
 
-/*
-        // new node to be inserted in the middle
-        if( $child_count > $last_pos + 1 )
-        {
-            $before = array_slice( $this->structured_data_nodes, 0, $last_pos + 1 );
-            $after  = array_slice( $this->structured_data_nodes, $last_pos + 1 );
-            $this->structured_data_nodes = array_merge( $before, array( $cloned_node ), $after );
-        }
-        else // new node appended at the end
-        {
-*/
+
         $this->structured_data_nodes[] = $cloned_node;
-/*
-        }
-*/
-        
         $this->node_map = array_merge( 
             $this->node_map, array( $cloned_node->getIdentifier() => $cloned_node ) );
 
@@ -402,6 +387,11 @@ class StructuredDataNode extends Property
         return in_array( $item, $items );
     }
     
+    public function isAsset()
+    {
+        return $this->type == c\T::ASSET;
+    }
+    
     public function isAssetNode()
     {
         return $this->type == c\T::ASSET;
@@ -409,34 +399,69 @@ class StructuredDataNode extends Property
     
     public function isBlockChooser()
     {
-        return $this->asset_type == "block";
+        return $this->asset_type == c\T::BLOCK;
     }
 
+    public function isBlockChooserNode()
+    {
+        return $this->asset_type == c\T::BLOCK;
+    }
+
+    public function isCalendar()
+    {
+        return $this->text_type == c\T::CALENDAR;
+    }
+    
     public function isCalendarNode()
     {
-        return $this->text_type == "calendar";
+        return $this->text_type == c\T::CALENDAR;
+    }
+    
+    public function isCheckbox()
+    {
+        return $this->text_type == c\T::CHECKBOX;
     }
     
     public function isCheckboxNode()
     {
-        return $this->text_type == "checkbox";
+        return $this->text_type == c\T::CHECKBOX;
+    }
+    
+    public function isDatetime()
+    {
+        return $this->text_type == c\T::DATETIME;
     }
     
     public function isDatetimeNode()
     {
-        return $this->text_type == "datetime";
+        return $this->text_type == c\T::DATETIME;
+    }
+    
+    public function isDropdown()
+    {
+        return $this->text_type == c\T::DROPDOWN;
     }
     
     public function isDropdownNode()
     {
-        return $this->text_type == "dropdown";
+        return $this->text_type == c\T::DROPDOWN;
     }
     
     public function isFileChooser()
     {
-        return $this->asset_type == "file";
+        return $this->asset_type == c\T::FILE;
     }
 
+    public function isFileChooserNode()
+    {
+        return $this->asset_type == c\T::FILE;
+    }
+
+    public function isGroup()
+    {
+        return $this->type == c\T::GROUP;
+    }
+    
     public function isGroupNode()
     {
         return $this->type == c\T::GROUP;
@@ -444,9 +469,19 @@ class StructuredDataNode extends Property
     
     public function isLinkableChooser()
     {
-        return $this->asset_type == "page,file,symlink";
+        return $this->asset_type == c\T::PFS;
     }
 
+    public function isLinkableChooserNode()
+    {
+        return $this->asset_type == c\T::PFS;
+    }
+
+    public function isMultiLine()
+    {
+        return $this->multi_line;
+    }
+    
     public function isMultiLineNode()
     {
         return $this->multi_line;
@@ -457,16 +492,31 @@ class StructuredDataNode extends Property
         return $this->multiple;
     }
     
+    public function isMultiSelector()
+    {
+        return $this->text_type == c\T::MULTISELECTOR;
+    }
+
     public function isMultiSelectorNode()
     {
-        return $this->text_type == "multi-selector";
+        return $this->text_type == c\T::MULTISELECTOR;
     }
 
     public function isPageChooser()
     {
-        return $this->asset_type == "page";
+        return $this->asset_type == c\T::PAGE;
     }
 
+    public function isPageChooserNode()
+    {
+        return $this->asset_type == c\T::PAGE;
+    }
+
+    public function isRadio()
+    {
+        return $this->radio;
+    }
+    
     public function isRadioNode()
     {
         return $this->radio;
@@ -474,18 +524,43 @@ class StructuredDataNode extends Property
     
     public function isSymlinkChooser()
     {
-        return $this->asset_type == "symlink";
+        return $this->asset_type == c\T::SYMLINK;
     }
 
+    public function isSymlinkChooserNode()
+    {
+        return $this->asset_type == c\T::SYMLINK;
+    }
+
+    public function isText()
+    {
+        return $this->type == c\T::TEXT;
+    }
+    
+    public function isTextarea()
+    {
+        return $this->multi_line;
+    }
+    
+    public function isTextareaNode()
+    {
+        return $this->multi_line;
+    }
+    
     public function isTextBox()
     {
         if( !$this->isTextNode() || $this->multi_line || $this->wysiwyg ||
-            $this->text_type == "datetime" || $this->text_type == "calendar" || 
-            $this->text_type == "multi-selector" || $this->text_type == "dropdown" ||
-            $this->text_type == "checkbox" || $this->radio
+            $this->text_type == c\T::DATETIME || $this->text_type == c\T::CALENDAR || 
+            $this->text_type == c\T::MULTISELECTOR || $this->text_type == c\T::DROPDOWN ||
+            $this->text_type == c\T::CHECKBOX || $this->radio
         )
             return false;
         return true;
+    }
+    
+    public function isTextBoxNode()
+    {
+        return $this->isTextBox();
     }
     
     public function isRequired()
