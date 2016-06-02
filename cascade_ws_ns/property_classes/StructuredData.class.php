@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/2/2016 Added aliases. Replaced most string literals with constants.
   * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
   * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
   * isRadioNode, isSymlinkChooser, isTextBox, and isWYSIWYGNode.
@@ -424,6 +425,11 @@ class StructuredData extends Property
         return false;
     }
     
+    public function isAsset( $identifier )
+    {
+        return $this->isAssetNode( $identifier )
+    }
+    
     public function isAssetNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -437,6 +443,11 @@ class StructuredData extends Property
     
     public function isBlockChooser( $identifier )
     {
+        return $this->isBlockChooserNode( $identifier );
+    }
+    
+    public function isBlockChooserNode( $identifier )
+    {
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
@@ -444,6 +455,11 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isBlockChooser();
+    }
+    
+    public function isCalendar( $identifier )
+    {
+        return $this->isCalendarNode( $identifier );
     }
     
     public function isCalendarNode( $identifier )
@@ -457,6 +473,11 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isCalendarNode();
     }
     
+    public function isCheckbox( $identifier )
+    {
+        return $this->isCheckboxNode( $identifier );
+    }
+    
     public function isCheckboxNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -468,6 +489,11 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isCheckboxNode();
     }
     
+    public function isDatetime( $identifier )
+    {
+        return $this->isDatetimeNode( $identifier );
+    }
+    
     public function isDatetimeNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -477,6 +503,11 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isDatetimeNode();
+    }
+    
+    public function isDropdown( $identifier )
+    {
+        return $this->isDropdownNode( $identifier );
     }
     
     public function isDropdownNode( $identifier )
@@ -492,6 +523,11 @@ class StructuredData extends Property
     
     public function isFileChooser( $identifier )
     {
+        return $this->isFileChooserNode( $identifier );
+    }
+    
+    public function isFileChooserNode( $identifier )
+    {
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
@@ -499,6 +535,11 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isFileChooser();
+    }
+    
+    public function isGroup( $identifier )
+    {
+        return $this->isGroupNode( $identifier );
     }
     
     public function isGroupNode( $identifier )
@@ -523,6 +564,11 @@ class StructuredData extends Property
     
     public function isLinkableChooser( $identifier )
     {
+        return $this->isLinkableChooserNode( $identifier );
+    }
+    
+    public function isLinkableChooserNode( $identifier )
+    {
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
@@ -530,6 +576,11 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isLinkableChooser();
+    }
+    
+    public function isMultiLine( $identifier )
+    {
+        return $this->isMultiLineNode( $identifier );
     }
     
     public function isMultiLineNode( $identifier )
@@ -554,6 +605,11 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isMultiple();
     }
     
+    public function isMultiSelector( $identifier )
+    {
+        return $this->isMultiSelectorNode( $identifier );
+    }
+    
     public function isMultiSelectorNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
@@ -567,6 +623,11 @@ class StructuredData extends Property
     
     public function isPageChooser( $identifier )
     {
+        return $this->isPageChooserNode( $identifier );
+    }
+    
+    public function isPageChooserNode( $identifier )
+    {
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
@@ -574,6 +635,11 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isPageChooser();
+    }
+    
+    public function isRadio( $identifier )
+    {
+        return $this->isRadioNode( $identifier );
     }
     
     public function isRadioNode( $identifier )
@@ -600,6 +666,11 @@ class StructuredData extends Property
 
     public function isSymlinkChooser( $identifier )
     {
+        return $this->isSymlinkChooserNode( $identifier );
+    }
+    
+    public function isSymlinkChooserNode( $identifier )
+    {
         if( !in_array( $identifier, $this->identifiers ) )
         {
             throw new e\NodeException( 
@@ -609,7 +680,22 @@ class StructuredData extends Property
         return $this->node_map[ $identifier ]->isSymlinkChooser();
     }
     
+    public function isTextarea( $identifier )
+    {
+        return $this->isMultiLineNode( $identifier );
+    }
+    
+    public function isTextareaNode( $identifier )
+    {
+        return $this->isMultiLineNode( $identifier );
+    }
+    
     public function isTextBox( $identifier )
+    {
+        return $this->isTextBoxNode( $identifier );
+    }
+    
+    public function isTextBoxNode( $identifier )
     {
         if( !in_array( $identifier, $this->identifiers ) )
         {
@@ -618,6 +704,11 @@ class StructuredData extends Property
         }
         
         return $this->node_map[ $identifier ]->isTextBox();
+    }
+    
+    public function isText( $identifier )
+    {
+        return $this->isTextNode( $identifier );
     }
     
     public function isTextNode( $identifier )
@@ -633,13 +724,7 @@ class StructuredData extends Property
     
     public function isWYSIWYG( $identifier )
     {
-        if( !in_array( $identifier, $this->identifiers ) )
-        {
-            throw new e\NodeException( 
-                S_SPAN . "The node $identifier does not exist" . E_SPAN );
-        }
-        
-        return $this->node_map[ $identifier ]->isWYSIWYG();
+        return $this->isWYSIWYGNode( $identifier );
     }
     
     public function isWYSIWYGNode( $identifier )
@@ -1217,7 +1302,7 @@ class StructuredData extends Property
             {
                 switch( $asset_type )
                 {
-                    case "page":
+                    case c\T::PAGE:
                         $page_id = $source->getPageId( $id );
                     
                         if( isset( $page_id ) )
@@ -1225,7 +1310,7 @@ class StructuredData extends Property
                             $target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
                         }
                         break;
-                    case "file":
+                    case c\T::FILE:
                         $file_id = $source->getFileId( $id );
                     
                         if( isset( $file_id ) )
@@ -1233,7 +1318,7 @@ class StructuredData extends Property
                             $target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
                         }
                         break;
-                    case "block":
+                    case c\T::BLOCK:
                         $block_id = $source->getBlockId( $id );
                     
                         if( isset( $block_id ) )
@@ -1241,7 +1326,7 @@ class StructuredData extends Property
                             $target->setBlock( $id, a\Block::getBlock( $target->service, $block_id ) );
                         }
                         break;
-                    case "symlink":
+                    case c\T::SYMLINK:
                         $symlink_id = $source->getSymlinkId( $id );
                     
                         if( isset( $symlink_id ) )
@@ -1249,7 +1334,7 @@ class StructuredData extends Property
                             $target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
                         }
                         break;
-                    case "page,file,symlink":
+                    case c\T::PFS:
                         $linkable_id = $source->getLinkableId( $id );
                     
                         if( isset( $linkable_id ) )
