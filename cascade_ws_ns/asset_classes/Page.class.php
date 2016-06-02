@@ -712,6 +712,12 @@ class Page extends Linkable
         return $this->structured_data != NULL;
     }
     
+    public function isAsset( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isAssetNode( $identifier );
+    }
+    
     public function isAssetNode( $identifier )
     {
         $this->checkStructuredData();
@@ -719,6 +725,12 @@ class Page extends Linkable
     }
     
     public function isBlockChooser( $identifier )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->isBlockChooser( $identifier );
+    }
+    
+    public function isBlockChooserNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isBlockChooser( $identifier );
