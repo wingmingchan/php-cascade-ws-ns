@@ -427,7 +427,7 @@ class StructuredData extends Property
     
     public function isAsset( $identifier )
     {
-        return $this->isAssetNode( $identifier )
+        return $this->isAssetNode( $identifier );
     }
     
     public function isAssetNode( $identifier )
@@ -760,65 +760,6 @@ class StructuredData extends Property
         foreach( $cur_ids as $id )
         {
             self::copyData( $this, $new_sd, $id );
-/*
-            if( $this->isTextNode( $id ) || $this->isWYSIWYG( $id ) )
-            {
-                $new_sd->setText( $id, $this->getText( $id ) );
-                    
-                if( $new_sd->getText( $id ) == NULL )
-                    $new_sd->setText( $id, "" );
-            }
-            elseif( $this->isAssetNode( $id ) )
-            {
-                $asset_type = $this->getAssetNodeType( $id );
-                
-                switch( $asset_type )
-                {
-                    case "page":
-                        $page_id = $this->getPageId( $id );
-                        
-                        if( isset( $page_id ) )
-                        {
-                            $new_sd->setPage( $id, $this->service->getAsset( $this->service->createId( a\Page, $page_id ) ) );
-                        }
-                        break;
-                    case "file":
-                        $file_id = $this->getFileId( $id );
-                        
-                        if( isset( $file_id ) )
-                        {
-                            $new_sd->setFile( $id, $this->service->getAsset( $this->service->createId( a\File, $file_id ) ) );
-                        }
-                        break;
-                    case "block":
-                        $block_id = $this->getBlockId( $id );
-                        
-                        if( isset( $block_id ) )
-                        {
-                            $new_sd->setBlock( $id, a\Block::getBlock( $this->service, $block_id ) );
-                        }
-                        break;
-                    case "symlink":
-                        $symlink_id = $this->getSymlinkId( $id );
-                        
-                        if( isset( $symlink_id ) )
-                        {
-                            $new_sd->setSymlink( $id, $this->service->getAsset( $this->service->createId( a\Symlink, $symlink_id ) ) );
-                        }
-                        break;
-                    case "page,file,symlink":
-                        $linkable_id = $this->getLinkableId( $id );
-                        
-                        if( isset( $linkable_id ) )
-                        {
-                            $new_sd->setLinkable( $id, a\Linkable::getLinkable( $this->service, $linkable_id ) );
-                        }
-                        break;
-                }
-            }
-*/            
-            
-            
         }
         
         return $new_sd;
