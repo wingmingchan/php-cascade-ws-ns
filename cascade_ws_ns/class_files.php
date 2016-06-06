@@ -7,7 +7,9 @@ use cascade_ws_asset     as asset;
 use cascade_ws_exception as exception;
 */
 
-function __autoload( $classname )
+spl_autoload_register('cascade__autoload');
+
+function cascade__autoload( $classname )
 {
 	$array =
 		utility\StringUtility::getExplodedStringArray( "\\", $classname );
@@ -32,4 +34,4 @@ function __autoload( $classname )
     else if( file_exists( $root_path . $utility_class_folder . $file ) )
         require_once( $root_path . $utility_class_folder . $file );
 }
-?>
+
