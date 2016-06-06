@@ -715,8 +715,7 @@ class Page extends Linkable
     
     public function isAsset( $identifier )
     {
-        $this->checkStructuredData();
-        return $this->structured_data->isAssetNode( $identifier );
+        return $this->isAssetNode( $identifier );
     }
     
     public function isAssetNode( $identifier )
@@ -727,8 +726,7 @@ class Page extends Linkable
     
     public function isBlockChooser( $identifier )
     {
-        $this->checkStructuredData();
-        return $this->structured_data->isBlockChooser( $identifier );
+        return $this->isBlockChooserNode( $identifier );
     }
     
     public function isBlockChooserNode( $identifier )
@@ -737,10 +735,20 @@ class Page extends Linkable
         return $this->structured_data->isBlockChooser( $identifier );
     }
     
+    public function isCalendar( $identifier )
+    {
+        return $this->isCalendarNode( $identifier );
+    }
+    
     public function isCalendarNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isCalendarNode( $identifier );
+    }
+    
+    public function isCheckbox( $identifier )
+    {
+        return $this->isCheckboxNode( $identifier );
     }
     
     public function isCheckboxNode( $identifier )
@@ -749,10 +757,20 @@ class Page extends Linkable
         return $this->structured_data->isCheckboxNode( $identifier );
     }
     
+    public function isDatetime( $identifier )
+    {
+        return $this->isDatetimeNode( $identifier );
+    }
+    
     public function isDatetimeNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isDatetimeNode( $identifier );
+    }
+    
+    public function isDropdown( $identifier )
+    {
+        return $this->isDropdownNode( $identifier );
     }
     
     public function isDropdownNode( $identifier )
@@ -763,8 +781,18 @@ class Page extends Linkable
     
     public function isFileChooser( $identifier )
     {
+        return $this->isFileChooserNode( $identifier );
+    }
+    
+    public function isFileChooserNode( $identifier )
+    {
         $this->checkStructuredData();
         return $this->structured_data->isFileChooser( $identifier );
+    }
+    
+    public function isGroup( $identifier )
+    {
+        return $this->isGroupNode( $identifier );
     }
     
     public function isGroupNode( $identifier )
@@ -775,14 +803,29 @@ class Page extends Linkable
     
     public function isLinkableChooser( $identifier )
     {
+        return $this->isLinkableChooserNode( $identifier );
+    }
+    
+    public function isLinkableChooserNode( $identifier )
+    {
         $this->checkStructuredData();
         return $this->structured_data->isLinkableChooser( $identifier );
+    }
+    
+    public function isMultiLine( $identifier )
+    {
+        return $this->isMultiLineNode( $identifier );
     }
     
     public function isMultiLineNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isMultiLineNode( $identifier );
+    }
+    
+    public function isMultiSelector( $identifier )
+    {
+        return $this->isMultiSelectorNode( $identifier );
     }
     
     public function isMultiSelectorNode( $identifier )
@@ -792,6 +835,11 @@ class Page extends Linkable
     }
     
     public function isPageChooser( $identifier )
+    {
+        return $this->isPageChooserNode( $identifier );
+    }
+    
+    public function isPageChooserNode( $identifier )
     {
         $this->checkStructuredData();
         return $this->structured_data->isPageChooser( $identifier );
@@ -809,6 +857,11 @@ class Page extends Linkable
         return $parent->isPublishable() && $this->getShouldBePublished();
     }
     
+    public function isRadio( $identifier )
+    {
+        return $this->isRadioNode( $identifier );
+    }
+    
     public function isRadioNode( $identifier )
     {
         $this->checkStructuredData();
@@ -823,14 +876,29 @@ class Page extends Linkable
 
     public function isSymlinkChooser( $identifier )
     {
+        return $this->isSymlinkChooserNode( $identifier );
+    }
+    
+    public function isSymlinkChooserNode( $identifier )
+    {
         $this->checkStructuredData();
         return $this->structured_data->isSymlinkChooser( $identifier );
     }
     
     public function isTextBox( $identifier )
     {
+        return $this->isTextBoxNode( $identifier );
+    }
+    
+    public function isTextBoxNode( $identifier )
+    {
         $this->checkStructuredData();
         return $this->structured_data->isTextBox( $identifier );
+    }
+    
+    public function isText( $identifier )
+    {
+        return $this->isTextNode( $identifier );
     }
     
     public function isTextNode( $identifier )
@@ -841,8 +909,7 @@ class Page extends Linkable
     
     public function isWYSIWYG( $identifier )
     {
-        $this->checkStructuredData();
-        return $this->structured_data->isWYSIWYG( $identifier );
+        return $this->isWYSIWYGNode( $identifier );
     }
     
     public function isWYSIWYGNode( $identifier )
