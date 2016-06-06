@@ -11,6 +11,7 @@ function cascade__autoload( $classname )
     
     if( $size > 0 )
         $classname = $array[ $size - 1 ];
+
     $root_path              = dirname( __FILE__ ) . '/';
     $asset_class_folder     = "asset_classes/";
     $helping_class_folder   = "property_classes/";
