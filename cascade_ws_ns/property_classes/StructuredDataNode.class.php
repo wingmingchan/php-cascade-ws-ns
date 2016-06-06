@@ -204,6 +204,7 @@ class StructuredDataNode extends Property
         
         $clone_obj = new StructuredDataNode( 
             $this->toStdClass(), NULL, $this->data_definition, 0, $this->parent_id );
+            
         if( self::DEBUG ) { u\DebugUtility::dump( $clone_obj->toStdClass() ); }
         
         // work out the new identifier
@@ -213,6 +214,7 @@ class StructuredDataNode extends Property
         $clone_identifier      = self::removeLastIndex( $this->identifier ) . 
                                  self::DELIMITER . $index;
         $clone_obj->identifier = $clone_identifier;
+        
         if( self::DEBUG ) { u\DebugUtility::out( $clone_identifier ); }
         
         return $clone_obj;
@@ -522,6 +524,11 @@ class StructuredDataNode extends Property
         return $this->radio;
     }
     
+    public function isRequired()
+    {
+        return $this->required;
+    }
+
     public function isSymlinkChooser()
     {
         return $this->asset_type == c\T::SYMLINK;
@@ -563,11 +570,6 @@ class StructuredDataNode extends Property
         return $this->isTextBox();
     }
     
-    public function isRequired()
-    {
-        return $this->required;
-    }
-
     public function isTextNode()
     {
         return $this->type == c\T::TEXT;
@@ -1178,6 +1180,7 @@ class StructuredDataNode extends Property
         }
         
         $node_count  = count( $node_std );
+        
         if( self::DEBUG ) { u\DebugUtility::out( "Node count: " . $node_count ); }  
         
         // these are used to calculate the index
