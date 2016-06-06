@@ -704,7 +704,7 @@ class Page extends Linkable
     
     public function hasPhantomNodes() // detects phantom nodes of type B
     {
-    	$this->checkStructuredData();
+        $this->checkStructuredData();
         return $this->structured_data->hasPhantomNodes();
     }
     
