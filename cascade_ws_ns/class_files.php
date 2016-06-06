@@ -1,4 +1,11 @@
 <?php
+/**
+  * Author: Wing Ming Chan, Christopher John Walsh
+  * Copyright (c) 2016 Wing Ming Chan <chanw@upstate.edu>, Christopher John Walsh
+  * MIT Licensed
+  * Modification history:
+  * 6/6/2016 Per Chris' request, change to cascade__autoload.
+ */
 use cascade_ws_utility as utility;
 
 spl_autoload_register('cascade__autoload');
