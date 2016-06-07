@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/7/2016 Minor bug fixes.
   * 5/28/2015 Added namespaces.
   * 3/17/2015 Added private method getTimeInfo and method calls in 
     assetTreeReportScheduledPublishDestination,
@@ -92,8 +93,11 @@ class Report
             else
                 $this->reportMetadataWiredFields( 1 );
         }
-            
-        return $this->results[ $type ][ $func ];
+        
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ $func ] ) )
+        	return $this->results[ $type ][ $func ];
+        else
+        	return NULL;
     }
     
     public function clearResults()
@@ -266,14 +270,22 @@ class Report
     {
         if( $retraverse )
             $this->reportMetadataWiredFields( $max_num_of_char );
-        return $this->results[ $type ][ __FUNCTION__ ];
+            
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ __FUNCTION__ ] ) )
+        	return $this->results[ $type ][ __FUNCTION__ ];
+        else
+        	return NULL;
     }
 
     public function reportLongTitle( $max_num_of_char=1, $type=Page::TYPE, $retraverse=false )
     {
         if( $retraverse )
             $this->reportMetadataWiredFields( $max_num_of_char );
-        return $this->results[ $type ][ __FUNCTION__ ];
+            
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ __FUNCTION__ ] ) )
+        	return $this->results[ $type ][ __FUNCTION__ ];
+        else
+        	return NULL;
     }
     
     public function reportNumberOfAssets( $types )
@@ -521,14 +533,22 @@ class Report
     {
         if( $retraverse )
             $this->reportDate( $dt );
-        return $this->results[ $type ][ __FUNCTION__ ];
+            
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ __FUNCTION__ ] ) )
+        	return $this->results[ $type ][ __FUNCTION__ ];
+        else
+        	return NULL;
     }
 
     public function reportReviewDateBefore( \DateTime $dt=NULL, $type=Page::TYPE, $retraverse=false )
     {
         if( $retraverse )
             $this->reportDate( $dt );
-        return $this->results[ $type ][ __FUNCTION__ ];
+            
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ __FUNCTION__ ] ) )
+        	return $this->results[ $type ][ __FUNCTION__ ];
+        else
+        	return NULL;
     }
     
     public function reportScheduledPublishDestination()
@@ -639,14 +659,22 @@ class Report
     {
         if( $retraverse )
             $this->reportDate( $dt );
-        return $this->results[ $type ][ __FUNCTION__ ];
+            
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ __FUNCTION__ ] ) )
+        	return $this->results[ $type ][ __FUNCTION__ ];
+        else
+        	return NULL;
     }
 
     public function reportStartDateBefore( \DateTime $dt=NULL, $type=Page::TYPE, $retraverse=false )
     {
         if( $retraverse )
             $this->reportDate( $dt );
-        return $this->results[ $type ][ __FUNCTION__ ];
+            
+        if( isset( $this->results[ $type ] ) && isset( $this->results[ $type ][ __FUNCTION__ ] ) )
+        	return $this->results[ $type ][ __FUNCTION__ ];
+        else
+        	return NULL;
     }
 
     /* ===== static methods ===== */
