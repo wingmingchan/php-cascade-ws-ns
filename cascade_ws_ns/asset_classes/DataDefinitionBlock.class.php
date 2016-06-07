@@ -565,6 +565,13 @@ class DataDefinitionBlock extends Block
         return $this;
     }
     
+    public function replaceText( $search, $replace, $include=NULL )
+    {
+        $this->checkStructuredData();
+        $this->structured_data->replaceText( $search, $replace, $include );
+        return $this;
+    }
+    
     public function replaceXhtmlByPattern( $pattern, $replace )
     {
         if( $this->hasStructuredData() )
@@ -575,13 +582,6 @@ class DataDefinitionBlock extends Block
         
         $this->xhtml = preg_replace( $pattern, $replace, $this->xhtml );
         
-        return $this;
-    }
-    
-    public function replaceText( $search, $replace, $include=NULL )
-    {
-        $this->checkStructuredData();
-        $this->structured_data->replaceText( $search, $replace, $include );
         return $this;
     }
     
