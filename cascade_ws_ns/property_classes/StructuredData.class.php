@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/20/2016 Changed the name searchWYSIWYG to searchWYSIWYGByPattern, added searchTextByPattern.
   * 6/2/2016 Added aliases. Replaced most string literals with constants.
   * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
   * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
@@ -933,7 +934,25 @@ class StructuredData extends Property
         return $identifiers;
     }
     
-    public function searchWYSIWYG( $pattern )
+    public function searchTextByPattern( $pattern )
+    {
+        $identifiers = array();
+        
+        foreach( $this->identifiers as $identifier )
+        {
+            $cur_node = $this->node_map[ $identifier ];
+        
+            // only one instance is enough, hence preg_match, not preg_match_all
+            if( $cur_node->getType() == c\T::TEXT &&
+                preg_match( $pattern, $cur_node->getText() ) == 1 )
+            {
+                $identifiers[] = $identifier;
+            }
+        }
+        return $identifiers;
+    }
+    
+    public function searchWYSIWYGByPattern( $pattern )
     {
         $identifiers = array();
         
