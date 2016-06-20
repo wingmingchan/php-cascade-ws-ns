@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/20/2016 Added searchTextByPattern and searchWYSIWYGByPattern.
   * 6/2/2016 Added aliases.
   * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
   * isFileChooser, isLinkableChooser, isMultiLineNode, isMultiSelectorNode, isPageChooser,
@@ -989,6 +990,12 @@ class Page extends Linkable
         return $this->structured_data->searchText( $string );
     }
     
+    public function searchTextByPattern( $pattern )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->searchTextByPattern( $pattern );
+    }
+    
     public function searchXhtml( $string )
     {
         if( $this->hasStructuredData() )
@@ -998,6 +1005,12 @@ class Page extends Linkable
         }
 
         return strpos( $this->xhtml, $string ) !== false;
+    }
+    
+    public function searchWYSIWYGByPattern( $pattern )
+    {
+        $this->checkStructuredData();
+        return $this->structured_data->searchWYSIWYGByPattern( $pattern );
     }
 
     public function setBlock( $identifier, Block $block=NULL )
