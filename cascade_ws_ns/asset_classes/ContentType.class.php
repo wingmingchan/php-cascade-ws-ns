@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 6/24/2016 Minor bug fix.
   * 5/28/2015 Added namespaces.
   * 9/22/2014 Added setDataDefinition, setMetadataSet, and setPageConfigurationSet.
  */
@@ -40,9 +41,12 @@ class ContentType extends ContainedAsset
     {
         parent::__construct( $service, $identifier );
         
-        $this->processContentTypePageConfigurations(
-            $this->getProperty()->contentTypePageConfigurations->
-            contentTypePageConfiguration );
+        if( isset( $this->getProperty()->contentTypePageConfigurations ) )
+        {
+            $this->processContentTypePageConfigurations(
+                $this->getProperty()->contentTypePageConfigurations->
+                contentTypePageConfiguration );
+        }
         
         if( isset( $this->getProperty()->inlineEditableFields ) &&
             isset( $this->getProperty()->inlineEditableFields->inlineEditableField ))
