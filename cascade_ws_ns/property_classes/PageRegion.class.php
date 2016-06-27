@@ -29,17 +29,27 @@ class PageRegion extends Property
     {
         if( isset( $region ) )
         {
-            $this->id              = $region->id;
-            $this->name            = $region->name;
-            $this->block_id        = $region->blockId; // NULL
-            $this->block_path      = $region->blockPath; // NULL
-            $this->block_recycled  = $region->blockRecycled;
-            $this->no_block        = $region->noBlock;
-            $this->format_id       = $region->formatId; // NULL
-            $this->format_path     = $region->formatPath; // NULL
-            $this->format_recycled = $region->formatRecycled;
-            $this->no_format       = $region->noFormat;
-            $this->service         = $service;
+        	if( isset( $region->id ) )
+            	$this->id              = $region->id;
+            if( isset( $region->name ) )
+            	$this->name            = $region->name;
+            if( isset( $region->blockId ) )
+            	$this->block_id        = $region->blockId; // NULL
+            if( isset( $region->blockPath ) )
+            	$this->block_path      = $region->blockPath; // NULL
+            if( isset( $region->blockRecycled ) )
+            	$this->block_recycled  = $region->blockRecycled;
+            if( isset( $region->noBlock ) )
+            	$this->no_block        = $region->noBlock;
+            if( isset( $region->formatId ) )
+            	$this->format_id       = $region->formatId; // NULL
+            if( isset( $region->formatPath ) )
+            	$this->format_path     = $region->formatPath; // NULL
+            if( isset( $region->formatRecycled ) )
+            	$this->format_recycled = $region->formatRecycled;
+            if( isset( $region->noFormat ) )
+            	$this->no_format       = $region->noFormat;
+            $this->service             = $service;
         
             if( self::DEBUG ) { u\DebugUtility::out( "Block ID: " . $this->block_id ); }
         }
