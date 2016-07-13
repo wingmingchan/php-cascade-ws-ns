@@ -1,7 +1,7 @@
 # php-cascade-ws-ns
 My Cascade web service library, using namespaces.
 
-1. For more information, visit http://www.upstate.edu/cascade-admin/projects/web-services/index.php
+1. For more information, visit http://www.upstate.edu/cascade-admin/web-services/index.php
 2. Examples and recipes: https://github.com/wingmingchan/php-cascade-ws-ns-examples
 3. Asset classes API: http://www.upstate.edu/cascade-admin/projects/web-services/oop/classes/asset-classes/index.php
 4. Cascade Web Services courses: http://www.upstate.edu/cascade-admin/projects/web-services/courses/index.php
