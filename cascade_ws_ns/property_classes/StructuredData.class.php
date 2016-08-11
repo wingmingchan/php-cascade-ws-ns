@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 8/11/2016 Added getService in both this class and StructuredDataPhantom to work with phantom nodes.
   * 6/20/2016 Changed the name searchWYSIWYG to searchWYSIWYGByPattern, added searchTextByPattern.
   * 6/2/2016 Added aliases. Replaced most string literals with constants.
   * 6/1/2016 Added isBlockChooser, isCalendarNode, isCheckboxNode, isDatetimeNode, isDropdownNode,
@@ -339,6 +340,11 @@ class StructuredData extends Property
     {
         if( isset( $this->node_map[ $node_name ] ) )
             return $this->node_map[ $node_name ]->getPossibleValues();
+    }
+    
+    public function getService()
+    {
+    	return $this->service;
     }
     
     public function getSymlinkId( $node_name )
@@ -742,7 +748,7 @@ class StructuredData extends Property
     public function mapData()
     {
         $new_sd  = new StructuredData( 
-            $this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
+            $this->data_definition->getStructuredData(), $this->getService(), $this->data_definition->getId() );
         $cur_ids = $this->getIdentifiers();
         
         foreach( $cur_ids as $id )
@@ -800,7 +806,7 @@ class StructuredData extends Property
     public function removePhantomNodes( StructuredDataPhantom $sdp )
     {
         $new_sd  = new StructuredData( 
-            $this->data_definition->getStructuredData(), $this->service, $this->data_definition->getId() );
+            $this->data_definition->getStructuredData(), $this->getService(), $this->data_definition->getId() );
         $sdp_ids = $sdp->getIdentifiers();
         
         foreach( $sdp_ids as $id )
@@ -1267,7 +1273,7 @@ class StructuredData extends Property
                     
                         if( isset( $page_id ) )
                         {
-                            $target->setPage( $id, $source->service->getAsset( $source->service->createId( a\Page, $page_id ) ) );
+                            $target->setPage( $id, $source->getService()->getAsset( $source->getService()->createId( a\Page, $page_id ) ) );
                         }
                         break;
                     case c\T::FILE:
@@ -1275,7 +1281,7 @@ class StructuredData extends Property
                     
                         if( isset( $file_id ) )
                         {
-                            $target->setFile( $id, $source->service->getAsset( $source->service->createId( a\File, $file_id ) ) );
+                            $target->setFile( $id, $source->getService()->getAsset( $source->getService()->createId( a\File, $file_id ) ) );
                         }
                         break;
                     case c\T::BLOCK:
@@ -1283,7 +1289,7 @@ class StructuredData extends Property
                     
                         if( isset( $block_id ) )
                         {
-                            $target->setBlock( $id, a\Block::getBlock( $target->service, $block_id ) );
+                            $target->setBlock( $id, a\Block::getBlock( $target->getService(), $block_id ) );
                         }
                         break;
                     case c\T::SYMLINK:
@@ -1291,7 +1297,7 @@ class StructuredData extends Property
                     
                         if( isset( $symlink_id ) )
                         {
-                            $target->setSymlink( $id, $source->service->getAsset( $source->service->createId( a\Symlink, $symlink_id ) ) );
+                            $target->setSymlink( $id, $source->getService()->getAsset( $source->getService()->createId( a\Symlink, $symlink_id ) ) );
                         }
                         break;
                     case c\T::PFS:
@@ -1299,7 +1305,7 @@ class StructuredData extends Property
                     
                         if( isset( $linkable_id ) )
                         {
-                            $target->setLinkable( $id, a\Linkable::getLinkable( $source->service, $linkable_id ) );
+                            $target->setLinkable( $id, a\Linkable::getLinkable( $source->getService(), $linkable_id ) );
                         }
                         break;
                 }

@@ -326,6 +326,11 @@ class StructuredDataPhantom extends Property
             return $this->node_map[ $node_name ]->getPossibleValues();
     }
     
+    public function getService()
+    {
+    	return $this->service;
+    }
+    
     public function getSymlinkId( $node_name )
     {
         if( isset( $this->node_map[ $node_name ] ) )
