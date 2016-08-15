@@ -233,7 +233,7 @@ Returns an unordered list of information of methods defined in the class.
 Displays the class information given right before the class definition.
 @param mixed $obj A string (the class name) or an object
 <documentation><description>Displays an unordered list of information of methods defined in the class.</description>
-<example>u\ReflectionUtility::showAllMethods( "cascade_ws_utility\ReflectionUtility" );</example></documentation>
+<example>u\ReflectionUtility::showClassInfo( "cascade_ws_utility\ReflectionUtility" );</example></documentation>
 */
     public static function showClassInfo( $obj )
     {
@@ -271,7 +271,7 @@ Displays all textual information give right before the definition of a method.
 @param mixed $obj A string (the class name) or an object
 @param string $method_name The method name
 <documentation><description>Displays all textual information give right before the definition of a method.</description>
-<example>u\ReflectionUtility::showMethodWithComment( "cascade_ws_utility\ReflectionUtility", "showMethod" );</example></documentation>
+<example>u\ReflectionUtility::showMethodInfo( "cascade_ws_utility\ReflectionUtility", "showMethod" );</example></documentation>
 */
     public static function showMethodInfo( $obj,/* string */$method_name,/* bool */$with_hr=false )
     {
