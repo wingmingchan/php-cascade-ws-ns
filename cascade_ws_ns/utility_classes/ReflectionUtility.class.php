@@ -192,11 +192,11 @@ Returns the signature of a method.
     }
     
 /**
-Returns the information of a method.
+Returns the signature of a method.
 @param mixed $obj A string (the class name) or an object
 @param string $method_name The method name
 @return string The info string
-<documentation><description>Returns the information of a method.</description>
+<documentation><description>Returns the signature of a method.</description>
 <example>$info = u\ReflectionUtility::getMethodSignatureByName( $service, "getType" );</example></documentation>
 */
     public static function getMethodSignatureByName( $obj,/* string */$method_name )/* : string */
@@ -208,10 +208,10 @@ Returns the information of a method.
     }
     
 /**
-Returns an unordered list of information of methods defined in the class.
+Returns an unordered list of signatures of methods defined in the class.
 @param mixed $obj A string (the class name) or an object
 @return string The string containing information of all methods
-<documentation><description>Returns an unordered list of information of methods defined in the class.</description>
+<documentation><description>Returns an unordered list of signatures of methods defined in the class.</description>
 <example>echo u\ReflectionUtility::getMethodSignatures( $service );</example></documentation>
 */
     public static function getMethodSignatures( $obj )/* : string */
@@ -282,7 +282,7 @@ Displays all textual information give right before the definition of a method.
     }
     
 /**
-Displays an unordered list of information of methods defined in the class.
+Displays an unordered list of signatures of methods defined in the class.
 @param mixed $obj A string (the class name) or an object
 <documentation><description>Displays an unordered list of information of methods defined in the class.</description>
 <example>u\ReflectionUtility::showMethodSignatures( "cascade_ws_utility\ReflectionUtility" );</example></documentation>
@@ -294,7 +294,7 @@ Displays an unordered list of information of methods defined in the class.
     }
     
 /**
-Displays the information of a method.
+Displays the signature of a method.
 @param mixed $obj A string (the class name) or an object
 @param string $method_name The method name
 <documentation><description>Displays the information of a method.</description>
