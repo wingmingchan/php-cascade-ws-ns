@@ -4,6 +4,8 @@
   * Copyright (c) 2016 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 8/16/2016 Added getFunctionSignature and showFunctionSignature.
+  * 8/15/2016 Added getClassDocumentation.
   * 8/14/2016 Class being tested with extra comment.
   * 8/13/2016 Methods added.
   * 8/12/2016 File created.
@@ -28,10 +30,48 @@ Returns the class information given right before the class definition.
 <documentation><description>Returns the class information given right before the class definition.</description>
 <example>$info = u\ReflectionUtility::getClassInfo( "cascade_ws_utility\ReflectionUtility" );</example></documentation>
 */
-    public static function getClassInfo( $obj )/* : string */
+    public static function getClassDocumentation( $obj )/* : string */
+    {
+        $class_doc = "";
+        $r = new \ReflectionClass( $obj );
+        $class_doc .= self::getClassInfo( $obj, $r );
+        
+        $methods = $r->getMethods();
+        
+        $class_doc .= S_UL;
+        
+        foreach( $methods as $method )
+        {
+        	// skip private methods
+            if( self::getMethodSignature( $method ) == "" )
+            	continue;
+            
+            $class_doc .= S_LI .
+                self::getMethodSignature( $method ) .
+                self::getXmlValue( $obj, $method->getName(), "description", S_P, E_P, $method ) .
+                self::getXmlValue( $obj, $method->getName(), "example", S_PRE, E_PRE, $method ) .
+                E_LI;
+        }
+        
+        $class_doc .= E_UL;
+        
+        return $class_doc;
+    }
+
+/**
+Returns the class information given right before the class definition.
+@param mixed $obj A string (the class name) or an object
+@param ReflectionClass The ReflectionClass object
+<documentation><description>Returns the class information given right before the class definition.</description>
+<example>$info = u\ReflectionUtility::getClassInfo( "cascade_ws_utility\ReflectionUtility" );</example></documentation>
+*/
+    public static function getClassInfo( $obj, \ReflectionClass $r=NULL )/* : string */
     {
         $class_info = "";
-        $r = new \ReflectionClass( $obj );
+        
+        if( !isset( $r ) )
+            $r = new \ReflectionClass( $obj );
+            
         $class_info = $r->getDocComment();
         $class_info = str_replace( "*/", "", str_replace( "/**", "", $class_info ) );
         
@@ -49,6 +89,18 @@ Returns the class name.
     {
         $r = new \ReflectionClass( $obj );
         return $r->getName();
+    }
+    
+/**
+Returns the signature of a function.
+@param ReflectionFunction $function The function object
+@return string The signature of a function
+<documentation><description>Returns the signature of a function.</description>
+<example>$signature = u\ReflectionUtility::getFunctionSignature( new \ReflectionFunction( "strpos" ) );</example></documentation>
+*/
+    public static function getFunctionSignature( \ReflectionFunction $function )/* : string */
+    {
+        return self::getSignature( $function );
     }
     
 /**
@@ -117,78 +169,7 @@ Returns the signature of a method.
 */
     public static function getMethodSignature( \ReflectionMethod $method )/* : string */
     {
-        $method_info = "";
-        $class       = $method->getDeclaringClass();
-        $return_type = ( method_exists( $method, "getReturnType" )  ? 
-            $method->getReturnType() : "" );
-        
-        $method_info .=
-            implode( ' ', \Reflection::getModifierNames( $method->getModifiers() ) ) .
-            ( $return_type != "" ? " " . $return_type . " " : "" ) .
-            $method_info . " " .
-            $method->getDeclaringClass()->getName() . "::" .
-            $method->getName() . "(";
-        
-        $num_of_params = $method->getNumberOfParameters();
-        
-        if( $num_of_params )
-        {
-            $params      = $method->getParameters();
-            $count       = 1;
-            
-            foreach( $params as $param )
-            {
-                $param_type = ( method_exists( $param, "getType" )  ? 
-                    $param->getType() : "" );
-                    
-                $method_info .=
-                    ( $param_type != ""  ? $param_type : "" ). 
-                    " " .
-                    "$" . $param->getName();
-                
-                if( $param->isOptional() )
-                {    
-                    $default_value = $param->getDefaultValue();
-                
-                    if( isset( $default_value ) )
-                    {
-                        if( $default_value == 1 && $param_type == "bool" )
-                        {
-                            $method_info .= " = true";
-                        }
-                        elseif( $default_value == 0 &&  $param_type == "bool" && $default_value != "" )
-                        {
-                            $method_info .= " = false";
-                        }
-                        elseif( $default_value == "" )
-                        {
-                            if( $default_value === "" )
-                                $method_info .= " = \"\"";
-                            else
-                                $method_info .= " = false";
-                        }
-                        else
-                        {
-                            $method_info .= " = $default_value";
-                        }
-                    }
-                    else
-                    {
-                        $method_info .= ' = NULL';
-                    }
-                }
-                    
-                if( $count < $num_of_params )
-                {
-                    $method_info .= ", ";
-                }
-                $count++;
-            }
-            $method_info .= " ";
-        }
-        $method_info .= ")";
-        
-        return trim( $method_info );
+        return self::getSignature( $method );
     }
     
 /**
@@ -241,6 +222,21 @@ Displays the class information given right before the class definition.
     }
     
 /**
+Displays the signature of a function.
+@param mixed $obj A string (the class name) or an object
+@param string $method_name The method name
+<documentation><description>Displays the signature of a function.</description>
+<example>u\ReflectionUtility::showFunctionSignature( "strpos", true );</example></documentation>
+*/
+    public static function showFunctionSignature(/* string */$function_name,/* bool */$with_hr=false )
+    {
+        $func = new \ReflectionFunction( $function_name );
+        
+        echo self::getFunctionSignature( $func );
+        if( $with_hr ) echo HR;
+    }
+    
+/**
 Displays the description of a method.
 @param mixed $obj A string (the class name) or an object
 @param string $method_name The method name
@@ -284,7 +280,7 @@ Displays all textual information give right before the definition of a method.
 /**
 Displays an unordered list of signatures of methods defined in the class.
 @param mixed $obj A string (the class name) or an object
-<documentation><description>Displays an unordered list of information of methods defined in the class.</description>
+<documentation><description>Displays an unordered list of signatures of methods defined in the class.</description>
 <example>u\ReflectionUtility::showMethodSignatures( "cascade_ws_utility\ReflectionUtility" );</example></documentation>
 */
     public static function showMethodSignatures( $obj,/* bool */$with_hr=false )
@@ -297,7 +293,7 @@ Displays an unordered list of signatures of methods defined in the class.
 Displays the signature of a method.
 @param mixed $obj A string (the class name) or an object
 @param string $method_name The method name
-<documentation><description>Displays the information of a method.</description>
+<documentation><description>Displays the signature of a method.</description>
 <example>u\ReflectionUtility::showMethodSignature( "cascade_ws_utility\ReflectionUtility", "showMethod" );</example></documentation>
 */
     public static function showMethodSignature( $obj,/* string */$method_name,/* bool */$with_hr=false )
@@ -306,10 +302,103 @@ Displays the signature of a method.
         if( $with_hr ) echo HR;
     }
     
-    private static function getXmlValue( $obj,/* string */$method_name,/* string */$ele_name,/* string */$s_html,/* string */$e_html )/* : string */
+    private static function getSignature( $method )/* : string */
+    {
+        $method_info = "";
+        $type        = gettype( $method );
+        
+        $class = ( method_exists( $method, "getDeclaringClass" ) ?
+            $method->getDeclaringClass() : "" );
+        
+        $class = ( method_exists( $method, "getDeclaringClass" ) ?
+            $method->getDeclaringClass()->getName() . "::" : "" );
+        
+        $modifiers = ( method_exists( $method, "getDeclaringClass" ) ?
+        	implode( ' ', \Reflection::getModifierNames( $method->getModifiers() ) ) :
+        	"" );
+        	
+        $return_type = ( method_exists( $method, "getReturnType" )  ? 
+            $method->getReturnType() : "" );
+        
+        $method_info .=
+            $modifiers .
+            ( $return_type != "" ? " " . $return_type . " " : "" ) .
+            $method_info . " " .
+            $class .
+            $method->getName() . "(";
+        
+        $num_of_params = $method->getNumberOfParameters();
+        
+        if( $num_of_params )
+        {
+            $params      = $method->getParameters();
+            $count       = 1;
+            
+            foreach( $params as $param )
+            {
+                $param_type = ( method_exists( $param, "getType" )  ? 
+                    $param->getType() : "" );
+                    
+                $method_info .=
+                    ( $param_type != ""  ? $param_type : "" ). 
+                    " " .
+                    "$" . $param->getName();
+                
+                if( method_exists( $method, "getDeclaringClass" ) && $param->isOptional() )
+                {    
+                    $default_value = $param->getDefaultValue();
+                
+                    if( isset( $default_value ) )
+                    {
+                        if( $default_value == 1 && $param_type == "bool" )
+                        {
+                            $method_info .= " = true";
+                        }
+                        elseif( $default_value == 0 &&  $param_type == "bool" && $default_value != "" )
+                        {
+                            $method_info .= " = false";
+                        }
+                        elseif( $default_value == "" )
+                        {
+                            if( $default_value === "" )
+                                $method_info .= " = \"\"";
+                            else
+                                $method_info .= " = false";
+                        }
+                        else
+                        {
+                            $method_info .= " = $default_value";
+                        }
+                    }
+                    else
+                    {
+                        $method_info .= ' = NULL';
+                    }
+                }
+                    
+                if( $count < $num_of_params )
+                {
+                    $method_info .= ", ";
+                }
+                $count++;
+            }
+            $method_info .= " ";
+        }
+        $method_info .= ")";
+        
+        if( strpos( $modifiers, "private" ) !== false )
+        	return "";
+        
+        return trim( $method_info );
+    }
+    
+    private static function getXmlValue( 
+        $obj,/* string */$method_name,/* string */$ele_name,/* string */$s_html,/* string */$e_html, \ReflectionMethod $method=NULL )/* : string */
     {
         // retrieve the method documentation
-        $method  = self::getMethod( $obj, $method_name );
+        if( !isset( $method ) )
+            $method  = self::getMethod( $obj, $method_name );
+            
         $xml_str = $method->getDocComment();
         // chop off everything before the first <
         $xml_str = substr( $xml_str, strpos( $xml_str, "<" ) );
