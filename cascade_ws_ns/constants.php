@@ -1,9 +1,11 @@
 <?php
 /**
   * Author: Wing Ming Chan
-  * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
+  * Copyright (c) 2016 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  *  8/14/2016 Added INFORMATION_NOT_AVAILABLE.
+  *  8/13/2016 Added more HTML constants used in ReflectionUtility.
   *  6/2/2016 Added constants related to types of structured data nodes.
   *  5/6/2016 Added S_H3, E_H3, S_OL, E_OL.
   *  12/10/2014 Added constants JSON, JS, CSS.
@@ -35,6 +37,8 @@ use cascade_ws_asset as a;
 
 // xhtml tags
 define( 'BR',    "<br />\n" );
+define( 'E_CODE',  "</code>" );
+define( 'S_CODE',  "<code>" );
 define( 'HR',    "<hr class='thin width100 text_lightgray bg_lightgray' />" );
 define( 'E_H2',  "</h2>\n" );
 define( 'S_H2',  "<h2>" );
@@ -44,6 +48,8 @@ define( 'E_LI', "</li>\n" );
 define( 'S_LI', "<li>\n" );
 define( 'S_OL', "<ol>" );
 define( 'E_OL', "</ol>" );
+define( 'E_P', "</p>\n" );
+define( 'S_P', "<p>\n" );
 define( 'E_PRE', "</pre>\n" );
 define( 'S_PRE', "<pre>\n" );
 define( 'SPACE', "&nbsp;&nbsp;&nbsp;&nbsp;" );
@@ -192,6 +198,7 @@ class M // messages for exceptions
     const EMPTY_XML                      = "The xml cannot be empty. ";
     const EXCEPTION_THROWN_NOT_SET       = "The exception thrown value is not set. ";
     const GOOGLE_CONNECTOR_NO_CT         = "A google analytics connector does not have content type. ";
+    const INFORMATION_NOT_AVAILABLE      = "<p>Information not available.</p>";
     const MOVE_ASSET_FAILURE             = "Failed to move/rename the asset. ";
     const NOT_ARRAY                      = "The parameter is not an array. ";
     const NOT_DATA_BLOCK                 = "The block is not a data definition block. ";
