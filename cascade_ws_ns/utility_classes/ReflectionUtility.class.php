@@ -202,6 +202,10 @@ Returns an unordered list of signatures of methods defined in the class.
         
         foreach( $methods as $method )
         {
+        	// skip empty string
+        	if( self::getMethodSignature( $method ) == "" )
+        		continue;
+        		
             $method_info .= S_LI . S_CODE . self::getMethodSignature( $method ) . E_CODE . E_LI;
         }
         
@@ -345,35 +349,43 @@ Displays the signature of a method.
                     "$" . $param->getName();
                 
                 if( method_exists( $method, "getDeclaringClass" ) && $param->isOptional() )
-                {    
-                    $default_value = $param->getDefaultValue();
-                
-                    if( isset( $default_value ) )
-                    {
-                        if( $default_value == 1 && $param_type == "bool" )
-                        {
-                            $method_info .= " = true";
-                        }
-                        elseif( $default_value == 0 &&  $param_type == "bool" && $default_value != "" )
-                        {
-                            $method_info .= " = false";
-                        }
-                        elseif( $default_value == "" )
-                        {
-                            if( $default_value === "" )
-                                $method_info .= " = \"\"";
-                            else
-                                $method_info .= " = false";
-                        }
-                        else
-                        {
-                            $method_info .= " = $default_value";
-                        }
-                    }
-                    else
-                    {
-                        $method_info .= ' = NULL';
-                    }
+                {
+                	// ReflectionException: Cannot determine default value for internal functions
+                	try
+                	{   
+						$default_value = $param->getDefaultValue();
+				
+						if( isset( $default_value ) )
+						{
+							if( $default_value == 1 && $param_type == "bool" )
+							{
+								$method_info .= " = true";
+							}
+							elseif( $default_value == 0 &&  $param_type == "bool" && $default_value != "" )
+							{
+								$method_info .= " = false";
+							}
+							elseif( $default_value == "" )
+							{
+								if( $default_value === "" )
+									$method_info .= " = \"\"";
+								else
+									$method_info .= " = false";
+							}
+							else
+							{
+								$method_info .= " = $default_value";
+							}
+						}
+						else
+						{
+							$method_info .= ' = NULL';
+						}
+					}
+					catch( \ReflectionException $e )
+					{
+						// do nothing
+					}
                 }
                     
                 if( $count < $num_of_params )
