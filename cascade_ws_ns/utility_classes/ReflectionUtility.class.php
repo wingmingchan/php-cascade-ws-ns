@@ -65,7 +65,7 @@ class information.</p></description>
         $class_doc .= E_UL;
         
         if( $with_hr )
-        	$class_doc .= HR;
+            $class_doc .= HR;
         
         return $class_doc;
     }
@@ -93,7 +93,7 @@ class information.</p></description>
         $class_info = self::getClassXmlValue( $r->getDocComment(), "description" );
         
         if( $with_hr )
-        	$class_info .= HR;
+            $class_info .= HR;
         
         return $class_info;
     }
@@ -461,9 +461,9 @@ method signatures.</p></description>
             $method->getReturnType() : "" );
         
         if( gettype( $method ) == "ReflectionMethod" )
-			$return_type = ( $return_type != "" ? $return_type :  
-				self::getMethodXmlValue( NULL, "", "return-type", "", "", $method )
-			 );
+            $return_type = ( $return_type != "" ? $return_type :  
+                self::getMethodXmlValue( NULL, "", "return-type", "", "", $method )
+             );
          
         if( $return_type == c\M::INFORMATION_NOT_AVAILABLE )
              $return_type = "";
@@ -471,10 +471,10 @@ method signatures.</p></description>
         $throws = "";
          
         if( method_exists( $method, "getDeclaringClass" ) )
-			$throws = ( (
-				self::getMethodXmlValue( NULL, "", "exception", "", "", $method ) == "" ||
-				self::getMethodXmlValue( NULL, "", "exception", "", "", $method ) == c\M::INFORMATION_NOT_AVAILABLE )
-				? "" : " throws " . self::getMethodXmlValue( NULL, "", "exception", "", "", $method ) );
+            $throws = ( (
+                self::getMethodXmlValue( NULL, "", "exception", "", "", $method ) == "" ||
+                self::getMethodXmlValue( NULL, "", "exception", "", "", $method ) == c\M::INFORMATION_NOT_AVAILABLE )
+                ? "" : " throws " . self::getMethodXmlValue( NULL, "", "exception", "", "", $method ) );
         
         $method_info .=
             $modifiers .
@@ -558,7 +558,7 @@ method signatures.</p></description>
     
     private static function getClassXmlValue( string $class_info, string $ele_name ) : string
     {
-    	return self::getXmlValue( $class_info, $ele_name );
+        return self::getXmlValue( $class_info, $ele_name );
     }
     
     private static function getMethodXmlValue( 
