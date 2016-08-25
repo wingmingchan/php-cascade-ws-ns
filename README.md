@@ -1,5 +1,5 @@
 # php-cascade-ws-ns
-My Cascade web service library, using namespaces. Last modified: Aug 23, 2016, 3:30 PM
+My Cascade web service library, using namespaces. Last modified: Aug 25, 2016, 2:00 PM
 
 1. For more information, visit http://www.upstate.edu/cascade-admin/web-services/index.php
 2. Examples and recipes: https://github.com/wingmingchan/php-cascade-ws-ns-examples

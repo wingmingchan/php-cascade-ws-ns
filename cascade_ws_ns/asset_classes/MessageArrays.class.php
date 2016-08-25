@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  * 8/25/2016 Added $array_names and emptyArrays to fix a bug.
   * 5/28/2015 Added namespaces.
   * 6/2/2014 Added arrays for asset expiration.
  */
@@ -65,8 +66,46 @@ class MessageArrays
     // objects
     public static $id_obj_map = array();
     
+    private static $array_names = array(
+        "all_messages",
+        "all_message_ids",
+        "message_ids_from",
+        "non_system_messages",
+        "asset_expiration_message_ids",
+        "asset_expiration_message",
+        "publish_message_ids",
+        "publish_message_ids_with_issues",
+        "publish_message_ids_without_issues",
+        "publish_messages",
+        "publish_messages_with_issues",
+        "publish_messages_without_issues",
+        "unpublish_message_ids",
+        "unpublish_message_ids_with_issues",
+        "unpublish_message_ids_without_issues",
+        "unpublish_messages",
+        "unpublish_messages_with_issues",
+        "unpublish_messages_without_issues",
+        "summary_message_ids",
+        "summary_message_ids_no_failures",
+        "summary_message_ids_with_failures",
+        "summary_messages",
+        "summary_messages_no_failures",
+        "summary_messages_with_failures",
+        "workflow_message_ids",
+        "workflow_message_ids_is_complete",
+        "workflow_message_ids_other",
+        "workflow_messages",
+        "workflow_messages_complete",
+        "workflow_messages_other",
+        "other_messages",
+        "other_message_ids",
+        "id_obj_map",
+    );
+    
     public static function initialize( aohs\AssetOperationHandlerService $service )
     {
+        self::emptyArrays();
+
         try
         {
             $service->listMessages();
@@ -227,6 +266,14 @@ class MessageArrays
         catch( \Exception $e )
         {
             echo S_PRE . $e . E_PRE;
+        }
+    }
+    
+    private static function emptyArrays()
+    {
+        foreach( self::$array_names as $array_name )
+        {
+            self::$$array_name = array();
         }
     }
 }
